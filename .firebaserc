@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "exit-battle": {
+      "hosting": {
+        "exit-battle": [
+          "exit-battle"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "exit-battle"
+  }
+}
