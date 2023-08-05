@@ -1,9 +1,10 @@
 {
-  "hosting": [
-    {
-      "target": "exit-battle",
-      "source": ".",
-      "frameworksBackend": {}
-    }
-  ]
+  "hosting": {
+    "public": "dist/exit-battle",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
 }
