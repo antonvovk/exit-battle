@@ -13,6 +13,9 @@ export class ButtonComponent {
   @Input()
   disabled = false;
 
+  @Input()
+  red = false;
+
   @Output()
   click = new EventEmitter<MouseEvent>();
 
