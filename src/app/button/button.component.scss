@@ -1,0 +1,29 @@
+button {
+  width: 7.3125rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+  border: 1px solid #FFF;
+  background: rgba(255, 255, 255, 0.05);
+
+  color: #FFF;
+  text-align: center;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+button:hover {
+  animation: mymove 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes mymove {
+  from {
+    background: rgba(255, 255, 255, 0.05)
+  }
+  to {
+    background: rgba(255, 255, 255, 0.30)
+  }
+}
