@@ -1,0 +1,5 @@
+<div class="input-container">
+  <img *ngIf="searchIcon" [class.focused]="focused" class="input-icon" src="/assets/images/search.svg">
+  <input (focusin)="onFocusIn($event)" (focusout)="onFocusOut($event)" (input)="onInput($event)"
+         [class.no-icon]="!searchIcon" [class.with-icon]="searchIcon" [placeholder]="placeholder"/>
+</div>

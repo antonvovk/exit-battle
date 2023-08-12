@@ -1,0 +1,38 @@
+.input-container {
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  width: 17.5rem;
+  height: 2rem;
+}
+
+.input-icon {
+  position: absolute;
+  margin-left: 12px;
+  margin-top: 8px;
+}
+
+input {
+  margin-left: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0);
+  height: 100%;
+  opacity: 0.5;
+}
+
+input:focus.no-icon {
+  outline: none;
+  margin-left: 8px;
+}
+
+input:focus.with-icon {
+  outline: none;
+  margin-left: 26px;
+}
+
+.input-icon.focused {
+  margin-left: 6px;
+}
+
+.no-icon {
+  margin-left: 12px;
+}
