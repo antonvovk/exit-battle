@@ -22,8 +22,8 @@
     position: absolute;
     background: #C80F2E;
     border: 0;
-    margin: 0 0 -8px;
     display: none;
+    margin-top: 24px;
   }
 }
 
@@ -42,4 +42,8 @@
   max-height: 2rem;
   width: 100%;
   height: 100%;
+}
+
+a {
+  text-decoration: none;
 }
