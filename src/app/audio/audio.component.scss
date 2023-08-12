@@ -1,0 +1,102 @@
+.audio-block {
+  border-radius: 0.5rem;
+  width: 24.6875rem;
+  height: 5rem;
+  background: #fff;
+  display: flex;
+  align-items: center;
+}
+
+media-controller {
+  width: 100%;
+  border-radius: 0.5rem;
+  --media-background-color: #fff;
+  --media-control-background: #fff;
+}
+
+media-control-bar {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+media-time-range {
+  height: 60px;
+  --media-control-hover-background: #fff;
+}
+
+.metadata {
+  position: absolute;
+  background: #fff;
+  margin-left: 70px;
+  margin-top: 20px;
+  z-index: 1;
+}
+
+.metadata-nickname {
+  color: #111013;
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+  margin-right: 8px;
+}
+
+.metadata-duration {
+  color: rgba(17, 16, 19, 0.20);
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+}
+
+media-time-range {
+  margin-top: 20px;
+  border-radius: 0.5rem;
+  --media-preview-time-background: #000;
+  --media-primary-color: #a1a1a4;
+  --media-range-track-background: #CFCFD0;
+  --media-range-track-pointer-background: #a1a1a4;
+  --media-preview-time-margin: 0 0 0;
+}
+
+media-play-button {
+  border-radius: 0.5rem;
+  --media-control-hover-background: #fff;
+}
+
+.mark {
+  width: 64px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+.total-mark {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+}
+
+.judges-count {
+  font-weight: 400;
+  color: #111013;
+  font-size: 0.75rem;
+  letter-spacing: 0.015rem;
+}
+
+.not-passed {
+  background: rgba(200, 15, 46, 0.05);
+
+  div:first-child {
+    color: #C80F2E;
+  }
+}
+
+.passed {
+  background: rgba(15, 200, 89, 0.05);
+
+  div:first-child {
+    color: #0FC859;
+  }
+}
