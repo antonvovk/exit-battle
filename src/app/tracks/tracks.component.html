@@ -1,0 +1,45 @@
+<div class="tracks-block" id="tracks">
+  <div class="tracks-block-title">
+    <h1>Треки учасників</h1>
+  </div>
+
+  <div class="tracks-top-row">
+    <div class="rounds-container">
+      <div (click)="selectRound(round)" *ngFor="let round of rounds"
+           [class.round-active]="round.order === selectedRound.order"
+           [class.round-inactive]="round.order !== selectedRound.order"
+           class="round">
+        {{round.name}}
+      </div>
+    </div>
+    <div>
+      <app-input [placeholder]="'Пошук...'" [searchIcon]="true"></app-input>
+    </div>
+  </div>
+
+  <div class="audio-container">
+    <div *ngFor="let track of tracks" class="audio-container-row">
+      <app-audio [totalNumberOfJudges]="3" [track]="track"></app-audio>
+    </div>
+  </div>
+
+  <div class="tracks-paginator">
+    <div class="paginator-total">
+      Всього здано: {{selectedRound.numberOfTracks}} треків
+    </div>
+    <div class="paginator-container">
+      <div (click)="prevPage()" class="arrow">
+        <img src="assets/images/arrow-left.svg">
+      </div>
+      <div class="paginator">
+        {{getPageNumberInFormat()}} / {{getTotalPagesInFormat()}}
+      </div>
+      <div (click)="nextPage()" class="arrow">
+        <img src="assets/images/arrow-right.svg">
+      </div>
+    </div>
+    <div>
+      <app-button [red]="true" title="Здати трек"></app-button>
+    </div>
+  </div>
+</div>

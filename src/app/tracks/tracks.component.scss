@@ -1,0 +1,101 @@
+.tracks-block {
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  display: flex;
+  padding: 1.5rem;
+  margin-top: 24px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.tracks-block-title {
+  width: 100%;
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+}
+
+.audio-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+.audio-container-row {
+  margin-bottom: 16px;
+}
+
+.tracks-top-row {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.rounds-container {
+  display: flex;
+}
+
+.round {
+  cursor: pointer;
+  width: 7.3125rem;
+  height: 2rem;
+  border-radius: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.round-active {
+  background: #C80F2E;
+  color: #FFF;
+  border: 1px solid #C80F2E;
+}
+
+.round-inactive {
+  border: 1px solid #FFF;
+  opacity: 0.2;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tracks-paginator {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  margin-top: 44px;
+}
+
+.paginator-total {
+  opacity: 0.5;
+  font-weight: 600;
+}
+
+.paginator-container {
+  display: flex;
+  align-items: center;
+}
+
+.paginator {
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  width: 7.25rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24px;
+  margin-left: 24px;
+}
+
+.arrow {
+  cursor: pointer;
+}
