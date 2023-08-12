@@ -15,12 +15,16 @@ export class AudioComponent {
   @Input()
   track = <Track>{};
 
-  public getTotalMark(): number {
+  public getTotalMark(): string {
+    if (this.track.marks.length < this.totalNumberOfJudges) {
+      return 0.0.toFixed(2);
+    }
+
     let sum = 0;
     this.track.marks.forEach(mark => {
       sum += mark.performance + mark.content + mark.generalImpression;
     });
-    return sum / this.totalNumberOfJudges;
+    return (sum / this.totalNumberOfJudges).toFixed(2);
   }
 
   public getDurationAsString(duration: number): string {
