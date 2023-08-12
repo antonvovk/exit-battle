@@ -1,0 +1,22 @@
+.main-background::after {
+  content: "";
+  background: url(~src/assets/images/background.gif);
+  opacity: 0.1;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+}
+
+.main-container-content {
+  max-width: 1264px;
+  width: 100%;
+}
