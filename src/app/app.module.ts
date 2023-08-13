@@ -16,6 +16,7 @@ import {TracksComponent} from './tracks/tracks.component';
 import {AudioComponent} from './audio/audio.component';
 import {AboutComponent} from './about/about.component';
 import {FooterComponent} from './footer/footer.component';
+import {AuthComponent} from "./auth/auth.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {FooterComponent} from './footer/footer.component';
     TracksComponent,
     AudioComponent,
     AboutComponent,
-    FooterComponent
+    FooterComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

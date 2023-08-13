@@ -40,3 +40,14 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+
+.ngneat-dialog-backdrop {
+  background: rgba(17, 16, 19, 0.70) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+.ngneat-dialog-content {
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.10) !important;
+  backdrop-filter: blur(20px) !important;
+}

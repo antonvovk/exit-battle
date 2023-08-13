@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {DialogService} from "@ngneat/dialog";
 import {AuthComponent} from "../auth/auth.component";
 
@@ -7,14 +7,17 @@ import {AuthComponent} from "../auth/auth.component";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   private dialog = inject(DialogService);
 
+  ngOnInit() {
+    this.performAuth();
+  }
+
   performAuth() {
-    console.log('sdas');
     const dialogRef = this.dialog.open(AuthComponent, {
-      // data is typed based on the passed generic
+      width: 440,
       data: {
         title: 'Fuck yes',
       },
