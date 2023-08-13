@@ -19,7 +19,7 @@
 
   <div class="audio-container">
     <div *ngFor="let track of tracks" class="audio-container-row">
-      <app-audio [totalNumberOfJudges]="3" [track]="track"></app-audio>
+      <app-audio [clickable]="true" [totalNumberOfJudges]="3" [track]="track" [width]="395"></app-audio>
     </div>
   </div>
 

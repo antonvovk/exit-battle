@@ -1,4 +1,4 @@
-<div class="audio-block">
+<div [style.width]="width + 'px'" class="audio-block">
   <media-controller audio>
     <audio #audioElement [src]="track.audioUrl" preload="metadata" slot="media"></audio>
     <media-control-bar>
@@ -13,7 +13,9 @@
       <media-time-range></media-time-range>
     </media-control-bar>
   </media-controller>
-  <div [class.not-passed]="!track.passedToNextRound" [class.passed]="track.passedToNextRound" class="mark">
+  <div (click)="openTrackInfo()" [class.not-passed]="!track.passedToNextRound"
+       [class.passed]="track.passedToNextRound"
+       [style.cursor]="clickable ? 'cursor' : 'default'" class="mark">
     <div class="total-mark">
       {{getTotalMark()}}
     </div>

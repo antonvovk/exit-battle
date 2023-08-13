@@ -1,6 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {Track} from "../models/track";
 import 'media-chrome';
+import {GlobalService} from "../_services/global.service";
+import {TrackInfoComponent} from "../track-info/track-info.component";
 
 @Component({
   selector: 'app-audio',
@@ -14,6 +16,15 @@ export class AudioComponent {
 
   @Input()
   track = <Track>{};
+
+  @Input()
+  width = 0;
+
+  @Input()
+  clickable = false;
+
+  constructor(private service: GlobalService) {
+  }
 
   public getTotalMark(): string {
     if (this.track.marks.length < this.totalNumberOfJudges) {
@@ -31,5 +42,18 @@ export class AudioComponent {
     const minutes = Math.floor(duration / 60);
     const seconds = duration % 60;
     return `${minutes}:${seconds}`
+  }
+
+  public openTrackInfo() {
+    if (!this.clickable) {
+      return;
+    }
+    this.service.openDialog(TrackInfoComponent, {
+      width: 650,
+      data: {
+        totalNumberOfJudges: this.totalNumberOfJudges,
+        track: this.track
+      }
+    });
   }
 }

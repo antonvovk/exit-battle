@@ -20,6 +20,7 @@ import {AuthComponent} from "./auth/auth.component";
 import {FIREBASE_OPTIONS} from "@angular/fire/compat";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {TrackInfoComponent} from './track-info/track-info.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AudioComponent,
     AboutComponent,
     FooterComponent,
-    AuthComponent
+    AuthComponent,
+    TrackInfoComponent
   ],
   imports: [
     BrowserModule,
