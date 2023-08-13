@@ -17,9 +17,9 @@ export class ButtonComponent {
   red = false;
 
   @Output()
-  click = new EventEmitter<MouseEvent>();
+  clicked = new EventEmitter<MouseEvent>();
 
   onClick($event: MouseEvent) {
-    this.click.emit($event);
+    this.clicked.emit($event);
   }
 }
