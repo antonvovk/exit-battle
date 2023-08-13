@@ -23,7 +23,7 @@ export class GlobalService {
               private toastr: ToastrService
   ) {
     this.auth.authState.subscribe((user) => {
-      if (user) {
+      if (user && user.emailVerified) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         this.updateFirebaseUser(user.uid);
@@ -53,7 +53,6 @@ export class GlobalService {
         if (!result.user.emailVerified) {
           this.toastr.error('Для того щоб ввійти потрібно активувати акаунт перейшовши за посиланням надісланим на вашу електронну адресу')
           this.signOut();
-          this.dialogRef.close();
           return;
         }
         this.updateUserVerificationStatusInDatabase(result.user);
@@ -77,24 +76,12 @@ export class GlobalService {
       });
   }
 
-  public forgotPassword(passwordResetEmail: string) {
-    return this.auth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        this.toastr.info("Посилання для скидання паролю було відіслано на вашу електронну адресу")
-      })
-      .catch((error) => {
-        this.handleFirebaseError(error);
-      });
-  }
-
   public signOut() {
     return this.auth.signOut()
       .then(() => {
         localStorage.removeItem('user');
         localStorage.removeItem('nickname');
         this.firebaseUser = undefined;
-        this.toastr.info('Ви вийшли з облікового запису')
       })
       .catch((error) => {
         this.handleFirebaseError(error);
@@ -103,11 +90,7 @@ export class GlobalService {
 
   private sendVerificationMail() {
     return this.auth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.toastr.info("На вашу електронну адресу надіслано лист для активації профілю")
-        this.dialogRef.close();
-      });
+      .then((u: any) => u.sendEmailVerification());
   }
 
   private createUserInDatabase(user: any, nickname: string) {
@@ -118,7 +101,14 @@ export class GlobalService {
       emailVerified: user.emailVerified,
       nickname: nickname
     };
-    return userRef.set(userData);
+    userRef.set(userData)
+      .then(() => {
+        this.toastr.info("На вашу електронну адресу надіслано лист для активації профілю")
+        this.dialogRef.close();
+      })
+      .catch((error) => {
+        this.handleFirebaseError(error);
+      });
   }
 
   private updateUserVerificationStatusInDatabase(user: any) {
@@ -126,10 +116,16 @@ export class GlobalService {
     const userData = {
       emailVerified: user.emailVerified,
     };
-    return userRef.update(userData);
+    userRef.update(userData)
+      .catch((error) => {
+        this.handleFirebaseError(error);
+      })
   }
 
   private updateFirebaseUser(userId: string) {
+    if (!this.isLoggedIn) {
+      return;
+    }
     this.db.collection('users').doc(userId).ref.get().then(doc => {
       this.firebaseUser = doc.data();
       localStorage.setItem('nickname', this.firebaseUser.nickname);
@@ -138,7 +134,7 @@ export class GlobalService {
 
   private handleFirebaseError(error: any) {
     if (error.code === 'auth/user-not-found') {
-      this.toastr.error(`Користувача з таким емейлом не знайдено`)
+      this.toastr.error(`Користувача з такою електронною поштою не знайдено`)
     } else if (error.code === 'auth/wrong-password') {
       this.toastr.error(`Невірний пароль`)
     } else if (error.code === 'auth/invalid-email') {
