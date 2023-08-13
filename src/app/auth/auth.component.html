@@ -1,13 +1,13 @@
 <div *ngIf="currentView === 'login'" class="rows">
   <h1>Увійти</h1>
   <div class="input-row">
-    <app-input placeholder="Електронна пошта"/>
+    <app-input (value)="onEmail($event)" placeholder="Електронна пошта"/>
   </div>
   <div class="input-row-last">
-    <app-input placeholder="Пароль"/>
+    <app-input (value)="onPassword($event)" placeholder="Пароль"/>
   </div>
   <div class="button">
-    <app-button [red]="true" title="Увійти"/>
+    <app-button (clicked)="login()" [red]="true" title="Увійти"/>
   </div>
   <div class="bottom">
     Ще не створили аккаунт?&nbsp;<span (click)="changeViewToRegistration()">Реєстрація<hr/></span>
@@ -16,16 +16,16 @@
 <div *ngIf="currentView === 'registration'" class="rows">
   <h1>Реєстрація</h1>
   <div class="input-row">
-    <app-input placeholder="Електронна пошта"/>
+    <app-input (value)="onEmail($event)" placeholder="Електронна пошта"/>
   </div>
   <div class="input-row-last">
-    <app-input placeholder="Пароль"/>
+    <app-input (value)="onPassword($event)" placeholder="Пароль"/>
   </div>
   <div class="input-row-last">
-    <app-input placeholder="Нікнейм"/>
+    <app-input (value)="onNickname($event)" placeholder="Нікнейм"/>
   </div>
   <div class="button">
-    <app-button [red]="true" title="Продовжити"/>
+    <app-button (clicked)="signUp()" [red]="true" title="Продовжити"/>
   </div>
   <div class="bottom">
     Вже маєте аккаунт?&nbsp;<span (click)="changeViewToLogin()">Увійти<hr/></span>

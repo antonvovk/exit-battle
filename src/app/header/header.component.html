@@ -16,7 +16,15 @@
       <hr/>
     </div>
   </div>
-  <div style="width: 120px">
-    <app-button (clicked)="performAuth()" title="Вхід"></app-button>
+  <div *ngIf="!isLoggedIn" style="width: 120px">
+    <app-button (clicked)="openAuthDialog()" title="Вхід"></app-button>
+  </div>
+  <div *ngIf="isLoggedIn" style="display: flex; align-items: center">
+    <div *ngIf="nickname" style="margin-right: 12px;">
+      Вітаємо, {{nickname}}
+    </div>
+    <div style="width: 120px">
+      <app-button (clicked)="signOut()" title="Вихід"></app-button>
+    </div>
   </div>
 </div>

@@ -17,6 +17,9 @@ import {AudioComponent} from './audio/audio.component';
 import {AboutComponent} from './about/about.component';
 import {FooterComponent} from './footer/footer.component';
 import {AuthComponent} from "./auth/auth.component";
+import {FIREBASE_OPTIONS} from "@angular/fire/compat";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -34,12 +37,19 @@ import {AuthComponent} from "./auth/auth.component";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    ToastrModule.forRoot({
+      progressBar: true,
+      progressAnimation: 'decreasing'
+    })
   ],
-  providers: [],
+  providers: [
+    {provide: FIREBASE_OPTIONS, useValue: environment.firebase}
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

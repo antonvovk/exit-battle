@@ -1,6 +1,5 @@
-import {Component, inject} from '@angular/core';
-import {DialogRef} from "@ngneat/dialog";
-import {Data} from "@angular/router";
+import {Component} from '@angular/core';
+import {GlobalService} from "../_services/global.service";
 
 @Component({
   selector: 'app-auth',
@@ -8,13 +7,14 @@ import {Data} from "@angular/router";
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent {
-  ref: DialogRef<Data, boolean> = inject(DialogRef);
 
   currentView: 'login' | 'registration' = 'login';
 
-  get title() {
-    if (!this.ref.data) return 'Hello world';
-    return this.ref.data['title'];
+  email = '';
+  password = '';
+  nickname = '';
+
+  constructor(private service: GlobalService) {
   }
 
   changeViewToLogin() {
@@ -23,5 +23,25 @@ export class AuthComponent {
 
   changeViewToRegistration() {
     this.currentView = 'registration';
+  }
+
+  onEmail(value: string) {
+    this.email = value;
+  }
+
+  onPassword(value: any) {
+    this.password = value;
+  }
+
+  onNickname(value: any) {
+    this.nickname = value;
+  }
+
+  login() {
+    this.service.signIn(this.email, this.password);
+  }
+
+  signUp() {
+    this.service.signUp(this.email, this.password, this.nickname);
   }
 }

@@ -14,7 +14,7 @@ export class InputComponent {
   searchIcon = false;
 
   @Output()
-  input = new EventEmitter<any>();
+  value = new EventEmitter<any>();
 
   focused = false;
 
@@ -27,6 +27,6 @@ export class InputComponent {
   }
 
   onInput($event: any) {
-    this.input.emit($event.target.value);
+    this.value.emit($event.target.value);
   }
 }

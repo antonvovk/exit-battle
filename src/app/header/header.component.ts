@@ -1,26 +1,32 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {DialogService} from "@ngneat/dialog";
+import {Component} from '@angular/core';
 import {AuthComponent} from "../auth/auth.component";
+import {GlobalService} from "../_services/global.service";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-  private dialog = inject(DialogService);
-
-  ngOnInit() {
-    this.performAuth();
+  constructor(private service: GlobalService) {
   }
 
-  performAuth() {
-    const dialogRef = this.dialog.open(AuthComponent, {
-      width: 440,
-      data: {
-        title: 'Fuck yes',
-      },
+  get isLoggedIn(): boolean {
+    return this.service.isLoggedIn;
+  }
+
+  get nickname(): string {
+    return this.service.nickname;
+  }
+
+  public openAuthDialog() {
+    this.service.openDialog(AuthComponent, {
+      width: 440
     });
+  }
+
+  public signOut() {
+    this.service.signOut();
   }
 }
