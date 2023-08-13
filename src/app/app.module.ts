@@ -14,6 +14,7 @@ import {NewsComponent} from './news/news.component';
 import {InputComponent} from './input/input.component';
 import {TracksComponent} from './tracks/tracks.component';
 import {AudioComponent} from './audio/audio.component';
+import {AboutComponent} from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {AudioComponent} from './audio/audio.component';
     NewsComponent,
     InputComponent,
     TracksComponent,
-    AudioComponent
+    AudioComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
