@@ -23,7 +23,6 @@ body {
   mix-blend-mode: exclusion;
 
   width: 1440px;
-  height: 200vh;
   flex-shrink: 0;
 }
 
@@ -35,4 +34,9 @@ h1 {
 p {
   font-weight: 400;
   color: rgba(255, 255, 255, 0.80);
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
 }
