@@ -1,3 +1,1 @@
-rm -rf dist
-ng build --configuration production
-firebase deploy
+rm -rf dist && ng build --configuration production && firebase deploy
