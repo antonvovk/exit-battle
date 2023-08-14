@@ -5,7 +5,8 @@ import {ToastrService} from "ngx-toastr";
 import {DialogRef, DialogService} from "@ngneat/dialog";
 import {DialogConfig} from "@ngneat/dialog/lib/types";
 import firebase from "firebase/compat";
-import {Track} from "../models/track";
+import {Track} from "../_models/track";
+import {RemoteConfig} from "../_models/remote-config";
 import User = firebase.User;
 
 @Injectable({
@@ -91,6 +92,12 @@ export class GlobalService {
 
   public getLyrics(track: Track): string {
     return 'Тест треку буде такий тут якийсь';
+  }
+
+  public getRemoteConfig(): RemoteConfig {
+    return <RemoteConfig>{
+      maxFileUploadSizeInMb: 10
+    };
   }
 
   private sendVerificationMail() {

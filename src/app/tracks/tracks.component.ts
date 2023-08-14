@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Track} from "../models/track";
-import {Round} from "../models/round";
+import {Track} from "../_models/track";
+import {Round} from "../_models/round";
 import {GlobalService} from "../_services/global.service";
 import {TrackUploadComponent} from "../track-upload/track-upload.component";
 

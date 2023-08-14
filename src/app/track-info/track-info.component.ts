@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {DialogRef} from "@ngneat/dialog";
 import {Data} from "@angular/router";
-import {Track} from "../models/track";
+import {Track} from "../_models/track";
 import {GlobalService} from "../_services/global.service";
 
 @Component({

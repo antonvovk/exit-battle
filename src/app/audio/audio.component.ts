@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Track} from "../models/track";
+import {Track} from "../_models/track";
 import 'media-chrome';
 import {GlobalService} from "../_services/global.service";
 import {TrackInfoComponent} from "../track-info/track-info.component";

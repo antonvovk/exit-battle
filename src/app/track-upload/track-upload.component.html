@@ -1,1 +1,36 @@
-<p>track-upload works!</p>
+<div class="upload-dialog">
+  <div class="upload-title">
+    <h1>Здати трек</h1>
+  </div>
+  <div class="outer-file-upload">
+    <input (change)="onFileSelected($event)" [multiple]="false" accept="audio/mpeg" type="file"/>
+    <div class="inner-file-upload">
+      <div class="upload-btn">
+        <img height="24" src="assets/images/upload.svg" width="24">
+        <span *ngIf="file == null">Завантажити файл...</span>
+        <span *ngIf="file != null">{{file.name}}</span>
+      </div>
+      <div class="upload-max-size">
+        < {{remoteConfig.maxFileUploadSizeInMb}} MB
+      </div>
+    </div>
+  </div>
+
+  <div class="duration-disclaimer">
+    Тривалість композиції: до 90 секунд.
+  </div>
+
+  <div class="lyrics">
+    <textarea placeholder="Текст треку..."></textarea>
+  </div>
+
+  <div class="upload-disclaimer">
+    Надіславши трек, ви не зможете його відредагувати, перездати, тощо.
+  </div>
+
+  <div class="confirm-button">
+    <div style="width: 160px">
+      <app-button [red]="true" [title]="'Здати трек'"></app-button>
+    </div>
+  </div>
+</div>
