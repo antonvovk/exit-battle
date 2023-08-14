@@ -1,6 +1,6 @@
 .audio-block {
-  border-radius: 0.5rem;
-  height: 5rem;
+  border-radius: 8px;
+  height: 80px;
   background: #fff;
   display: flex;
   align-items: center;
@@ -8,14 +8,14 @@
 
 media-controller {
   width: 100%;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   --media-background-color: #fff;
   --media-control-background: #fff;
 }
 
 media-control-bar {
   width: 100%;
-  border-radius: 0.5rem;
+  border-radius: 8px;
 }
 
 media-time-range {
@@ -48,7 +48,7 @@ media-time-range {
 
 media-time-range {
   margin-top: 20px;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   --media-preview-time-background: #000;
   --media-primary-color: #a1a1a4;
   --media-range-track-background: #CFCFD0;
@@ -57,7 +57,7 @@ media-time-range {
 }
 
 media-play-button {
-  border-radius: 0.5rem;
+  border-radius: 8px;
   --media-control-hover-background: #fff;
 }
 
@@ -81,8 +81,8 @@ media-play-button {
 .judges-count {
   font-weight: 400;
   color: #111013;
-  font-size: 0.75rem;
-  letter-spacing: 0.015rem;
+  font-size: 12px;
+  letter-spacing: 0.24px;
 }
 
 .not-passed {

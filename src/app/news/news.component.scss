@@ -1,15 +1,15 @@
 .news-block {
-  border-radius: 0.5rem;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   display: flex;
-  padding: 1.5rem;
+  padding: 24px;
   margin-top: 5vh;
 }
 
 .timer-block {
-  margin-right: 2rem;
-  border-radius: 0.5rem;
+  margin-right: 32px;
+  border-radius: 8px;
   background: rgba(15, 15, 15, 0.50);
   backdrop-filter: blur(0);
   display: flex;
@@ -17,7 +17,7 @@
 
 .timer-inner-block {
   flex-grow: 1;
-  padding: 1rem;
+  padding: 16px;
   display: flex;
   flex-direction: column;
 }
@@ -47,10 +47,10 @@
 }
 
 .number-box {
-  border-radius: 0.5rem;
+  border-radius: 8px;
   background: rgba(217, 217, 217, 0.05);
-  width: 4.3125rem;
-  height: 3rem;
+  width: 69px;
+  height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,7 +61,7 @@
 }
 
 .timer-block-buttons div:first-child {
-  margin-right: 1rem;
+  margin-right: 16px;
 }
 
 h1 {
