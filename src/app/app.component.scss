@@ -1,3 +1,16 @@
+.fancy-shit {
+  position: absolute;
+  width: 1146.14px;
+  height: 340.074px;
+  transform: rotate(165deg);
+  border-radius: 102.5px;
+  opacity: 0.2;
+  background: linear-gradient(180deg, #C80F2E 0%, rgba(255, 255, 255, 0.00) 100%);
+  filter: blur(117px);
+  z-index: -2;
+  top: 80px;
+}
+
 .main-background::after {
   content: "";
   background: url(~src/assets/images/background.gif);
