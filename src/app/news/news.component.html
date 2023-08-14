@@ -20,7 +20,7 @@
       </div>
       <div class="timer-block-buttons">
         <div style="width: 140px">
-          <app-button [red]="true" title="Здати трек"></app-button>
+          <app-button (clicked)="openTrackUploadDialog()" [red]="true" title="Здати трек"></app-button>
         </div>
         <div style="width: 140px">
           <app-button title="Таблиця"></app-button>

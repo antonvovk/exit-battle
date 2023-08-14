@@ -40,7 +40,7 @@
       </div>
     </div>
     <div style="width: 140px">
-      <app-button [red]="true" title="Здати трек"></app-button>
+      <app-button (clicked)="openTrackUploadDialog()" [red]="true" title="Здати трек"></app-button>
     </div>
   </div>
 </div>

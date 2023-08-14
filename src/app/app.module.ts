@@ -21,6 +21,7 @@ import {FIREBASE_OPTIONS} from "@angular/fire/compat";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TrackInfoComponent} from './track-info/track-info.component';
+import {TrackUploadComponent} from './track-upload/track-upload.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {TrackInfoComponent} from './track-info/track-info.component';
     AboutComponent,
     FooterComponent,
     AuthComponent,
-    TrackInfoComponent
+    TrackInfoComponent,
+    TrackUploadComponent
   ],
   imports: [
     BrowserModule,

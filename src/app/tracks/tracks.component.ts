@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Track} from "../models/track";
 import {Round} from "../models/round";
+import {GlobalService} from "../_services/global.service";
+import {TrackUploadComponent} from "../track-upload/track-upload.component";
 
 @Component({
   selector: 'app-tracks',
@@ -489,6 +491,9 @@ export class TracksComponent implements OnInit {
   currentPage = 0;
   totalPages = 0
 
+  constructor(private service: GlobalService) {
+  }
+
   ngOnInit() {
     this.selectRound(this.rounds[0]);
   }
@@ -525,5 +530,11 @@ export class TracksComponent implements OnInit {
       return '0' + this.totalPages;
     }
     return this.totalPages + '';
+  }
+
+  public openTrackUploadDialog(): void {
+    this.service.openDialog(TrackUploadComponent, {
+      width: 650
+    });
   }
 }
