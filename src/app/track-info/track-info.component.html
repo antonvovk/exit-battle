@@ -5,4 +5,56 @@
   <div>
     <app-audio [totalNumberOfJudges]="this.totalNumberOfJudges" [track]="track" [width]="570"></app-audio>
   </div>
+  <div class="track-info-menu">
+    <div
+      (click)="selectMarksMenuItem()"
+      [ngClass]="{'track-info-menu-item-selected ': selectedMenuItem === 'marks', 'track-info-menu-item-unselected' : selectedMenuItem === 'lyrics'}"
+      class="track-info-menu-item">
+      Оцінки {{track.marks.length}}/{{totalNumberOfJudges}}
+    </div>
+    <div
+      (click)="selectLyricsMenuItem()"
+      [ngClass]="{'track-info-menu-item-selected ': selectedMenuItem === 'lyrics', 'track-info-menu-item-unselected' : selectedMenuItem === 'marks'}"
+      class="track-info-menu-item">
+      Текст
+    </div>
+  </div>
+
+  <div *ngIf="selectedMenuItem === 'marks'" style="width: 100%">
+    <div *ngFor="let mark of track.marks" class="mark-container">
+      <div class="judge-container">
+        <div class="judge-icon">
+          <img [src]="mark.judgeIcon"/>
+        </div>
+        <div class="judge-name">
+          {{mark.judgeName}}
+        </div>
+      </div>
+      <div class="mark-content-container">
+        <div class="mark-text">
+          {{mark.text}}
+        </div>
+        <div class="mark-numbers-container">
+          <div class="left-marks-numbers">
+            <div class="mark-block mr-8">
+              Виконання: {{mark.performance}}
+            </div>
+            <div class="mark-block mr-8">
+              Зміст: {{mark.content}}
+            </div>
+            <div class="mark-block">
+              ЗВ: {{mark.generalImpression}}
+            </div>
+          </div>
+          <div class="mark-block">
+            Загалом: {{(mark.performance + mark.content + mark.generalImpression).toFixed(1)}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedMenuItem === 'lyrics'" class="track-lyrics">
+    {{lyrics}}
+  </div>
 </div>

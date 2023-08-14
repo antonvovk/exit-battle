@@ -3,4 +3,5 @@ export interface Round {
   name: string;
   numberOfTracks: number;
   available: boolean;
+  totalNumberOfJudges: number;
 }

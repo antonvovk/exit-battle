@@ -5,6 +5,7 @@ import {ToastrService} from "ngx-toastr";
 import {DialogRef, DialogService} from "@ngneat/dialog";
 import {DialogConfig} from "@ngneat/dialog/lib/types";
 import firebase from "firebase/compat";
+import {Track} from "../models/track";
 import User = firebase.User;
 
 @Injectable({
@@ -86,6 +87,10 @@ export class GlobalService {
       .catch((error) => {
         this.handleFirebaseError(error);
       });
+  }
+
+  public getLyrics(track: Track): string {
+    return 'Тест треку буде такий тут якийсь';
   }
 
   private sendVerificationMail() {

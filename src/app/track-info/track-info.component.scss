@@ -15,3 +15,130 @@ h1 {
   margin-top: 0;
   margin-bottom: 24px;
 }
+
+.track-info-menu {
+  display: flex;
+  width: 100%;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.track-info-menu-item {
+  width: 117px;
+  height: 32px;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:first-child {
+    margin-right: 16px;
+  }
+}
+
+.track-info-menu-item-selected {
+  border: 1px solid #C80F2E;
+  background: #C80F2E;
+}
+
+.track-info-menu-item-unselected {
+  border: 1px solid #FFF;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mark-container {
+  border-radius: 8px;
+  background: #FFF;
+  padding: 16px 16px 13px 32px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-grow: 1;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.judge-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 44px;
+  justify-content: space-between;
+}
+
+.judge-icon {
+  img {
+    height: 48px;
+    width: 48px;
+  }
+}
+
+.judge-name {
+  color: #111013;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.24px;
+}
+
+.mark-content-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.mark-text {
+  color: #111013;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.24px;
+  margin-bottom: 21px;
+}
+
+.mark-numbers-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left-marks-numbers {
+  display: flex;
+  flex-direction: row;
+}
+
+.mark-block {
+  color: #111013;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.24px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  min-height: 22px;
+  padding-right: 12px;
+  padding-left: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mr-8 {
+  margin-right: 8px;
+}
+
+.track-lyrics {
+  margin-top: 16px;
+  border-radius: 8px;
+  background: #FFF;
+  width: 100%;
+  padding: 24px;
+  color: #111013;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.24px;
+}
