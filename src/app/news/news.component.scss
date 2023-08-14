@@ -17,7 +17,7 @@
 
 .timer-inner-block {
   flex-grow: 1;
-  padding: 16px;
+  padding: 16px 50px 32px 50px;
   display: flex;
   flex-direction: column;
 }
@@ -54,6 +54,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #FFF;
+  font-size: 24px;
+  letter-spacing: 0.48px;
 }
 
 .timer-block-buttons {
@@ -66,6 +69,7 @@
 
 h1 {
   margin-top: 0;
+  margin-bottom: 6px;
 }
 
 p {
