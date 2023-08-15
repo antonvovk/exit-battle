@@ -3,6 +3,7 @@ import {Track} from "../_models/track";
 import {Round} from "../_models/round";
 import {GlobalService} from "../_services/global.service";
 import {TrackUploadComponent} from "../track-upload/track-upload.component";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-tracks',
@@ -491,7 +492,8 @@ export class TracksComponent implements OnInit {
   currentPage = 0;
   totalPages = 0
 
-  constructor(private service: GlobalService) {
+  constructor(private service: GlobalService,
+              private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -533,6 +535,10 @@ export class TracksComponent implements OnInit {
   }
 
   public openTrackUploadDialog(): void {
+    if (!this.service.isLoggedIn) {
+      this.toastr.info("Щоб здати трек потрібно авторизуватися");
+      return;
+    }
     this.service.openDialog(TrackUploadComponent, {
       width: 650
     });

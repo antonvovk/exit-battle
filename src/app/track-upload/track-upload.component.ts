@@ -20,5 +20,19 @@ export class TrackUploadComponent {
 
   onFileSelected($event: any) {
     this.file = event.target['files'][0];
+    this.spinner.show();
+
+    this.service.uploadFile(this.file).subscribe({
+      next: value => {
+        const percentage = Math.floor(value);
+        this.service.spinnerText = `Завантажуємо трек ${percentage}%`
+      },
+      error: err => {
+        this.service.handleFirebaseError(err);
+      },
+      complete: () => {
+        this.spinner.hide();
+      }
+    });
   }
 }

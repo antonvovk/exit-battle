@@ -7,6 +7,8 @@ import {DialogConfig} from "@ngneat/dialog/lib/types";
 import firebase from "firebase/compat";
 import {Track} from "../_models/track";
 import {RemoteConfig} from "../_models/remote-config";
+import {finalize, Observable} from "rxjs";
+import {AngularFireStorage} from "@angular/fire/compat/storage";
 import User = firebase.User;
 
 @Injectable({
@@ -17,18 +19,19 @@ export class GlobalService {
   private spinnerTextValue: string = 'Завантаження...';
   private dialog = inject(DialogService);
 
-  private userData: User;
+  private currentUser: User;
   private firebaseUser: any;
   private dialogRef: DialogRef | undefined;
 
   constructor(private db: AngularFirestore,
               private auth: AngularFireAuth,
+              private storage: AngularFireStorage,
               private toastr: ToastrService
   ) {
     this.auth.authState.subscribe((user) => {
       if (user && user.emailVerified) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        this.currentUser = user;
+        localStorage.setItem('user', JSON.stringify(this.currentUser));
         this.updateFirebaseUser(user.uid);
       } else {
         localStorage.removeItem('user');
@@ -38,6 +41,10 @@ export class GlobalService {
 
   get spinnerText(): string {
     return this.spinnerTextValue;
+  }
+
+  set spinnerText(text: string) {
+    this.spinnerTextValue = text;
   }
 
   get isLoggedIn(): boolean {
@@ -105,6 +112,55 @@ export class GlobalService {
     };
   }
 
+  public getCurrentRoundNumber(): number {
+    // TODO Implement
+    return 0;
+  }
+
+  public getCurrentNickname(): string {
+    return this.firebaseUser.nickname;
+  }
+
+  public uploadFile(file: File): Observable<number> {
+    const filePath = `tracks/${this.getCurrentRoundNumber()}/${this.getCurrentNickname()} - ${file.name}`;
+    const storageRef = this.storage.ref(filePath);
+    const uploadTask = this.storage.upload(filePath, file, {
+      customMetadata: {
+        round: this.getCurrentRoundNumber().toString(),
+        nickname: this.getCurrentNickname()
+      }
+    });
+
+    uploadTask.snapshotChanges().pipe(
+      finalize(() => {
+        storageRef.getDownloadURL().subscribe(downloadURL => {
+          // TODO Save into tracks collection
+          console.log(downloadURL);
+        });
+      })
+    ).subscribe();
+
+    return uploadTask.percentageChanges();
+  }
+
+  public handleFirebaseError(error: any) {
+    if (error.code === 'auth/user-not-found') {
+      this.toastr.error(`Користувача з такою електронною поштою не знайдено`)
+    } else if (error.code === 'auth/wrong-password') {
+      this.toastr.error(`Невірний пароль`)
+    } else if (error.code === 'auth/invalid-email') {
+      this.toastr.error(`Адреса електронної пошти має неправильний формат`)
+    } else if (error.code === 'auth/missing-password') {
+      this.toastr.error(`Необхідно вказати непорожній пароль`)
+    } else if (error.code === 'auth/weak-password') {
+      this.toastr.error('Пароль має бути не менше 6 символів');
+    } else if (error.code === 'auth/email-already-in-use') {
+      this.toastr.error('Адреса електронної пошти вже використовується іншим обліковим записом');
+    } else {
+      this.toastr.error(`Неочікувана помилка`, error.message)
+    }
+  }
+
   private sendVerificationMail() {
     return this.auth.currentUser
       .then((u: any) => u.sendEmailVerification());
@@ -147,23 +203,5 @@ export class GlobalService {
       this.firebaseUser = doc.data();
       localStorage.setItem('nickname', this.firebaseUser.nickname);
     });
-  }
-
-  private handleFirebaseError(error: any) {
-    if (error.code === 'auth/user-not-found') {
-      this.toastr.error(`Користувача з такою електронною поштою не знайдено`)
-    } else if (error.code === 'auth/wrong-password') {
-      this.toastr.error(`Невірний пароль`)
-    } else if (error.code === 'auth/invalid-email') {
-      this.toastr.error(`Адреса електронної пошти має неправильний формат`)
-    } else if (error.code === 'auth/missing-password') {
-      this.toastr.error(`Необхідно вказати непорожній пароль`)
-    } else if (error.code === 'auth/weak-password') {
-      this.toastr.error('Пароль має бути не менше 6 символів');
-    } else if (error.code === 'auth/email-already-in-use') {
-      this.toastr.error('Адреса електронної пошти вже використовується іншим обліковим записом');
-    } else {
-      this.toastr.error(`Неочікувана помилка`, error.message)
-    }
   }
 }
