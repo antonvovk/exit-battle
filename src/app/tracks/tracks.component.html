@@ -6,8 +6,8 @@
   <div class="tracks-top-row">
     <div class="rounds-container">
       <div (click)="selectRound(round)" *ngFor="let round of rounds"
-           [class.round-active]="round.order === selectedRound.order"
-           [class.round-inactive]="round.order !== selectedRound.order"
+           [class.round-active]="round.number === selectedRound.number"
+           [class.round-inactive]="round.number !== selectedRound.number"
            class="round">
         {{round.name}}
       </div>
@@ -26,7 +26,7 @@
 
   <div class="tracks-paginator">
     <div class="paginator-total">
-      Всього здано: {{selectedRound.numberOfTracks}} треків
+      Всього здано: {{this.numberOfTracks}} треків
     </div>
     <div class="paginator-container">
       <div (click)="prevPage()" class="arrow">

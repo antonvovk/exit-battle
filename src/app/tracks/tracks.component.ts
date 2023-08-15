@@ -19,6 +19,7 @@ export class TracksComponent implements OnInit {
   selectedRound = <Round>{};
   currentPage = 0;
   totalPages = 0
+  numberOfTracks: number = 0;
 
   constructor(private service: GlobalService,
               private toastr: ToastrService) {
@@ -30,9 +31,14 @@ export class TracksComponent implements OnInit {
   }
 
   selectRound(round: Round): void {
-    this.selectedRound = round;
-    this.currentPage = 0;
-    this.totalPages = Math.floor(round.numberOfTracks / 15);
+    this.service.getNumberOfTracks(round).subscribe({
+      next: value => {
+        this.numberOfTracks = (value.get('numberOfTracks') ?? 0) as number;
+        this.selectedRound = round;
+        this.currentPage = 0;
+        this.totalPages = Math.floor(this.numberOfTracks / 15);
+      }
+    });
   }
 
   prevPage() {

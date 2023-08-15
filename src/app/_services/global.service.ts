@@ -12,6 +12,7 @@ import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {Round} from "../_models/round";
 import {ROUNDS} from "../mock";
 import {NgxSpinnerService} from "ngx-spinner";
+import {increment} from '@angular/fire/firestore';
 import User = firebase.User;
 
 @Injectable({
@@ -72,7 +73,7 @@ export class GlobalService {
   }
 
   public getCurrentRound(): Round {
-    return this.rounds.find(r => r.order === this.getCurrentRoundNumber());
+    return this.rounds.find(r => r.number === this.getCurrentRoundNumber());
   }
 
   public openDialog(template: any, config?: Partial<DialogConfig>) {
@@ -137,7 +138,7 @@ export class GlobalService {
     return this.firebaseUser.nickname;
   }
 
-  public uploadFile(file: File, duration: number): Observable<number> {
+  public uploadFile(file: File, lyrics: string, duration: number): Observable<number> {
     const filePath = `tracks/${this.getCurrentRoundNumber()}/${this.getCurrentNickname()} - ${file.name}`;
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, file, {
@@ -151,16 +152,32 @@ export class GlobalService {
       finalize(() => {
         storageRef.getDownloadURL().subscribe(downloadURL => {
           this.spinnerText = `Майже готово...`;
+
+          const trackId = this.db.createId();
           const track = <Track>{
+            id: trackId,
             round: this.getCurrentRoundNumber(),
             nickname: this.getCurrentNickname(),
             duration: duration,
             audioUrl: downloadURL,
             passedToNextRound: false,
-            marks: []
+            marks: [],
+            uploadDate: new Date()
           };
-          this.db.collection('tracks').add(track)
-            .then(doc => {
+          const lyricsDocument = {
+            id: trackId,
+            text: lyrics
+          };
+
+          const incrementValue = increment(1);
+
+          const batch = this.db.firestore.batch();
+          batch.set(this.db.collection('tracks').doc(trackId).ref, track);
+          batch.set(this.db.collection('lyrics').doc(trackId).ref, lyricsDocument);
+          batch.set(this.db.collection('tracks-counter').doc(this.getCurrentRoundNumber().toString()).ref, {numberOfTracks: incrementValue}, {merge: true});
+
+          batch.commit()
+            .then(() => {
               this.toastr.success("Ваш трек прийнято");
               this.spinner.hide();
               this.dialogRef.close();
@@ -192,6 +209,10 @@ export class GlobalService {
     } else {
       this.toastr.error(`Неочікувана помилка`, error.message)
     }
+  }
+
+  public getNumberOfTracks(round: Round) {
+    return this.db.collection('tracks-counter').doc(round.number.toString()).get();
   }
 
   private sendVerificationMail() {

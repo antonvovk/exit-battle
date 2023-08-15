@@ -60,7 +60,7 @@ export class TrackUploadComponent implements OnInit {
     }
 
     this.spinner.show();
-    this.service.uploadFile(this.file, this.duration).subscribe({
+    this.service.uploadFile(this.file, this.lyrics, this.duration).subscribe({
       next: value => {
         const percentage = Math.floor(value);
         this.service.spinnerText = `Завантажуємо трек ${percentage}%`

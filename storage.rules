@@ -9,8 +9,8 @@ service firebase.storage {
             allow create, write, read, delete, get, list, update: if false;
         }
         match /tracks/{allPaths=**} {
+            allow read, get, list;
             allow create: if request.auth != null && request.auth.token.email_verified;
-            allow get;
         }
     }
 }
