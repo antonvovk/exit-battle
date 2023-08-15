@@ -63,6 +63,9 @@ export class TracksComponent implements OnInit {
   }
 
   getTotalPagesInFormat(): string {
+    if (this.totalPages === 0) {
+      return '01';
+    }
     if (this.totalPages <= 9) {
       return '0' + this.totalPages;
     }
