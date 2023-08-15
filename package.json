@@ -22,6 +22,7 @@
     "@ngneat/dialog": "^4.1.0",
     "firebase": "9.23.0",
     "media-chrome": "^1.2.3",
+    "ngx-spinner": "^16.0.2",
     "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

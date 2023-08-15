@@ -14,6 +14,7 @@ import User = firebase.User;
 })
 export class GlobalService {
 
+  private spinnerTextValue: string = 'Завантаження...';
   private dialog = inject(DialogService);
 
   private userData: User;
@@ -33,6 +34,10 @@ export class GlobalService {
         localStorage.removeItem('user');
       }
     });
+  }
+
+  get spinnerText(): string {
+    return this.spinnerTextValue;
   }
 
   get isLoggedIn(): boolean {

@@ -22,6 +22,7 @@ import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TrackInfoComponent} from './track-info/track-info.component';
 import {TrackUploadComponent} from './track-upload/track-upload.component';
+import {NgxSpinnerModule} from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -48,8 +49,10 @@ import {TrackUploadComponent} from './track-upload/track-upload.component';
     provideStorage(() => getStorage()),
     ToastrModule.forRoot({
       progressBar: true,
-      progressAnimation: 'decreasing'
-    })
+      progressAnimation: 'decreasing',
+      closeButton: true
+    }),
+    NgxSpinnerModule.forRoot({type: 'square-jelly-box'})
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase}
