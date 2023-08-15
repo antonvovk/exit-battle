@@ -3,8 +3,8 @@
     <audio #audioElement [src]="track.audioUrl" preload="none" slot="media"></audio>
     <media-control-bar>
       <media-play-button>
-        <img alt="Старт" slot="play" src="assets/images/play.svg" style="height: 40px">
-        <img alt="Пауза" slot="pause" src="assets/images/stop.svg" style="height: 40px">
+        <img alt="Старт" height="40" slot="play" src="assets/images/play.svg" style="height: 40px" width="40">
+        <img alt="Пауза" height="40" slot="pause" src="assets/images/stop.svg" style="height: 40px" width="40">
       </media-play-button>
       <div class="metadata">
         <span class="metadata-nickname">{{track.nickname}}</span>

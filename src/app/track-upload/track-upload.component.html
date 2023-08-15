@@ -11,7 +11,7 @@
     <input (change)="onFileSelected($event)" [multiple]="false" accept="audio/mpeg" type="file"/>
     <div class="inner-file-upload">
       <div class="upload-btn">
-        <img height="24" src="assets/images/upload.svg" width="24">
+        <img alt="Іконка завантаження" height="24" src="assets/images/upload.svg" width="24">
         <span *ngIf="file == null">Завантажити файл...</span>
         <span *ngIf="file != null">{{file.name}}</span>
       </div>

@@ -1,5 +1,6 @@
 <div class="input-container">
-  <img *ngIf="searchIcon" [class.focused]="focused" class="input-icon" src="/assets/images/search.svg">
+  <img *ngIf="searchIcon" [class.focused]="focused" alt="Іконка пошуку" class="input-icon"
+       height="16" src="/assets/images/search.svg" width="16">
   <input (focusin)="onFocusIn($event)" (focusout)="onFocusOut($event)" (input)="onInput($event)"
          [class.no-icon]="!searchIcon" [class.with-icon]="searchIcon" [placeholder]="placeholder"/>
 </div>
