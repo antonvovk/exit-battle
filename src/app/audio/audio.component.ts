@@ -38,10 +38,10 @@ export class AudioComponent {
     return (sum / this.totalNumberOfJudges).toFixed(2);
   }
 
-  public getDurationAsString(duration: number): string {
-    const minutes = Math.floor(duration / 60);
-    const seconds = Math.floor(duration % 60);
-    return `${minutes}:${seconds}`
+  public getDurationAsString(): string {
+    const minutes = Math.floor(this.track.duration / 60);
+    const seconds = Math.floor(this.track.duration % 60);
+    return `${minutes}:${seconds <= 9 ? '0' + seconds : seconds}`
   }
 
   public openTrackInfo() {

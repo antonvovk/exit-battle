@@ -20,14 +20,16 @@
 }
 
 .audio-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  align-content: flex-start;
+  grid-gap: 16px;
+  grid-template-columns: repeat(auto-fill, 394px);
   margin-top: 32px;
+  min-height: 480px;
+  width: 100%;
 }
 
 .audio-container-row {
-  margin-bottom: 16px;
 }
 
 .tracks-top-row {
@@ -38,6 +40,7 @@
 
 .rounds-container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .round {

@@ -1,3 +1,8 @@
+<audio (loadedmetadata)="onMetadata($event)" *ngIf="fileUrl && !readMetadata"
+       [src]="fileUrl"
+       preload="metadata"
+       style="visibility: hidden">
+</audio>
 <div class="upload-dialog">
   <div class="upload-title">
     <h1>Здати трек</h1>
@@ -21,7 +26,7 @@
   </div>
 
   <div class="lyrics">
-    <textarea placeholder="Текст треку..."></textarea>
+    <textarea (input)="onLyricsInput($event)" placeholder="Текст треку..."></textarea>
   </div>
 
   <div class="upload-disclaimer">
@@ -30,7 +35,7 @@
 
   <div class="confirm-button">
     <div style="width: 160px">
-      <app-button [red]="true" [title]="'Здати трек'"></app-button>
+      <app-button (clicked)="publishTrack()" [red]="true" [title]="'Здати трек'"></app-button>
     </div>
   </div>
 </div>

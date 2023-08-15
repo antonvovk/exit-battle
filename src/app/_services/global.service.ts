@@ -135,7 +135,7 @@ export class GlobalService {
     return this.firebaseUser.nickname;
   }
 
-  public uploadFile(file: File): Observable<number> {
+  public uploadFile(file: File, duration: number): Observable<number> {
     const filePath = `tracks/${this.getCurrentRoundNumber()}/${this.getCurrentNickname()} - ${file.name}`;
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, file, {
@@ -148,8 +148,15 @@ export class GlobalService {
     uploadTask.snapshotChanges().pipe(
       finalize(() => {
         storageRef.getDownloadURL().subscribe(downloadURL => {
-          // TODO Save into tracks collection
-          console.log(downloadURL);
+          const track = <Track>{
+            round: this.getCurrentRoundNumber(),
+            nickname: this.getCurrentNickname(),
+            duration: duration,
+            audioUrl: downloadURL,
+            passedToNextRound: false,
+            marks: []
+          };
+          // TODO save in db
         });
       })
     ).subscribe();
