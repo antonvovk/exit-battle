@@ -122,8 +122,8 @@ export class GlobalService {
       });
   }
 
-  public getLyrics(track: Track): string {
-    return 'Тест треку буде такий тут якийсь';
+  public getLyrics(track: Track) {
+    return this.db.collection('lyrics').doc(track.id).get();
   }
 
   public getRemoteConfig(): RemoteConfig {

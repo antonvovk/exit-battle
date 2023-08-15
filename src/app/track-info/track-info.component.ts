@@ -20,7 +20,11 @@ export class TrackInfoComponent {
   constructor(private service: GlobalService) {
     this.totalNumberOfJudges = this.ref.data['totalNumberOfJudges'];
     this.track = this.ref.data['track'];
-    this.lyrics = service.getLyrics(this.track);
+    service.getLyrics(this.track).subscribe({
+      next: value => {
+        this.lyrics = value.get('text');
+      }
+    });
   }
 
   selectMarksMenuItem() {
