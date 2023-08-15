@@ -443,51 +443,7 @@ export class TracksComponent implements OnInit {
     }
   ];
 
-  rounds = [
-    <Round>{
-      order: 1,
-      name: 'Раунд 1',
-      numberOfTracks: 240,
-      available: true,
-      totalNumberOfJudges: 3
-    },
-    <Round>{
-      order: 2,
-      name: 'Раунд 2',
-      numberOfTracks: 0,
-      available: true,
-      totalNumberOfJudges: 3
-    },
-    <Round>{
-      order: 3,
-      name: 'Раунд 3',
-      numberOfTracks: 0,
-      available: false,
-      totalNumberOfJudges: 3
-    },
-    <Round>{
-      order: 4,
-      name: 'Раунд 4',
-      numberOfTracks: 0,
-      available: false,
-      totalNumberOfJudges: 3
-    },
-    <Round>{
-      order: 5,
-      name: 'Раунд 5',
-      numberOfTracks: 0,
-      available: false,
-      totalNumberOfJudges: 3
-    },
-    <Round>{
-      order: 6,
-      name: 'Раунд 6',
-      numberOfTracks: 0,
-      available: false,
-      totalNumberOfJudges: 3
-    }
-  ]
-
+  rounds: Round[] = [];
   selectedRound = <Round>{};
   currentPage = 0;
   totalPages = 0
@@ -497,6 +453,7 @@ export class TracksComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.rounds = this.service.getRounds();
     this.selectRound(this.rounds[0]);
   }
 

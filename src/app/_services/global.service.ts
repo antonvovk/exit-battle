@@ -9,6 +9,8 @@ import {Track} from "../_models/track";
 import {RemoteConfig} from "../_models/remote-config";
 import {finalize, Observable} from "rxjs";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
+import {Round} from "../_models/round";
+import {ROUNDS} from "../mock";
 import User = firebase.User;
 
 @Injectable({
@@ -22,6 +24,13 @@ export class GlobalService {
   private currentUser: User;
   private firebaseUser: any;
   private dialogRef: DialogRef | undefined;
+  // TODO Fetch real
+  private remoteConfig = <RemoteConfig>{
+    maxFileUploadSizeInMb: 10,
+    currentRoundNumber: 1
+  };
+  // TODO Fetch real
+  private rounds: Round[] = ROUNDS;
 
   constructor(private db: AngularFirestore,
               private auth: AngularFireAuth,
@@ -54,6 +63,14 @@ export class GlobalService {
 
   get nickname(): string {
     return localStorage.getItem('nickname')
+  }
+
+  public getRounds(): Round[] {
+    return this.rounds;
+  }
+
+  public getCurrentRound(): Round {
+    return this.rounds.find(r => r.order === this.getCurrentRoundNumber());
   }
 
   public openDialog(template: any, config?: Partial<DialogConfig>) {
@@ -107,14 +124,11 @@ export class GlobalService {
   }
 
   public getRemoteConfig(): RemoteConfig {
-    return <RemoteConfig>{
-      maxFileUploadSizeInMb: 10
-    };
+    return this.remoteConfig;
   }
 
   public getCurrentRoundNumber(): number {
-    // TODO Implement
-    return 0;
+    return this.remoteConfig.currentRoundNumber;
   }
 
   public getCurrentNickname(): string {

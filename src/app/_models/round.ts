@@ -4,4 +4,5 @@ export interface Round {
   numberOfTracks: number;
   available: boolean;
   totalNumberOfJudges: number;
+  endDate: Date;
 }
