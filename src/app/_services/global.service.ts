@@ -11,6 +11,7 @@ import {finalize, Observable} from "rxjs";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {Round} from "../_models/round";
 import {ROUNDS} from "../mock";
+import {NgxSpinnerService} from "ngx-spinner";
 import User = firebase.User;
 
 @Injectable({
@@ -35,7 +36,8 @@ export class GlobalService {
   constructor(private db: AngularFirestore,
               private auth: AngularFireAuth,
               private storage: AngularFireStorage,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              private spinner: NgxSpinnerService
   ) {
     this.auth.authState.subscribe((user) => {
       if (user && user.emailVerified) {
@@ -148,6 +150,7 @@ export class GlobalService {
     uploadTask.snapshotChanges().pipe(
       finalize(() => {
         storageRef.getDownloadURL().subscribe(downloadURL => {
+          this.spinnerText = `Майже готово...`;
           const track = <Track>{
             round: this.getCurrentRoundNumber(),
             nickname: this.getCurrentNickname(),
@@ -156,7 +159,16 @@ export class GlobalService {
             passedToNextRound: false,
             marks: []
           };
-          // TODO save in db
+          this.db.collection('tracks').add(track)
+            .then(doc => {
+              this.toastr.success("Ваш трек прийнято");
+              this.spinner.hide();
+              this.dialogRef.close();
+            })
+            .catch((error) => {
+              this.handleFirebaseError(error);
+              this.spinner.hide();
+            });
         });
       })
     ).subscribe();

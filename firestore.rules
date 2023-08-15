@@ -10,5 +10,9 @@ service cloud.firestore {
             allow update: if request.auth != null && request.auth.token.email_verified && request.auth.uid == userId;
             allow get: if request.auth != null && request.auth.token.email_verified && request.auth.uid == userId;
         }
+        match /tracks/{trackId} {
+            allow list, read;
+            allow create: if request.auth != null && request.auth.token.email_verified;
+        }
     }
 }

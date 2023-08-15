@@ -5,4 +5,5 @@ export interface Round {
   available: boolean;
   totalNumberOfJudges: number;
   endDate: Date;
+  maximumTrackDurationInSeconds: number;
 }

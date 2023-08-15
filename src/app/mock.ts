@@ -8,7 +8,8 @@ export const ROUNDS = [
     numberOfTracks: 240,
     available: true,
     totalNumberOfJudges: 3,
-    endDate: new Date('2023-08-30T00:00:00')
+    endDate: new Date('2023-08-30T00:00:00'),
+    maximumTrackDurationInSeconds: 164
   },
   <Round>{
     order: 2,

@@ -53,6 +53,11 @@ export class TrackUploadComponent implements OnInit {
       this.toastr.warning("Спробуйте ще раз");
       return;
     }
+    const maximumTrackDurationInSeconds = this.service.getCurrentRound().maximumTrackDurationInSeconds;
+    if (this.duration > maximumTrackDurationInSeconds) {
+      this.toastr.error(`Максимальна довжина треку ${maximumTrackDurationInSeconds} секунд`);
+      return;
+    }
 
     this.spinner.show();
     this.service.uploadFile(this.file, this.duration).subscribe({
@@ -62,8 +67,6 @@ export class TrackUploadComponent implements OnInit {
       },
       error: err => {
         this.service.handleFirebaseError(err);
-      },
-      complete: () => {
         this.spinner.hide();
       }
     });
