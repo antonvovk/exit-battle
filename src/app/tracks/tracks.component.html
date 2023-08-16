@@ -13,7 +13,7 @@
       </div>
     </div>
     <div>
-      <app-input [placeholder]="'Пошук...'" [searchIcon]="true"></app-input>
+      <app-input (value)="onSearch($event)" [placeholder]="'Пошук...'" [searchIcon]="true"></app-input>
     </div>
   </div>
 
@@ -29,7 +29,7 @@
 
   <div class="tracks-paginator">
     <div class="paginator-total">
-      Всього здано: {{this.numberOfTracks}} треків
+      Всього здано: {{this.allNumberOfTracks}} треків
     </div>
     <div class="paginator-container">
       <div (click)="prevPage()" class="arrow">

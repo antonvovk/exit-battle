@@ -5,6 +5,7 @@ import {GlobalService} from "../_services/global.service";
 import {TrackUploadComponent} from "../track-upload/track-upload.component";
 import {ToastrService} from "ngx-toastr";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-tracks',
@@ -19,34 +20,52 @@ export class TracksComponent {
   currentPage = 0;
   totalPages = 0
   numberOfTracks: number = 0;
+  allNumberOfTracks: number = 0;
+  searchString: string;
 
   private allTracks: Track[] = [];
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
-              private db: AngularFirestore
+              private db: AngularFirestore,
+              private spinner: NgxSpinnerService
   ) {
     service.getRounds().subscribe({
       next: value => {
         this.rounds = value;
-        this.selectRound(this.rounds[0]);
+        this.selectedRound = this.rounds[0];
       }
     });
-    db.collection('tracks', ref => ref.orderBy('nickname')).get().subscribe({
+    db.collection('tracks', ref => ref.orderBy('nickname')
+      .where('round', '==', 1)).get().subscribe({
       next: docs => {
         this.allTracks = docs.docs.map(doc => doc.data() as Track);
         this.tracks = this.allTracks.slice(0, 15);
+        this.numberOfTracks = this.allTracks.length;
+        this.allNumberOfTracks = this.allTracks.length;
+        this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15)
       }
-    })
+    });
   }
 
   selectRound(round: Round): void {
-    this.service.getNumberOfTracks(round).subscribe({
-      next: value => {
-        this.numberOfTracks = (value.get('numberOfTracks') ?? 0) as number;
-        this.selectedRound = round;
-        this.currentPage = 0;
+    if (this.selectedRound.number == round.number) {
+      return;
+    }
+
+    this.spinner.show();
+    this.selectedRound = round;
+    this.currentPage = 0;
+    this.searchString = undefined;
+
+    this.db.collection('tracks', ref => ref.orderBy('nickname')
+      .where('round', '==', this.selectedRound.number)).get().subscribe({
+      next: docs => {
+        this.allTracks = docs.docs.map(doc => doc.data() as Track);
+        this.tracks = this.allTracks.slice(0, 15);
+        this.numberOfTracks = this.allTracks.length;
         this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15);
+        this.spinner.hide();
       }
     });
   }
@@ -56,7 +75,7 @@ export class TracksComponent {
       return;
     }
     --this.currentPage;
-    this.tracks = this.allTracks.slice(this.currentPage * 15, (this.currentPage * 15) + 15);
+    this.updateTracksArray();
   }
 
   nextPage() {
@@ -64,7 +83,7 @@ export class TracksComponent {
       return;
     }
     ++this.currentPage;
-    this.tracks = this.allTracks.slice(this.currentPage * 15, (this.currentPage * 15) + 15);
+    this.updateTracksArray();
   }
 
   getPageNumberInFormat(): string {
@@ -96,5 +115,22 @@ export class TracksComponent {
     this.service.openDialog(TrackUploadComponent, {
       width: 650
     });
+  }
+
+  onSearch(value: string) {
+    this.currentPage = 0;
+    this.searchString = value;
+    this.updateTracksArray();
+  }
+
+  private updateTracksArray() {
+    if (this.searchString != null && this.searchString.trim().length > 0) {
+      const foundTracks = this.allTracks.filter(it => it.nickname.toLowerCase().includes(this.searchString.trim().toLowerCase()));
+      this.tracks = foundTracks.slice(this.currentPage * 15, (this.currentPage * 15) + 15);
+      this.totalPages = foundTracks.length <= 15 ? 1 : Math.ceil(foundTracks.length / 15);
+    } else {
+      this.tracks = this.allTracks.slice(this.currentPage * 15, (this.currentPage * 15) + 15);
+      this.totalPages = this.allTracks.length <= 15 ? 1 : Math.ceil(this.allTracks.length / 15);
+    }
   }
 }
