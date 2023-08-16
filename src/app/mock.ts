@@ -7,6 +7,7 @@ export const TRACKS = [
     duration: 62,
     audioUrl: 'https://firebasestorage.googleapis.com/v0/b/exit-battle.appspot.com/o/qualifications%2FTiesto%20-%20The%20Business.mp3?alt=media&token=1f8e9c9d-72c7-4b98-92cc-43a6a076736f',
     passedToNextRound: false,
+    bonusForBeat: true,
     marks: [
       {
         performance: 3.9,

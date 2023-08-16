@@ -35,7 +35,12 @@ export class AudioComponent {
     this.track.marks.forEach(mark => {
       sum += mark.performance + mark.content + mark.generalImpression;
     });
-    return (sum / this.totalNumberOfJudges).toFixed(2);
+
+    let result = sum / this.totalNumberOfJudges;
+    if (this.track.bonusForBeat === true) {
+      result += 1;
+    }
+    return result.toFixed(2);
   }
 
   public getDurationAsString(): string {

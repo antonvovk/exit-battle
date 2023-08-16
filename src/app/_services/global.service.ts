@@ -179,6 +179,7 @@ export class GlobalService {
             audioUrl: downloadURL,
             passedToNextRound: false,
             marks: [],
+            bonusForBeat: false,
             uploadDate: serverTimestamp()
           };
           const lyricsDocument = {
