@@ -116,7 +116,7 @@ export class GlobalService {
         }
         this.updateUserVerificationStatusInDatabase(result.user);
         this.toastr.info('Ви ввійшли в обліковий запис');
-        this.dialogRef.close();
+        this.dialog.closeAll();
       })
       .catch((error) => {
         this.handleFirebaseError(error);
@@ -198,7 +198,7 @@ export class GlobalService {
             .then(() => {
               this.toastr.success("Ваш трек прийнято");
               this.spinner.hide();
-              this.dialogRef.close();
+              this.dialog.closeAll();
             })
             .catch((error) => {
               this.handleFirebaseError(error);
@@ -255,7 +255,7 @@ export class GlobalService {
     userRef.set(userData)
       .then(() => {
         this.toastr.info("На вашу електронну адресу надіслано лист для активації профілю")
-        this.dialogRef.close();
+        this.dialog.closeAll();
       })
       .catch((error) => {
         this.handleFirebaseError(error);
