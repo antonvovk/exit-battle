@@ -7,12 +7,11 @@ import {DialogConfig} from "@ngneat/dialog/lib/types";
 import firebase from "firebase/compat";
 import {Track} from "../_models/track";
 import {RemoteConfig} from "../_models/remote-config";
-import {finalize, Observable} from "rxjs";
+import {finalize, Observable, ReplaySubject, Subject} from "rxjs";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {Round} from "../_models/round";
-import {ROUNDS} from "../mock";
 import {NgxSpinnerService} from "ngx-spinner";
-import {increment} from '@angular/fire/firestore';
+import {increment, serverTimestamp} from '@angular/fire/firestore';
 import User = firebase.User;
 
 @Injectable({
@@ -31,8 +30,9 @@ export class GlobalService {
     maxFileUploadSizeInMb: 10,
     currentRoundNumber: 1
   };
-  // TODO Fetch real
-  private rounds: Round[] = ROUNDS;
+
+  private currentRound$ = new ReplaySubject<Round>(null);
+  private rounds$ = new ReplaySubject<Round[]>(null);
 
   constructor(private db: AngularFirestore,
               private auth: AngularFireAuth,
@@ -40,6 +40,15 @@ export class GlobalService {
               private toastr: ToastrService,
               private spinner: NgxSpinnerService
   ) {
+    this.spinner.show();
+    this.db.collection('rounds').get().subscribe({
+      next: doc => {
+        this.rounds$.next(doc.docs.map(it => it.data() as Round));
+        // TODO Replace zero
+        this.currentRound$.next(doc.docs[0].data() as Round);
+        this.spinner.hide();
+      }
+    });
     this.auth.authState.subscribe((user) => {
       if (user && user.emailVerified) {
         this.currentUser = user;
@@ -68,12 +77,12 @@ export class GlobalService {
     return localStorage.getItem('nickname')
   }
 
-  public getRounds(): Round[] {
-    return this.rounds;
+  public getRounds(): Subject<Round[]> {
+    return this.rounds$;
   }
 
-  public getCurrentRound(): Round {
-    return this.rounds.find(r => r.number === this.getCurrentRoundNumber());
+  public getCurrentRound(): Subject<Round> {
+    return this.currentRound$;
   }
 
   public openDialog(template: any, config?: Partial<DialogConfig>) {
@@ -162,7 +171,7 @@ export class GlobalService {
             audioUrl: downloadURL,
             passedToNextRound: false,
             marks: [],
-            uploadDate: new Date()
+            uploadDate: serverTimestamp()
           };
           const lyricsDocument = {
             id: trackId,

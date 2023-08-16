@@ -1,29 +1,29 @@
 rules_version = '2';
 
 service cloud.firestore {
-    match /databases/{database}/documents {
-        match /{document=**} {
-            allow create, write, read, delete, get, list, update: if false;
-        }
-        match /rounds/{roundId} {
-            allow read, get, list;
-        }
-        match /users/{userId} {
-            allow create;
-            allow update: if request.auth != null && request.auth.token.email_verified && request.auth.uid == userId;
-            allow get: if request.auth != null && request.auth.token.email_verified && request.auth.uid == userId;
-        }
-        match /tracks/{trackId} {
-            allow read, get, list;
-            allow create: if request.auth != null && request.auth.token.email_verified;
-        }
-        match /tracks-counter/{trackCounterId} {
-            allow read, get, list;
-            allow update: if request.auth != null && request.auth.token.email_verified;
-        }
-        match /lyrics/{lyricsId} {
-            allow read, get, list;
-            allow create: if request.auth != null && request.auth.token.email_verified;
-        }
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow create, write, read, delete, get, list, update: if false;
     }
+    match /rounds/{roundId} {
+      allow read, get, list;
+    }
+    match /users/{userId} {
+      allow create;
+      allow update: if request.auth != null && request.auth.token.email_verified && request.auth.uid == userId;
+      allow get: if request.auth != null && request.auth.token.email_verified && request.auth.uid == userId;
+    }
+    match /tracks/{trackId} {
+      allow read, get, list;
+      allow create: if request.auth != null && request.auth.token.email_verified;
+    }
+    match /tracks-counter/{trackCounterId} {
+      allow read, get, list;
+      allow update: if request.auth != null && request.auth.token.email_verified;
+    }
+    match /lyrics/{lyricsId} {
+      allow read, get, list;
+      allow create: if request.auth != null && request.auth.token.email_verified;
+    }
+  }
 }

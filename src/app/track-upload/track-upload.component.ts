@@ -3,6 +3,7 @@ import {GlobalService} from "../_services/global.service";
 import {RemoteConfig} from "../_models/remote-config";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
+import {Round} from "../_models/round";
 
 @Component({
   selector: 'app-track-upload',
@@ -18,10 +19,17 @@ export class TrackUploadComponent implements OnInit {
   public fileUrl: string;
   private duration: number;
   private lyrics: string;
+  private currentRound = <Round>{};
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
-              private spinner: NgxSpinnerService) {
+              private spinner: NgxSpinnerService
+  ) {
+    this.service.getCurrentRound().subscribe({
+      next: round => {
+        this.currentRound = round;
+      }
+    });
   }
 
   ngOnInit() {
@@ -53,7 +61,7 @@ export class TrackUploadComponent implements OnInit {
       this.toastr.warning("Спробуйте ще раз");
       return;
     }
-    const maximumTrackDurationInSeconds = this.service.getCurrentRound().maximumTrackDurationInSeconds;
+    const maximumTrackDurationInSeconds = this.currentRound.maximumTrackDurationInSeconds;
     if (this.duration > maximumTrackDurationInSeconds) {
       this.toastr.error(`Максимальна довжина треку ${maximumTrackDurationInSeconds} секунд`);
       return;

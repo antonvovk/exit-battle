@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Track} from "../_models/track";
 import {Round} from "../_models/round";
 import {GlobalService} from "../_services/global.service";
@@ -11,7 +11,7 @@ import {TRACKS} from "../mock";
   templateUrl: './tracks.component.html',
   styleUrls: ['./tracks.component.scss']
 })
-export class TracksComponent implements OnInit {
+export class TracksComponent {
 
   // todo fetch this real
   tracks: Track[] = TRACKS;
@@ -22,12 +22,14 @@ export class TracksComponent implements OnInit {
   numberOfTracks: number = 0;
 
   constructor(private service: GlobalService,
-              private toastr: ToastrService) {
-  }
-
-  ngOnInit() {
-    this.rounds = this.service.getRounds();
-    this.selectRound(this.rounds[0]);
+              private toastr: ToastrService
+  ) {
+    service.getRounds().subscribe({
+      next: value => {
+        this.rounds = value;
+        this.selectRound(this.rounds[0]);
+      }
+    });
   }
 
   selectRound(round: Round): void {
