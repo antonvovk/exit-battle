@@ -49,6 +49,9 @@ export class TracksComponent {
   }
 
   selectRound(round: Round): void {
+    if (round.available === false) {
+      return;
+    }
     if (this.selectedRound.number == round.number) {
       return;
     }
@@ -64,6 +67,7 @@ export class TracksComponent {
         this.allTracks = docs.docs.map(doc => doc.data() as Track);
         this.tracks = this.allTracks.slice(0, 15);
         this.numberOfTracks = this.allTracks.length;
+        this.allNumberOfTracks = this.allTracks.length;
         this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15);
         this.spinner.hide();
       }

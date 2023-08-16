@@ -8,6 +8,7 @@
       <div (click)="selectRound(round)" *ngFor="let round of rounds"
            [class.round-active]="round.number === selectedRound.number"
            [class.round-inactive]="round.number !== selectedRound.number"
+           [ngStyle]="{'cursor': round.available === false ? 'default' : 'cursor'}"
            class="round">
         {{round.name}}
       </div>
