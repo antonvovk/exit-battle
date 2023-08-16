@@ -4,7 +4,7 @@ import {Round} from "../_models/round";
 import {GlobalService} from "../_services/global.service";
 import {TrackUploadComponent} from "../track-upload/track-upload.component";
 import {ToastrService} from "ngx-toastr";
-import {TRACKS} from "../mock";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Component({
   selector: 'app-tracks',
@@ -13,8 +13,7 @@ import {TRACKS} from "../mock";
 })
 export class TracksComponent {
 
-  // todo fetch this real
-  tracks: Track[] = TRACKS;
+  tracks: Track[] = [];
   rounds: Round[] = [];
   selectedRound = <Round>{};
   currentPage = 0;
@@ -22,7 +21,8 @@ export class TracksComponent {
   numberOfTracks: number = 0;
 
   constructor(private service: GlobalService,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              private db: AngularFirestore
   ) {
     service.getRounds().subscribe({
       next: value => {
@@ -30,6 +30,11 @@ export class TracksComponent {
         this.selectRound(this.rounds[0]);
       }
     });
+    db.collection('tracks', ref => ref.limit(15)).get().subscribe({
+      next: docs => {
+        this.tracks = docs.docs.map(doc => doc.data() as Track);
+      }
+    })
   }
 
   selectRound(round: Round): void {

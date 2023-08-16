@@ -22,7 +22,7 @@ service cloud.firestore {
         }
         match /tracks-counter/{trackCounterId} {
             allow read, get, list;
-            allow update: if request.auth != null && request.auth.token.email_verified;
+            allow create, update: if request.auth != null && request.auth.token.email_verified;
         }
         match /lyrics/{lyricsId} {
             allow read, get, list;
