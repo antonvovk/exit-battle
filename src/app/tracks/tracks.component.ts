@@ -20,6 +20,8 @@ export class TracksComponent {
   totalPages = 0
   numberOfTracks: number = 0;
 
+  private allTracks: Track[] = [];
+
   constructor(private service: GlobalService,
               private toastr: ToastrService,
               private db: AngularFirestore
@@ -30,9 +32,10 @@ export class TracksComponent {
         this.selectRound(this.rounds[0]);
       }
     });
-    db.collection('tracks', ref => ref.limit(15)).get().subscribe({
+    db.collection('tracks', ref => ref.orderBy('nickname')).get().subscribe({
       next: docs => {
-        this.tracks = docs.docs.map(doc => doc.data() as Track);
+        this.allTracks = docs.docs.map(doc => doc.data() as Track);
+        this.tracks = this.allTracks.slice(0, 15);
       }
     })
   }
@@ -43,7 +46,7 @@ export class TracksComponent {
         this.numberOfTracks = (value.get('numberOfTracks') ?? 0) as number;
         this.selectedRound = round;
         this.currentPage = 0;
-        this.totalPages = Math.floor(this.numberOfTracks / 15);
+        this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15);
       }
     });
   }
@@ -53,6 +56,7 @@ export class TracksComponent {
       return;
     }
     --this.currentPage;
+    this.tracks = this.allTracks.slice(this.currentPage * 15, (this.currentPage * 15) + 15);
   }
 
   nextPage() {
@@ -60,6 +64,7 @@ export class TracksComponent {
       return;
     }
     ++this.currentPage;
+    this.tracks = this.allTracks.slice(this.currentPage * 15, (this.currentPage * 15) + 15);
   }
 
   getPageNumberInFormat(): string {
