@@ -97,6 +97,10 @@ export class GlobalService {
     return this.remoteConfig.isRegistrationOpen;
   }
 
+  public isTracksUploadOpen(): boolean {
+    return this.remoteConfig.isTracksUploadOpen;
+  }
+
   public openDialog(template: any, config?: Partial<DialogConfig>) {
     this.dialogRef = this.dialog.open(template, config);
   }

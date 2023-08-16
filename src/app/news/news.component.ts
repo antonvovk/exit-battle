@@ -39,6 +39,10 @@ export class NewsComponent implements OnDestroy {
       this.toastr.info("Щоб здати трек потрібно авторизуватися");
       return;
     }
+    if (!this.service.isTracksUploadOpen()) {
+      this.toastr.info("На даний момент здача треків призупинена");
+      return;
+    }
     this.service.openDialog(TrackUploadComponent, {
       width: 650
     });
