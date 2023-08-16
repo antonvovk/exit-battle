@@ -62,6 +62,8 @@ export class GlobalService {
         this.updateFirebaseUser(user.uid);
       } else {
         localStorage.removeItem('user');
+        localStorage.removeItem('nickname');
+        this.firebaseUser = undefined;
       }
     });
   }
@@ -217,6 +219,8 @@ export class GlobalService {
       this.toastr.error('Пароль має бути не менше 6 символів');
     } else if (error.code === 'auth/email-already-in-use') {
       this.toastr.error('Адреса електронної пошти вже використовується іншим обліковим записом');
+    } else if (error.code === 'auth/user-disabled') {
+      this.toastr.info('Ваш аккаунт деактивовано');
     } else {
       this.toastr.error(`Неочікувана помилка`, error.message)
     }
