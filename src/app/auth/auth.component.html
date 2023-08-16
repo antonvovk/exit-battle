@@ -9,8 +9,11 @@
   <div class="button">
     <app-button (clicked)="login()" [red]="true" title="Увійти"/>
   </div>
-  <div class="bottom">
+  <div *ngIf="isRegistrationOpen()" class="bottom">
     Ще не створили аккаунт?&nbsp;<span (click)="changeViewToRegistration()">Реєстрація<hr/></span>
+  </div>
+  <div *ngIf="!isRegistrationOpen()" class="bottom">
+    Відбір завершено. Реєстрація закрита.
   </div>
 </div>
 <div *ngIf="currentView === 'registration'" class="rows">

@@ -19,6 +19,10 @@ export class AuthComponent {
               private toastr: ToastrService) {
   }
 
+  public isRegistrationOpen(): boolean {
+    return this.service.isRegistrationOpen();
+  }
+
   changeViewToLogin() {
     this.currentView = 'login';
     this.email = '';
@@ -53,6 +57,9 @@ export class AuthComponent {
   }
 
   signUp() {
+    if (!this.isRegistrationOpen()) {
+      return;
+    }
     if (!this.isEmailAndPasswordValid() || !this.isNicknameValid()) {
       return;
     }

@@ -91,6 +91,10 @@ export class GlobalService {
     return this.currentRound$;
   }
 
+  public isRegistrationOpen(): boolean {
+    return this.remoteConfig.isRegistrationOpen;
+  }
+
   public openDialog(template: any, config?: Partial<DialogConfig>) {
     this.dialogRef = this.dialog.open(template, config);
   }
