@@ -184,7 +184,7 @@ export class GlobalService {
           };
           const lyricsDocument = {
             id: trackId,
-            text: lyrics
+            text: lyrics.replace(/\n\r?/g, '<br/>')
           };
 
           const incrementValue = increment(1);

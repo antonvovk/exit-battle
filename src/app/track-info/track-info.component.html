@@ -54,7 +54,6 @@
     </div>
   </div>
 
-  <div *ngIf="selectedMenuItem === 'lyrics'" class="track-lyrics">
-    {{lyrics}}
+  <div *ngIf="selectedMenuItem === 'lyrics'" [innerHtml]="lyrics" class="track-lyrics">
   </div>
 </div>
