@@ -54,7 +54,7 @@ export class AudioComponent {
       return;
     }
     this.service.openDialog(TrackInfoComponent, {
-      width: 650,
+      width: 800,
       data: {
         totalNumberOfJudges: this.totalNumberOfJudges,
         track: this.track
