@@ -8,4 +8,5 @@ export interface Round {
   totalNumberOfJudges: number;
   endDate: Timestamp;
   maximumTrackDurationInSeconds: number;
+  maxFileUploadSizeInMb: number;
 }

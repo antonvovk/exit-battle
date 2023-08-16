@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {GlobalService} from "../_services/global.service";
-import {RemoteConfig} from "../_models/remote-config";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 import {Round} from "../_models/round";
@@ -10,16 +9,14 @@ import {Round} from "../_models/round";
   templateUrl: './track-upload.component.html',
   styleUrls: ['./track-upload.component.scss']
 })
-export class TrackUploadComponent implements OnInit {
-
-  public remoteConfig = <RemoteConfig>{};
+export class TrackUploadComponent {
 
   public file: File;
   public readMetadata: boolean = false;
   public fileUrl: string;
+  public currentRound = <Round>{};
   private duration: number;
   private lyrics: string;
-  private currentRound = <Round>{};
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
@@ -30,10 +27,6 @@ export class TrackUploadComponent implements OnInit {
         this.currentRound = round;
       }
     });
-  }
-
-  ngOnInit() {
-    this.remoteConfig = this.service.getRemoteConfig();
   }
 
   onFileSelected($event: any) {

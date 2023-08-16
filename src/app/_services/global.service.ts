@@ -25,11 +25,7 @@ export class GlobalService {
   private currentUser: User;
   private firebaseUser: any;
   private dialogRef: DialogRef | undefined;
-  // TODO Fetch real
-  private remoteConfig = <RemoteConfig>{
-    maxFileUploadSizeInMb: 10,
-    currentRoundNumber: 1
-  };
+  private remoteConfig: RemoteConfig;
 
   private currentRound$ = new ReplaySubject<Round>(null);
   private rounds$ = new ReplaySubject<Round[]>(null);
@@ -41,14 +37,24 @@ export class GlobalService {
               private spinner: NgxSpinnerService
   ) {
     this.spinner.show();
-    this.db.collection('rounds').get().subscribe({
+
+    this.db.collection('remote-config').doc('main').get().subscribe({
       next: doc => {
-        this.rounds$.next(doc.docs.map(it => it.data() as Round));
-        // TODO Replace zero
-        this.currentRound$.next(doc.docs[0].data() as Round);
-        this.spinner.hide();
+        this.remoteConfig = doc.data() as RemoteConfig;
+
+        this.db.collection('rounds').get().subscribe({
+          next: doc => {
+            const rounds = doc.docs.map(it => it.data() as Round);
+            const currentRound = rounds.find(r => r.number === this.getCurrentRoundNumber());
+
+            this.rounds$.next(rounds);
+            this.currentRound$.next(currentRound);
+            this.spinner.hide();
+          }
+        });
       }
     });
+
     this.auth.authState.subscribe((user) => {
       if (user && user.emailVerified) {
         this.currentUser = user;
@@ -135,14 +141,6 @@ export class GlobalService {
     return this.db.collection('lyrics').doc(track.id).get();
   }
 
-  public getRemoteConfig(): RemoteConfig {
-    return this.remoteConfig;
-  }
-
-  public getCurrentRoundNumber(): number {
-    return this.remoteConfig.currentRoundNumber;
-  }
-
   public getCurrentNickname(): string {
     return this.firebaseUser.nickname;
   }
@@ -222,6 +220,10 @@ export class GlobalService {
 
   public getNumberOfTracks(round: Round) {
     return this.db.collection('tracks-counter').doc(round.number.toString()).get();
+  }
+
+  private getCurrentRoundNumber(): number {
+    return this.remoteConfig.currentRoundNumber;
   }
 
   private sendVerificationMail() {
