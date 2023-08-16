@@ -124,6 +124,7 @@ export class GlobalService {
   }
 
   public signUp(email: string, password: string, nickname: string) {
+    this.spinner.show();
     return this.auth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
@@ -132,7 +133,10 @@ export class GlobalService {
       })
       .catch((error) => {
         this.handleFirebaseError(error);
-      });
+      })
+      .finally(() => {
+        this.spinner.hide();
+      })
   }
 
   public signOut() {

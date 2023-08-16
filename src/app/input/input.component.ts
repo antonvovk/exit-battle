@@ -16,6 +16,12 @@ export class InputComponent {
   @Output()
   value = new EventEmitter<any>();
 
+  @Input()
+  type: string = 'text';
+
+  @Input()
+  width = 0;
+
   focused = false;
 
   onFocusIn($event: FocusEvent) {
