@@ -4,6 +4,7 @@ import {TrackUploadComponent} from "../track-upload/track-upload.component";
 import {ToastrService} from "ngx-toastr";
 import {Subscription, timer} from "rxjs";
 import {Round} from "../_models/round";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Component({
   selector: 'app-news',
@@ -20,7 +21,8 @@ export class NewsComponent implements OnDestroy {
   private currentRound = <Round>{};
 
   constructor(private service: GlobalService,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              private db: AngularFirestore
   ) {
     this.service.getCurrentRound().subscribe({
       next: round => {
@@ -43,8 +45,21 @@ export class NewsComponent implements OnDestroy {
       this.toastr.info("На даний момент здача треків призупинена");
       return;
     }
-    this.service.openDialog(TrackUploadComponent, {
-      width: 650
+    this.db.collection('tracks', ref => ref
+      .where('round', '==', this.currentRound.number)
+      .where('nickname', '==', this.service.getCurrentNickname())
+      .limit(1)
+    ).get().subscribe({
+      next: docs => {
+        if (docs.docs.length === 0) {
+          this.service.openDialog(TrackUploadComponent, {
+            width: 650
+          });
+        } else {
+          this.toastr.info("Ви вже здали трек для цього раунду. Здати трек можна лише один раз.");
+          return;
+        }
+      }
     });
   }
 

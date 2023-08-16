@@ -24,6 +24,7 @@ export class TracksComponent {
   searchString: string;
 
   private allTracks: Track[] = [];
+  private currentRound = <Round>{};
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
@@ -34,6 +35,11 @@ export class TracksComponent {
       next: value => {
         this.rounds = value;
         this.selectedRound = this.rounds[0];
+      }
+    });
+    this.service.getCurrentRound().subscribe({
+      next: round => {
+        this.currentRound = round;
       }
     });
     db.collection('tracks', ref => ref.orderBy('nickname')
@@ -116,8 +122,22 @@ export class TracksComponent {
       this.toastr.info("На даний момент здача треків призупинена");
       return;
     }
-    this.service.openDialog(TrackUploadComponent, {
-      width: 650
+
+    this.db.collection('tracks', ref => ref
+      .where('round', '==', this.currentRound.number)
+      .where('nickname', '==', this.service.getCurrentNickname())
+      .limit(1)
+    ).get().subscribe({
+      next: docs => {
+        if (docs.docs.length === 0) {
+          this.service.openDialog(TrackUploadComponent, {
+            width: 650
+          });
+        } else {
+          this.toastr.info("Ви вже здали трек для цього раунду. Здати трек можна лише один раз.");
+          return;
+        }
+      }
     });
   }
 
