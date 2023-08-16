@@ -114,6 +114,8 @@ export class GlobalService {
           this.signOut();
           return;
         }
+        localStorage.setItem('user', JSON.stringify(result.user));
+        this.updateFirebaseUser(result.user.uid);
         this.updateUserVerificationStatusInDatabase(result.user);
         this.toastr.info('Ви ввійшли в обліковий запис');
         this.dialog.closeAll();
