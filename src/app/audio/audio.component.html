@@ -1,6 +1,6 @@
 <div [style.width]="width + 'px'" class="audio-block">
   <media-controller audio>
-    <audio #audioElement [src]="track.audioUrl" preload="none" slot="media"></audio>
+    <audio (play)="onPlay($event)" [src]="track.audioUrl" preload="none" slot="media"></audio>
     <media-control-bar>
       <media-play-button>
         <img alt="Старт" height="40" slot="play" src="assets/images/play.svg" style="height: 40px" width="40">

@@ -61,4 +61,14 @@ export class AudioComponent {
       }
     });
   }
+
+  onPlay(e: Event) {
+    const audios = document.getElementsByTagName('audio');
+    const length = audios.length;
+    for (let i = 0; i < length; ++i) {
+      if (audios[i] != e.target) {
+        audios[i].pause();
+      }
+    }
+  }
 }
