@@ -5,13 +5,14 @@
 
   <div class="tracks-top-row">
     <div class="rounds-container">
-      <div (click)="selectRound(round)" *ngFor="let round of rounds"
-           [class.round-active]="round.number === selectedRound.number"
-           [class.round-inactive]="round.number !== selectedRound.number"
-           [ngStyle]="{'cursor': round.available === false ? 'default' : 'cursor'}"
-           class="round">
-        {{round.name}}
-      </div>
+      <ng-container *ngFor="let round of rounds">
+        <div (click)="selectRound(round)" *ngIf="round.available"
+             [class.round-active]="round.number === selectedRound.number"
+             [class.round-inactive]="round.number !== selectedRound.number"
+             class="round">
+          {{round.name}}
+        </div>
+      </ng-container>
     </div>
     <div>
       <app-input (value)="onSearch($event)" [placeholder]="'Пошук...'" [searchIcon]="true" [width]="280"></app-input>
