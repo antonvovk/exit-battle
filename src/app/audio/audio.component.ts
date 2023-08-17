@@ -28,7 +28,7 @@ export class AudioComponent {
 
   public getTotalMark(): string {
     if (this.track.marks.length < this.totalNumberOfJudges) {
-      return 0.0.toFixed(2);
+      return 0.0.toFixed(1);
     }
 
     let sum = 0;
@@ -40,7 +40,7 @@ export class AudioComponent {
     if (this.track.bonusForBeat === true) {
       result += 1;
     }
-    return result.toFixed(2);
+    return result.toFixed(1);
   }
 
   public getDurationAsString(): string {
