@@ -131,7 +131,7 @@ export class TracksComponent {
       next: docs => {
         if (docs.docs.length === 0) {
           this.service.openDialog(TrackUploadComponent, {
-            width: 650
+            width: 800
           });
         } else {
           this.toastr.info("Ви вже здали трек для цього раунду. Здати трек можна лише один раз.");

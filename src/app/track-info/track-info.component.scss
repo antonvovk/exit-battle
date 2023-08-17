@@ -87,6 +87,7 @@ h1 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .mark-text {
@@ -142,4 +143,6 @@ h1 {
   line-height: 16px;
   letter-spacing: 0.24px;
   word-wrap: anywhere;
+  max-height: 400px;
+  overflow: scroll;
 }
