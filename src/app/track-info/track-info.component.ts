@@ -3,6 +3,7 @@ import {DialogRef} from "@ngneat/dialog";
 import {Data} from "@angular/router";
 import {Track} from "../_models/track";
 import {GlobalService} from "../_services/global.service";
+import {Mark} from "../_models/mark";
 
 @Component({
   selector: 'app-track-info',
@@ -33,5 +34,13 @@ export class TrackInfoComponent {
 
   selectLyricsMenuItem() {
     this.selectedMenuItem = 'lyrics';
+  }
+
+  getJudgeIconUrl(mark: Mark): string {
+    return `assets/images/${mark.judgeIcon}`;
+  }
+
+  onJudgeIconError($event: ErrorEvent) {
+    $event.target['src'] = 'assets/images/default-judge.png';
   }
 }
