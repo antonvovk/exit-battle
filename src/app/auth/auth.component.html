@@ -13,7 +13,7 @@
     Ще не створили аккаунт?&nbsp;<span (click)="changeViewToRegistration()">Реєстрація<hr/></span>
   </div>
   <div *ngIf="!isRegistrationOpen()" class="bottom">
-    Відбір завершено. Реєстрація закрита.
+    {{getRegistrationClosedMessage()}}
   </div>
 </div>
 <div *ngIf="currentView === 'registration'" class="rows">
