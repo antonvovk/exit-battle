@@ -10,6 +10,10 @@
   z-index: -1;
   top: 80px;
   width: 100%;
+
+  @media screen and (max-width: 900px) {
+    max-width: fit-content;
+  }
 }
 
 video {

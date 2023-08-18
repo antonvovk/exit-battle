@@ -24,6 +24,7 @@
 
   @media screen and (max-width: 700px) {
     margin-bottom: 24px;
+    margin-right: 0;
   }
 }
 
@@ -32,6 +33,18 @@
   padding: 16px 50px 32px 50px;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 450px) {
+    padding: 16px 25px 32px 25px;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 16px 16px 32px 16px;
+  }
+
+  @media screen and (max-width: 400px) {
+    padding: 16px 8px 32px 8px;
+  }
 }
 
 .timer-tittle {
@@ -73,6 +86,7 @@
 
 .timer-block-buttons {
   display: flex;
+  justify-content: space-between;
 }
 
 .timer-block-buttons div:first-child {

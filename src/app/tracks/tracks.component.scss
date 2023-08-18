@@ -7,6 +7,11 @@
   margin-top: 24px;
   flex-direction: row;
   flex-wrap: wrap;
+
+  @media screen and (max-width: 450px) {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
 
 .tracks-block-title {
@@ -24,23 +29,40 @@
   align-content: flex-start;
   grid-gap: 16px;
   grid-template-columns: repeat(auto-fill, 394px);
-  margin-top: 32px;
+  margin-top: 16px;
   min-height: 480px;
   width: 100%;
+
+  @media screen and (max-width: 415px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 .audio-container-row {
+  @media screen and (max-width: 415px) {
+    width: 100%;
+  }
 }
 
 .tracks-top-row {
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
+
+  @media screen and (max-width: 430px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 .rounds-container {
   display: flex;
   flex-wrap: wrap;
+
+  @media screen and (max-width: 415px) {
+    justify-content: center;
+  }
 }
 
 .round {
@@ -52,6 +74,7 @@
   align-items: center;
   justify-content: center;
   margin-right: 16px;
+  margin-bottom: 16px;
 
   &:last-child {
     margin-right: 0;

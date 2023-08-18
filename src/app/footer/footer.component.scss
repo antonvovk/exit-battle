@@ -18,7 +18,9 @@
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
 
@@ -39,6 +41,8 @@
   @media screen and (max-width: 700px) {
     width: 100%;
     justify-content: space-between;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
 
@@ -50,11 +54,17 @@
   }
 
   @media screen and (max-width: 700px) {
-    margin-right: 0;
+    margin-right: 4px;
 
     &:last-child {
       margin-right: 0;
     }
+  }
+}
+
+.navigation-footer-link {
+  @media screen and (max-width: 450px) {
+    display: none;
   }
 }
 
