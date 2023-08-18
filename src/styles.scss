@@ -39,6 +39,10 @@ a {
 .ngneat-dialog-backdrop {
   background: rgba(17, 16, 19, 0.70) !important;
   backdrop-filter: blur(2px) !important;
+
+  @media screen and (max-width: 900px) {
+    padding: 0 !important;
+  }
 }
 
 .ngneat-dialog-content {
