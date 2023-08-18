@@ -1,6 +1,6 @@
 .fancy-shit {
   position: absolute;
-  width: 1146.14px;
+  max-width: 1146.14px;
   height: 340.074px;
   transform: rotate(165deg);
   border-radius: 102.5px;
@@ -9,6 +9,7 @@
   filter: blur(117px);
   z-index: -1;
   top: 80px;
+  width: 100%;
 }
 
 video {

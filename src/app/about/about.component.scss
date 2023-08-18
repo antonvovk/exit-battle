@@ -1,6 +1,11 @@
 .about-block {
   display: flex;
   margin-top: 24px;
+
+  @media screen and (max-width: 700px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 
 .about-menu-container {
@@ -11,6 +16,11 @@
   display: flex;
   flex-direction: column;
   padding: 24px;
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    margin-bottom: 16px;
+  }
 }
 
 .menu-item {
