@@ -64,7 +64,7 @@ export class NewsComponent implements OnDestroy {
   }
 
   private startTimer() {
-    this.subscription = timer(0, 1000).subscribe(() => {
+    this.subscription = timer(0, 2000).subscribe(() => {
       const diff = this.currentRound.endDate.toDate().getTime() - new Date().getTime();
       this.days = Math.floor(diff / (1000 * 60 * 60 * 24));
       this.hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
