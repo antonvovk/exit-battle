@@ -1,5 +1,9 @@
 .upload-dialog {
   padding: 24px 40px;
+
+  @media screen and (max-width: 550px) {
+    padding: 24px 8px;
+  }
 }
 
 .upload-title {
@@ -81,11 +85,17 @@ input[type=file] {
     min-height: 278px;
     border-radius: 8px;
     background: #FFF;
-    border: navajowhite;
+    border: none;
 
     color: rgba(17, 16, 19, 0.4);
     font-weight: 700;
     padding: 12px;
+    outline: none;
+
+    @media screen and (max-width: 800px) {
+      padding: 4px;
+      width: calc(100% - 4px);
+    }
   }
 }
 
@@ -96,6 +106,10 @@ input[type=file] {
   color: rgba(255, 255, 255, 0.80);
   font-weight: 400;
   line-height: 24px;
+
+  @media screen and (max-width: 400px) {
+    text-align: center;
+  }
 }
 
 .confirm-button {
