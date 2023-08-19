@@ -1,15 +1,15 @@
 <div class="about-block" id="about">
   <div class="about-menu-container">
-    <div (click)="selectMenuItem(item.index)" *ngFor="let item of menuItems"
-         [class.menu-item-selected]="item.index === selectedMenuIndex"
-         [class.menu-item-unselected]="item.index !== selectedMenuIndex"
+    <div (click)="selectFooterMenuItem(item.index)" *ngFor="let item of menuItems"
+         [class.menu-item-selected]="item.index === selectedFooterMenuIndex"
+         [class.menu-item-unselected]="item.index !== selectedFooterMenuIndex"
          class="menu-item">
       {{item.name}}
     </div>
   </div>
   <div class="about-content">
-    <h1>{{getCurrentMenuName()}}</h1>
-    <div *ngIf="selectedMenuIndex === 0">
+    <h1>{{getCurrentFooterMenuName()}}</h1>
+    <div *ngIf="selectedFooterMenuIndex === 0">
       <h2>Умови заходу та його основна мета</h2>
       <p>
         Ми віримо в силу слова та реп-музики як засобу вираження думок, емоцій та боротьби за своє місце у світі. Наш
@@ -32,7 +32,7 @@
         враховане голосування глядачів через платформу або сайт баттла.
       </p>
     </div>
-    <div *ngIf="selectedMenuIndex === 2">
+    <div *ngIf="selectedFooterMenuIndex === 2">
       <p>Максимальна оцінка за трек - 12 балів.</p>
       <p>
         Оцінка складається з трьох критеріїв - аудіальність (5 балів), текстуальність (5 балів), власне враження (2

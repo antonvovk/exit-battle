@@ -19,14 +19,13 @@ import User = firebase.User;
 })
 export class GlobalService {
 
+  public selectedFooterMenuIndex = 0;
   private spinnerTextValue: string = 'Завантаження...';
   private dialog = inject(DialogService);
-
   private currentUser: User;
   private firebaseUser: any;
   private dialogRef: DialogRef | undefined;
   private remoteConfig: RemoteConfig;
-
   private currentRound$ = new ReplaySubject<Round>(null);
   private rounds$ = new ReplaySubject<Round[]>(null);
 

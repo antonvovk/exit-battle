@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {GlobalService} from "../_services/global.service";
 
 @Component({
   selector: 'app-about',
@@ -34,13 +35,18 @@ export class AboutComponent {
     }
   ];
 
-  selectedMenuIndex = 0;
-
-  selectMenuItem(index: number) {
-    this.selectedMenuIndex = index;
+  constructor(private service: GlobalService) {
   }
 
-  getCurrentMenuName(): string {
-    return this.menuItems[this.selectedMenuIndex].name;
+  get selectedFooterMenuIndex(): number {
+    return this.service.selectedFooterMenuIndex;
+  }
+
+  selectFooterMenuItem(index: number) {
+    this.service.selectedFooterMenuIndex = index;
+  }
+
+  getCurrentFooterMenuName(): string {
+    return this.menuItems[this.service.selectedFooterMenuIndex].name;
   }
 }

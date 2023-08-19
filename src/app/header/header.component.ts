@@ -29,4 +29,12 @@ export class HeaderComponent {
   public signOut() {
     this.service.signOut();
   }
+
+  public onCupPrizeClicked() {
+    this.service.selectedFooterMenuIndex = 3;
+  }
+
+  public onAboutCupClicked() {
+    this.service.selectedFooterMenuIndex = 0;
+  }
 }
