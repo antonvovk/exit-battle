@@ -53,3 +53,12 @@
 .logo {
   width: 109px;
 }
+
+.nickname {
+  margin-right: 12px;
+
+  @media screen and (max-width: 450px) {
+    margin-right: 8px;
+    margin-left: 8px;
+  }
+}
