@@ -87,7 +87,7 @@ media-play-button {
 }
 
 .not-passed {
-  background: rgba(200, 15, 46, 0.05);
+  background: rgba(200, 15, 46, 0.10);
 
   div:first-child {
     color: #C80F2E;
@@ -95,7 +95,7 @@ media-play-button {
 }
 
 .passed {
-  background: rgba(15, 200, 89, 0.05);
+  background: rgba(15, 200, 89, 0.10);
 
   div:first-child {
     color: #0FC859;
