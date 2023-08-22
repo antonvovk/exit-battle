@@ -98,7 +98,9 @@
 
   img {
     width: 200px;
+    height: 305px;
     border-radius: 8px;
+    object-fit: cover;
   }
 
   @media screen and (max-width: 1000px) {
