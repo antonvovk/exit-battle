@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {GlobalService} from "../_services/global.service";
+import {Round} from "../_models/round";
 
 @Component({
   selector: 'app-about',
@@ -8,7 +9,8 @@ import {GlobalService} from "../_services/global.service";
 })
 export class AboutComponent {
 
-  menuItems = [
+  public currentRound = <Round>{};
+  public menuItems = [
     {
       index: 0,
       name: 'Загальна концепція'
@@ -36,6 +38,11 @@ export class AboutComponent {
   ];
 
   constructor(private service: GlobalService) {
+    this.service.getCurrentRound().subscribe({
+      next: round => {
+        this.currentRound = round;
+      }
+    });
   }
 
   get selectedFooterMenuIndex(): number {

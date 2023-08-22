@@ -82,3 +82,45 @@
     padding-right: 12px;
   }
 }
+
+.judge-row {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 1000px) {
+    flex-wrap: wrap;
+  }
+}
+
+.judge-row-icon {
+  margin-right: 24px;
+
+  img {
+    width: 200px;
+    border-radius: 8px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+.judge-row-text {
+
+  h2 {
+    font-size: 20px;
+    margin-top: 0;
+  }
+
+  p {
+    margin-top: 16px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    margin-top: 24px;
+  }
+}
