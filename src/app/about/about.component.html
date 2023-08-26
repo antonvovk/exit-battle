@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="about-content">
-    <h1>{{getCurrentFooterMenuName()}}</h1>
+    <h1 *ngIf="selectedFooterMenuIndex != 1">{{getCurrentFooterMenuName()}}</h1>
     <div *ngIf="selectedFooterMenuIndex === 0">
       <p>
         Ми віримо в силу слова та реп-музики як засобу вираження думок, емоцій та боротьби за своє місце у світі. Наш
@@ -118,63 +118,96 @@
       </p>
     </div>
     <div *ngIf="selectedFooterMenuIndex === 1">
-      <div class="judge-row">
-        <a href="https://www.instagram.com/iamcresco/" rel="noopener noreferrer" target="_blank">
-          <div class="judge-box">
-            <div class="judge-row-icon">
-              <img alt="Фото Креско" height="1231" src="assets/images/judge_cresco.jpg" width="1231"/>
-            </div>
-            <div class="judge-row-text">
-              <h2>CRESCO / Капітан Смоллетт</h2>
-              <p>Організатор<br>Переможець "Король Заходу"<br>Фіналіст 9 сезону "Підбіт"<br>Півфіналіст 13 сезону
-                "Підбіт"</p>
+      <div class="judges-container">
+        <div class="judge-box">
+          <div class="judge-photo">
+            <img alt="Фото Креско" height="1160" src="assets/images/judge_cresco.jpg" width="1161"/>
+          </div>
+          <div class="judge-info">
+            <div class="judge-name">CRESCO</div>
+            <div class="judge-achievements">
+              <div class="judge-achievement-item">Переможець "Король Заходу"</div>
+              <div class="judge-achievement-item">Фіналіст 9 сезону "Підбіт"</div>
+              <div class="judge-achievement-item">Півфіналіст 13 сезону "Підбіт"</div>
             </div>
           </div>
-        </a>
-        <a href="https://www.instagram.com/tur_rap/" rel="noopener noreferrer" target="_blank">
-          <div class="judge-box">
-            <div class="judge-row-icon">
-              <img alt="Фото Тур" height="455" src="assets/images/judge_tur.jpg" width="600"/>
-            </div>
-            <div class="judge-row-text">
-              <h2>Тур</h2>
-              <p>Фіналіст RapSoxBattle Gold Cup<br>Півфіналіст «Король Заходу»<br>Півфіналіст «Pit Bull Battle 2»</p>
+          <div class="judge-instagram">
+            <a href="https://www.instagram.com/iamcresco/" rel="noopener noreferrer" target="_blank">
+              <img alt="Іконка інстаграм" height="24" src="assets/images/instagram.svg" width="24"/>
+            </a>
+          </div>
+        </div>
+        <div class="judge-box">
+          <div class="judge-photo">
+            <img alt="Фото Тур" height="455" src="assets/images/judge_tur.jpg" width="456"/>
+          </div>
+          <div class="judge-info">
+            <div class="judge-name">Тур</div>
+            <div class="judge-achievements">
+              <div class="judge-achievement-item">Фіналіст RapSoxBattle Gold Cup</div>
+              <div class="judge-achievement-item">Півфіналіст «Король Заходу»</div>
+              <div class="judge-achievement-item">Півфіналіст «Pit Bull Battle 2»</div>
             </div>
           </div>
-        </a>
-        <a href="https://www.instagram.com/punchmanglavaua/" rel="noopener noreferrer" target="_blank">
-          <div class="judge-box">
-            <div class="judge-row-icon">
-              <img alt="Фото Гоня" height="1065" src="assets/images/judge_gonya.jpg" width="1010"/>
-            </div>
-            <div class="judge-row-text">
-              <h2>Гоня</h2>
-              <p>Переможець 9 сезону "Підбіт"<br>Фіналіст 13 сезону "Підбіт"</p>
+          <div class="judge-instagram">
+            <a href="https://www.instagram.com/tur_rap/" rel="noopener noreferrer" target="_blank">
+              <img alt="Іконка інстаграм" height="24" src="assets/images/instagram.svg" width="24"/>
+            </a>
+          </div>
+        </div>
+
+        <div class="judge-box">
+          <div class="judge-photo">
+            <img alt="Фото Гоня" height="431" src="assets/images/judge_gonya.jpg" width="431"/>
+          </div>
+          <div class="judge-info">
+            <div class="judge-name">Гоня</div>
+            <div class="judge-achievements">
+              <div class="judge-achievement-item">Переможець 9 сезону "Підбіт"</div>
+              <div class="judge-achievement-item">Фіналіст 13 сезону "Підбіт"</div>
             </div>
           </div>
-        </a>
-        <a href="https://www.instagram.com/misha_pravilniy/" rel="noopener noreferrer" target="_blank">
-          <div class="judge-box">
-            <div class="judge-row-icon">
-              <img alt="Фото Міша Правильний" height="1280" src="assets/images/judge_misha.jpg" width="853"/>
-            </div>
-            <div class="judge-row-text">
-              <h2>Міша Правильний</h2>
-              <p>Головний редактор rap.ua<br>Переможець #HVNGL: All Stars<br>Півфіналіст RapSoxBattle Gold Cup</p>
+          <div class="judge-instagram">
+            <a href="https://www.instagram.com/punchmanglavaua/" rel="noopener noreferrer" target="_blank">
+              <img alt="Іконка інстаграм" height="24" src="assets/images/instagram.svg" width="24"/>
+            </a>
+          </div>
+        </div>
+
+        <div class="judge-box">
+          <div class="judge-photo">
+            <img alt="Фото Міша Правильний" height="369" src="assets/images/judge_misha.jpg" width="369"/>
+          </div>
+          <div class="judge-info">
+            <div class="judge-name">Міша Правильний</div>
+            <div class="judge-achievements">
+              <div class="judge-achievement-item">Головний редактор rap.ua</div>
+              <div class="judge-achievement-item">Переможець #HVNGL: All Stars</div>
+              <div class="judge-achievement-item">Півфіналіст RapSoxBattle Gold Cup</div>
             </div>
           </div>
-        </a>
-        <a href="https://www.instagram.com/mamontoman/" rel="noopener noreferrer" target="_blank">
-          <div class="judge-box">
-            <div class="judge-row-icon">
-              <img alt="Фото Мамонт" height="1068" src="assets/images/judge_mamont.jpg" width="854"/>
-            </div>
-            <div class="judge-row-text">
-              <h2>Мамонт</h2>
-              <p>Засновник баттлу "Підбіт"</p>
+          <div class="judge-instagram">
+            <a href="https://www.instagram.com/misha_pravilniy/" rel="noopener noreferrer" target="_blank">
+              <img alt="Іконка інстаграм" height="24" src="assets/images/instagram.svg" width="24"/>
+            </a>
+          </div>
+        </div>
+        <div class="judge-box">
+          <div class="judge-photo">
+            <img alt="Фото Мамонт" height="433" src="assets/images/judge_mamont.jpg" width="433"/>
+          </div>
+          <div class="judge-info">
+            <div class="judge-name">Мамонт</div>
+            <div class="judge-achievements">
+              <div class="judge-achievement-item">Засновник баттлу "Підбіт"</div>
             </div>
           </div>
-        </a>
+          <div class="judge-instagram">
+            <a href="https://www.instagram.com/mamontoman/" rel="noopener noreferrer" target="_blank">
+              <img alt="Іконка інстаграм" height="24" src="assets/images/instagram.svg" width="24"/>
+            </a>
+          </div>
+        </div>
       </div>
       <div class="judge-rounds-info">
         <p><strong>Відбір</strong> - CRESCO</p>
