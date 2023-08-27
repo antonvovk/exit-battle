@@ -3,5 +3,6 @@
        height="16" src="assets/images/search.svg" width="16">
   <input (focusin)="onFocusIn($event)" (focusout)="onFocusOut($event)" (input)="onInput($event)"
          [class.no-icon]="!searchIcon" [class.with-icon]="searchIcon"
-         [placeholder]="placeholder" [style.width]="width + 'px'" [type]="type"/>
+         [placeholder]="placeholder" [style.width]="searchIcon ? 'calc(100% - 42px)' : 'calc(100% - 18px)'"
+         [type]="type"/>
 </div>

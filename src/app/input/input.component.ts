@@ -19,9 +19,6 @@ export class InputComponent {
   @Input()
   type: string = 'text';
 
-  @Input()
-  width = 0;
-
   focused = false;
 
   onFocusIn($event: FocusEvent) {

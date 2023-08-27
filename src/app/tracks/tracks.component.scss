@@ -155,3 +155,12 @@
   width: 100%;
   text-align: center;
 }
+
+.search-input {
+  margin-bottom: 16px;
+  width: 100%;
+
+  @media screen and (min-width: 430px) {
+    max-width: 300px;
+  }
+}
