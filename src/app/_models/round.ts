@@ -9,4 +9,5 @@ export interface Round {
   endDate: Timestamp;
   maximumTrackDurationInSeconds: number;
   maxFileUploadSizeInMb: number;
+  theme: string;
 }
