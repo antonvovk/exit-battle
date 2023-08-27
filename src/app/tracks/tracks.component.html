@@ -20,7 +20,10 @@
   </div>
 
   <div class="audio-container">
-    <div *ngIf="tracks.length === 0">
+    <div *ngIf="allTracks.length !== 0 && tracks.length === 0">
+      <h1>Не знайдено треків</h1>
+    </div>
+    <div *ngIf="allTracks.length === 0">
       <h1>Ще немає треків</h1>
     </div>
     <div *ngFor="let track of tracks" class="audio-container-row">

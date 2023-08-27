@@ -37,10 +37,34 @@ export class TrackInfoComponent {
   }
 
   getJudgeIconUrl(mark: Mark): string {
-    return `assets/images/${mark.judgeIcon}`;
-  }
+    let judgeIcon: string;
+    switch (mark.judgeName) {
+      case 'CRESCO':
+        judgeIcon = 'judge_cresco.jpg';
+        break;
+      case 'Тур':
+        judgeIcon = 'judge_tur.jpg';
+        break;
+      case 'Гоня':
+        judgeIcon = 'judge_gonya.jpg';
+        break;
+      case 'Міша Правильний':
+        judgeIcon = 'judge_misha.jpg';
+        break;
+      case 'Мамонт':
+        judgeIcon = 'judge_mamont.jpg';
+        break;
+      case 'Денні Дельта':
+        judgeIcon = 'judge_delta.jpg';
+        break;
+      case 'Міша MRK':
+        judgeIcon = 'judge_misha_mrk.jpg';
+        break;
+      default:
+        judgeIcon = 'default-judge.png';
+        break;
+    }
 
-  onJudgeIconError($event: ErrorEvent) {
-    $event.target['src'] = 'assets/images/default-judge.png';
+    return `assets/images/${judgeIcon}`;
   }
 }

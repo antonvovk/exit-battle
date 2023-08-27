@@ -23,8 +23,8 @@ export class TracksComponent {
   allNumberOfTracks: number = 0;
   searchString: string;
 
-  private allTracks: Track[] = [];
-  private currentRound = <Round>{};
+  allTracks: Track[] = [];
+  currentRound = <Round>{};
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,

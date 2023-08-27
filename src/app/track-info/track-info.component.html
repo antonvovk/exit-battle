@@ -24,11 +24,7 @@
     <div *ngFor="let mark of track.marks" class="mark-container">
       <div class="judge-container">
         <div class="judge-icon">
-          <img (error)="onJudgeIconError($event)" *ngIf="mark.judgeIcon != null" [src]="getJudgeIconUrl(mark)"
-               alt="Фото судді" height="48"
-               width="48"/>
-          <img *ngIf="mark.judgeIcon == null" alt="Фото судді" height="512" src="assets/images/default-judge.png"
-               width="512"/>
+          <img [src]="getJudgeIconUrl(mark)" alt="Фото судді" height="64" width="64"/>
         </div>
         <div class="judge-name">
           {{mark.judgeName}}
