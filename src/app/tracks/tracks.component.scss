@@ -49,6 +49,7 @@
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
+  width: 100%;
 
   @media screen and (max-width: 430px) {
     flex-wrap: wrap;
@@ -144,4 +145,13 @@
 
 .arrow {
   cursor: pointer;
+}
+
+.round-theme {
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px;
+  width: 100%;
+  text-align: center;
 }

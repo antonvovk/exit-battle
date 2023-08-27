@@ -14,9 +14,13 @@
         </div>
       </ng-container>
     </div>
-    <div>
-      <app-input (value)="onSearch($event)" [placeholder]="'Пошук...'" [searchIcon]="true" [width]="236"></app-input>
+    <div style="margin-bottom: 16px">
+      <app-input (value)="onSearch($event)" [placeholder]="'Пошук...'" [searchIcon]="true" [width]="300"></app-input>
     </div>
+  </div>
+
+  <div class="round-theme">
+    Тема раунду: {{currentRound.theme}}
   </div>
 
   <div class="audio-container">
