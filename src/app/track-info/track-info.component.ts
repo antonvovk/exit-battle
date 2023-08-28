@@ -60,6 +60,9 @@ export class TrackInfoComponent {
       case 'Міша MRK':
         judgeIcon = 'judge_misha_mrk.jpg';
         break;
+      case 'SIGHT MC':
+        judgeIcon = 'judge_sight_mc.jpg';
+        break;
       default:
         judgeIcon = 'default-judge.png';
         break;
