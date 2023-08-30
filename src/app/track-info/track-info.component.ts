@@ -63,6 +63,9 @@ export class TrackInfoComponent {
       case 'SIGHT MC':
         judgeIcon = 'judge_sight_mc.jpg';
         break;
+      case 'XXV кадр':
+        judgeIcon = 'judge_25_frame.jpg';
+        break;
       default:
         judgeIcon = 'default-judge.png';
         break;
