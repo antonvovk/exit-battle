@@ -113,7 +113,10 @@ export class GlobalService {
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         if (!result.user.emailVerified) {
-          this.toastr.error('Для того щоб ввійти потрібно активувати акаунт перейшовши за посиланням надісланим на вашу електронну адресу')
+          this.toastr.error('Для того щоб ввійти потрібно активувати акаунт перейшовши за посиланням надісланим на вашу електронну адресу');
+          this.sendVerificationMail().then(() => {
+            this.toastr.info("Ми повторно надіслали на вашу електронну адресу лист для активації профілю");
+          });
           this.signOut();
           return;
         }
@@ -250,7 +253,7 @@ export class GlobalService {
 
   private sendVerificationMail() {
     return this.auth.currentUser
-      .then((u: any) => u.sendEmailVerification());
+      .then(u => u.sendEmailVerification());
   }
 
   private createUserInDatabase(user: any, nickname: string) {
