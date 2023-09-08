@@ -32,8 +32,17 @@ export class TrackUploadComponent {
   onFileSelected($event: any) {
     this.duration = 0;
     this.readMetadata = false;
-    this.file = event.target['files'][0];
-    this.fileUrl = URL.createObjectURL(this.file);
+
+    const uploadedFile = $event.target['files'][0];
+    if (!uploadedFile.name.endsWith('.mp3')) {
+      this.toastr.error("Вибраний файл не є файлом формату .mp3");
+      this.file = undefined;
+      this.fileUrl = undefined;
+      return;
+    } else {
+      this.file = uploadedFile;
+      this.fileUrl = URL.createObjectURL(this.file);
+    }
   }
 
   onMetadata($event: any) {

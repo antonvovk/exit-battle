@@ -109,6 +109,7 @@ export class GlobalService {
   }
 
   public signIn(email: string, password: string) {
+    this.spinner.show();
     return this.auth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
@@ -128,6 +129,9 @@ export class GlobalService {
       })
       .catch((error) => {
         this.handleFirebaseError(error);
+      })
+      .finally(() => {
+        this.spinner.hide();
       });
   }
 
