@@ -42,7 +42,7 @@ export class TracksComponent {
         this.currentRound = round;
       }
     });
-    db.collection('tracks', ref => ref.orderBy('nickname')
+    db.collection('tracks', ref => ref.orderBy('uploadDate')
       .where('round', '==', 1)).get().subscribe({
       next: docs => {
         this.allTracks = docs.docs.map(doc => doc.data() as Track);
@@ -67,7 +67,7 @@ export class TracksComponent {
     this.currentPage = 0;
     this.searchString = undefined;
 
-    this.db.collection('tracks', ref => ref.orderBy('nickname')
+    this.db.collection('tracks', ref => ref.orderBy('uploadDate')
       .where('round', '==', this.selectedRound.number)).get().subscribe({
       next: docs => {
         this.allTracks = docs.docs.map(doc => doc.data() as Track);
