@@ -29,7 +29,7 @@ media-time-range {
   background: #fff;
   margin-left: 70px;
   margin-top: 20px;
-  z-index: 1;
+  z-index: 3;
 }
 
 .metadata-nickname {
@@ -41,7 +41,7 @@ media-time-range {
 }
 
 .metadata-duration {
-  color: rgba(17, 16, 19, 0.20);
+  color: rgba(17, 16, 19, 0.40);
   font-weight: 700;
   padding: 0;
   margin: 0;
