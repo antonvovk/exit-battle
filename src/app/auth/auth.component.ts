@@ -9,7 +9,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class AuthComponent {
 
-  currentView: 'login' | 'registration' = 'login';
+  currentView: 'login' | 'registration' | 'forgot' = 'login';
 
   email = '';
   password = '';
@@ -36,6 +36,13 @@ export class AuthComponent {
 
   changeViewToRegistration() {
     this.currentView = 'registration';
+    this.email = '';
+    this.password = '';
+    this.nickname = '';
+  }
+
+  changeViewToForgot() {
+    this.currentView = 'forgot';
     this.email = '';
     this.password = '';
     this.nickname = '';
@@ -70,6 +77,13 @@ export class AuthComponent {
     this.service.signUp(this.email.trim(), this.password.trim(), this.nickname);
   }
 
+  resetPassword() {
+    if (!this.isEmailValid()) {
+      return;
+    }
+    this.service.resetPassword(this.email.trim());
+  }
+
   private isEmailAndPasswordValid() {
     if (this.email.trim().length === 0) {
       this.toastr.error("Електронна адреса не може бути порожньою")
@@ -89,6 +103,14 @@ export class AuthComponent {
   private isNicknameValid() {
     if (this.nickname.length === 0) {
       this.toastr.error("Нікнейм не може бути порожнім")
+      return false;
+    }
+    return true;
+  }
+
+  private isEmailValid() {
+    if (this.email.trim().length === 0) {
+      this.toastr.error("Електронна адреса не може бути порожньою")
       return false;
     }
     return true;

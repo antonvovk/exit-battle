@@ -15,6 +15,9 @@
   <div *ngIf="!isRegistrationOpen()" class="bottom">
     {{getRegistrationClosedMessage()}}
   </div>
+  <div class="bottom">
+    Забули пароль?&nbsp;<span (click)="changeViewToForgot()">Скинути пароль<hr/></span>
+  </div>
 </div>
 <div *ngIf="currentView === 'registration'" class="rows">
   <h1>Реєстрація</h1>
@@ -32,5 +35,14 @@
   </div>
   <div class="bottom">
     Вже маєте аккаунт?&nbsp;<span (click)="changeViewToLogin()">Увійти<hr/></span>
+  </div>
+</div>
+<div *ngIf="currentView === 'forgot'" class="rows">
+  <h1>Зміна паролю</h1>
+  <div class="input-row">
+    <app-input (value)="onEmail($event)" placeholder="Електронна пошта"/>
+  </div>
+  <div class="button" style="margin-top: 32px">
+    <app-button (clicked)="resetPassword()" [red]="true" title="Скинути пароль"/>
   </div>
 </div>

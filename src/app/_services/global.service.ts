@@ -151,6 +151,22 @@ export class GlobalService {
       })
   }
 
+  public resetPassword(email: string) {
+    this.spinner.show();
+    return this.auth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        this.toastr.info("На вашу електронну адресу надіслано лист для скидання паролю")
+        this.dialog.closeAll()
+      })
+      .catch((error) => {
+        this.handleFirebaseError(error);
+      })
+      .finally(() => {
+        this.spinner.hide();
+      })
+  }
+
   public signOut() {
     return this.auth.signOut()
       .then(() => {
