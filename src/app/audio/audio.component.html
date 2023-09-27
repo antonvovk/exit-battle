@@ -7,8 +7,13 @@
         <img alt="Пауза" height="40" slot="pause" src="assets/images/stop.svg" style="height: 40px" width="40">
       </media-play-button>
       <div class="metadata">
-        <span class="metadata-nickname">{{track.nickname}}</span>
-        <span class="metadata-duration">{{getDurationAsString()}}</span>
+        <span>
+          <span class="metadata-nickname">{{track.nickname}}</span>
+          <span class="metadata-duration">{{getDurationAsString()}}</span>
+        </span>
+        <span *ngIf="track.bonusForBeat" class="metadata-bonus">
+          <img alt="Бонус" height="800" src="assets/images/plus-one.png" width="800">
+        </span>
       </div>
       <media-time-range></media-time-range>
     </media-control-bar>

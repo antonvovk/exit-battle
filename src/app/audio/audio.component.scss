@@ -20,7 +20,7 @@ media-control-bar {
 }
 
 media-time-range {
-  height: 60px;
+  height: 20px;
   --media-control-hover-background: #fff;
 }
 
@@ -28,8 +28,11 @@ media-time-range {
   position: absolute;
   background: #fff;
   margin-left: 70px;
-  margin-top: 20px;
-  z-index: 3;
+  margin-top: 10px;
+  width: calc(100% - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .metadata-nickname {
@@ -50,8 +53,18 @@ media-time-range {
   user-select: none;
 }
 
+.metadata-bonus {
+  width: 28px;
+  height: 28px;
+
+  img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
 media-time-range {
-  margin-top: 20px;
+  margin-top: 35px;
   border-radius: 8px;
   --media-preview-time-background: #000;
   --media-primary-color: #a1a1a4;
