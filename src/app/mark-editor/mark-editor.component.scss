@@ -1,0 +1,43 @@
+.box-name {
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.32px;
+  margin-bottom: 8px;
+}
+
+.number-boxes-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.number-box {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.24px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.number-box-active {
+  color: #FFF;
+  background: #C80F2E;
+}
+
+.number-box-inactive {
+  color: transparent;
+  background: #F2F2F2;
+}

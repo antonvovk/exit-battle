@@ -19,6 +19,7 @@ service cloud.firestore {
     match /tracks/{trackId} {
       allow read, get, list;
       allow create: if request.auth != null && request.auth.token.email_verified;
+      allow update: if request.auth != null && request.auth.token.email_verified && request.auth.token.email == "antonn.vovk@gmail.com";
     }
     match /tracks-counter/{trackCounterId} {
       allow read, get, list;
