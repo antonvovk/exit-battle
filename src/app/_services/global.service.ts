@@ -187,6 +187,13 @@ export class GlobalService {
     return this.firebaseUser.nickname;
   }
 
+  public isAdmin(): boolean {
+    if (this.firebaseUser == null) {
+      return false;
+    }
+    return this.firebaseUser.email === 'antonn.vovk@gmail.com';
+  }
+
   public uploadFile(file: File, lyrics: string, duration: number): Observable<number> {
     const filePath = `tracks/${this.getCurrentRoundNumber()}/${this.getCurrentNickname()} - ${file.name}`;
     const storageRef = this.storage.ref(filePath);

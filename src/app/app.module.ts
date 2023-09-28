@@ -23,7 +23,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TrackInfoComponent} from './track-info/track-info.component';
 import {TrackUploadComponent} from './track-upload/track-upload.component';
 import {NgxSpinnerModule} from "ngx-spinner";
-import { MarkEditorComponent } from './mark-editor/mark-editor.component';
+import {MarkEditorComponent} from './mark-editor/mark-editor.component';
 
 @NgModule({
   declarations: [

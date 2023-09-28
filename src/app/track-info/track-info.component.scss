@@ -186,3 +186,49 @@ h1 {
   overflow-y: scroll;
   height: calc(100vh - 400px);
 }
+
+.edit-track-border {
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px dashed #FFF;
+}
+
+.editor-top-container {
+  border-radius: 8px;
+  background: #FFF;
+  padding: 24px;
+}
+
+.marks-editor-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap
+}
+
+.editor-comment {
+  width: 100%;
+  margin-top: 32px;
+
+  textarea {
+    width: 100%;
+    max-width: 698px;
+    min-height: 278px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    color: rgba(17, 16, 19, 0.4);
+    font-weight: 700;
+  }
+}
+
+.trash-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  border-radius: 8px;
+  background: #C80F2E;
+  width: 34px;
+  cursor: pointer;
+}
