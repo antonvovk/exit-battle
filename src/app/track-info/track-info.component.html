@@ -65,9 +65,7 @@
           </div>
         </div>
         <div class="mark-content-container">
-          <div class="mark-text">
-            {{mark.text}}
-          </div>
+          <div class="mark-text" [innerHtml]="mark.text"></div>
           <div class="mark-numbers-container">
             <div class="left-marks-numbers">
               <div class="mark-block mr-8">
@@ -82,7 +80,7 @@
             </div>
             <div style="display: flex; flex-direction: row; flex-wrap: nowrap">
               <div (click)="removeMark(mark)" *ngIf="isAdmin()" class="trash-icon">
-                <img alt="Кошик" height="24" src="assets/images/trash.svg" width="24">
+                <img alt="Кошик" height="20" src="assets/images/trash.svg" width="20">
               </div>
               <div class="mark-block">
                 Загалом: {{(mark.performance + mark.content + mark.generalImpression)}}

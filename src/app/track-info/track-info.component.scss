@@ -131,6 +131,7 @@ h1 {
   line-height: 16px;
   letter-spacing: 0.24px;
   margin-bottom: 21px;
+  min-height: 36px;
 }
 
 .mark-numbers-container {
@@ -229,6 +230,7 @@ h1 {
   margin-right: 8px;
   border-radius: 8px;
   background: #C80F2E;
-  width: 34px;
+  width: 24px;
+  padding: 2px;
   cursor: pointer;
 }
