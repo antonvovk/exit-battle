@@ -24,6 +24,7 @@ import {TrackInfoComponent} from './track-info/track-info.component';
 import {TrackUploadComponent} from './track-upload/track-upload.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import {MarkEditorComponent} from './mark-editor/mark-editor.component';
+import {popperVariation, provideTippyConfig, TippyDirective, tooltipVariation} from "@ngneat/helipopper";
 
 @NgModule({
   declarations: [
@@ -54,10 +55,18 @@ import {MarkEditorComponent} from './mark-editor/mark-editor.component';
       progressAnimation: 'decreasing',
       closeButton: true
     }),
-    NgxSpinnerModule.forRoot({type: 'square-jelly-box'})
+    NgxSpinnerModule.forRoot({type: 'square-jelly-box'}),
+    TippyDirective
   ],
   providers: [
-    {provide: FIREBASE_OPTIONS, useValue: environment.firebase}
+    {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
+    provideTippyConfig({
+      defaultVariation: 'tooltip',
+      variations: {
+        tooltip: tooltipVariation,
+        popper: popperVariation,
+      }
+    })
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
