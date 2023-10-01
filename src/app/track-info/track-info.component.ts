@@ -50,6 +50,14 @@ export class TrackInfoComponent {
     this.selectedMenuItem = 'lyrics';
   }
 
+  getMarkText(mark: Mark): string {
+    if (mark.text == null || mark.text.trim().length == 0) {
+      return '<br>&nbsp;<br>'
+    } else {
+      return mark.text;
+    }
+  }
+
   getJudgeIconUrl(mark: Mark): string {
     let judgeIcon: string;
     switch (mark.judgeName) {
