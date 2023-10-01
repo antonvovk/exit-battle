@@ -42,7 +42,7 @@ export class NewsComponent implements OnDestroy {
       return;
     }
     if (!this.service.isTracksUploadOpen()) {
-      this.toastr.info("На даний момент здача треків призупинена");
+      this.toastr.info("Здача треків на даний раунд завершена");
       return;
     }
     this.db.collection('tracks', ref => ref

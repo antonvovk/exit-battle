@@ -12,9 +12,6 @@
   <div *ngIf="isRegistrationOpen()" class="bottom">
     Ще не створили аккаунт?&nbsp;<span (click)="changeViewToRegistration()">Реєстрація<hr/></span>
   </div>
-  <div *ngIf="!isRegistrationOpen()" class="bottom">
-    {{getRegistrationClosedMessage()}}
-  </div>
   <div class="bottom">
     Забули пароль?&nbsp;<span (click)="changeViewToForgot()">Скинути пароль<hr/></span>
   </div>
