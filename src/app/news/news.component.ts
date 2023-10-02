@@ -43,6 +43,10 @@ export class NewsComponent implements OnDestroy {
     }
   }
 
+  public openTrackUploadDialog(): void {
+    this.service.openTrackUploadDialog();
+  }
+
   private startTimer() {
     this.subscription = timer(0, 2000).subscribe(() => {
       let diff;
