@@ -100,6 +100,10 @@ export class GlobalService {
     return this.remoteConfig.isTracksUploadOpen;
   }
 
+  public getRemoteConfig(): RemoteConfig {
+    return this.remoteConfig;
+  }
+
   public openDialog(template: any, config?: Partial<DialogConfig>) {
     this.dialogRef = this.dialog.open(template, config);
   }

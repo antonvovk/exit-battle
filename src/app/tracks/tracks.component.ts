@@ -122,7 +122,6 @@ export class TracksComponent {
       this.toastr.info("Здача треків на даний раунд завершена");
       return;
     }
-
     this.db.collection('tracks', ref => ref
       .where('round', '==', this.currentRound.number)
       .where('nickname', '==', this.service.getCurrentNickname())

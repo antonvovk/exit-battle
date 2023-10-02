@@ -63,9 +63,23 @@ export class NewsComponent implements OnDestroy {
     });
   }
 
+  public getTimerText(): string {
+    if (this.service.getRemoteConfig().customTimerEnabled) {
+      return this.service.getRemoteConfig().customTimerText;
+    } else {
+      return 'Раунд завершиться через';
+    }
+  }
+
   private startTimer() {
     this.subscription = timer(0, 2000).subscribe(() => {
-      const diff = this.currentRound.endDate.toDate().getTime() - new Date().getTime();
+      let diff;
+      if (this.service.getRemoteConfig().customTimerEnabled) {
+        diff = this.service.getRemoteConfig().customTimerDate.toDate().getTime() - new Date().getTime();
+      } else {
+        diff = this.currentRound.endDate.toDate().getTime() - new Date().getTime();
+      }
+
       if (diff < 0) {
         this.days = 0;
         this.hours = 0;
