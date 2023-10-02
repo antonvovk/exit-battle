@@ -25,7 +25,7 @@ export class GlobalService {
   private currentUser: User;
   private firebaseUser: any;
   private dialogRef: DialogRef | undefined;
-  private remoteConfig: RemoteConfig;
+  private remoteConfig: RemoteConfig = <RemoteConfig>{};
   private currentRound$ = new ReplaySubject<Round>(null);
   private rounds$ = new ReplaySubject<Round[]>(null);
 
