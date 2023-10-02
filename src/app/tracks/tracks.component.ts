@@ -23,7 +23,6 @@ export class TracksComponent {
   searchString: string;
 
   allTracks: Track[] = [];
-  currentRound = <Round>{};
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
@@ -36,19 +35,19 @@ export class TracksComponent {
         this.selectedRound = this.rounds[0];
       }
     });
-    this.service.getCurrentRound().subscribe({
-      next: round => {
-        this.currentRound = round;
-      }
-    });
-    db.collection('tracks', ref => ref.orderBy('uploadDate')
-      .where('round', '==', 1)).get().subscribe({
-      next: docs => {
-        this.allTracks = docs.docs.map(doc => doc.data() as Track);
-        this.tracks = this.allTracks.slice(0, 15);
-        this.numberOfTracks = this.allTracks.length;
-        this.allNumberOfTracks = this.allTracks.length;
-        this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15)
+
+    service.getCurrentRoundNumberSubject().subscribe({
+      next: roundNumber => {
+        db.collection('tracks', ref => ref.orderBy('uploadDate')
+          .where('round', '==', roundNumber)).get().subscribe({
+          next: docs => {
+            this.allTracks = docs.docs.map(doc => doc.data() as Track);
+            this.tracks = this.allTracks.slice(0, 15);
+            this.numberOfTracks = this.allTracks.length;
+            this.allNumberOfTracks = this.allTracks.length;
+            this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15)
+          }
+        });
       }
     });
   }

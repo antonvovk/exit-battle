@@ -27,7 +27,9 @@ export class GlobalService {
   private firebaseUser: any;
   private dialogRef: DialogRef | undefined;
   private remoteConfig: RemoteConfig = <RemoteConfig>{};
+
   private currentRound$ = new ReplaySubject<Round>(null);
+  private currentRoundNumber$ = new ReplaySubject<number>(null);
   private rounds$ = new ReplaySubject<Round[]>(null);
 
   constructor(private db: AngularFirestore,
@@ -41,6 +43,7 @@ export class GlobalService {
     this.db.collection('remote-config').doc('main').get().subscribe({
       next: doc => {
         this.remoteConfig = doc.data() as RemoteConfig;
+        this.currentRoundNumber$.next(this.remoteConfig.currentRoundNumber);
 
         this.db.collection('rounds').get().subscribe({
           next: doc => {
@@ -91,6 +94,10 @@ export class GlobalService {
 
   public getCurrentRound(): Subject<Round> {
     return this.currentRound$;
+  }
+
+  public getCurrentRoundNumberSubject(): Subject<number> {
+    return this.currentRoundNumber$;
   }
 
   public isRegistrationOpen(): boolean {
