@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {Track} from "../_models/track";
 import {Round} from "../_models/round";
 import {GlobalService} from "../_services/global.service";
-import {TrackUploadComponent} from "../track-upload/track-upload.component";
 import {ToastrService} from "ngx-toastr";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {NgxSpinnerService} from "ngx-spinner";
@@ -52,6 +51,10 @@ export class TracksComponent {
         this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15)
       }
     });
+  }
+
+  trackByFn(index: number, track: Track) {
+    return track.id;
   }
 
   selectRound(round: Round): void {

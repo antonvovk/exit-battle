@@ -12,8 +12,8 @@ import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {Round} from "../_models/round";
 import {NgxSpinnerService} from "ngx-spinner";
 import {increment, serverTimestamp} from '@angular/fire/firestore';
-import User = firebase.User;
 import {TrackUploadComponent} from "../track-upload/track-upload.component";
+import User = firebase.User;
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,5 @@
 import {Component, OnDestroy} from '@angular/core';
 import {GlobalService} from "../_services/global.service";
-import {TrackUploadComponent} from "../track-upload/track-upload.component";
 import {ToastrService} from "ngx-toastr";
 import {Subscription, timer} from "rxjs";
 import {Round} from "../_models/round";

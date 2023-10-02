@@ -30,7 +30,7 @@
     <div *ngIf="allTracks.length === 0">
       <h1>Ще немає треків</h1>
     </div>
-    <div *ngFor="let track of tracks" class="audio-container-row">
+    <div *ngFor="let track of tracks; let i = index; trackBy: trackByFn;" class="audio-container-row">
       <app-audio [clickable]="true" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges" [track]="track"
                  [width]="395"></app-audio>
     </div>
