@@ -23,10 +23,6 @@ export class AuthComponent {
     return this.service.isRegistrationOpen();
   }
 
-  public getRegistrationClosedMessage(): string {
-    return this.service.getRegistrationClosedMessage();
-  }
-
   changeViewToLogin() {
     this.currentView = 'login';
     this.email = '';

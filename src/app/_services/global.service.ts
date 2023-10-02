@@ -96,10 +96,6 @@ export class GlobalService {
     return this.remoteConfig.isRegistrationOpen;
   }
 
-  public getRegistrationClosedMessage(): string {
-    return this.remoteConfig.registrationClosedMessage;
-  }
-
   public isTracksUploadOpen(): boolean {
     return this.remoteConfig.isTracksUploadOpen;
   }
