@@ -36,33 +36,6 @@ export class NewsComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  public openTrackUploadDialog(): void {
-    if (!this.service.isLoggedIn) {
-      this.toastr.info("Щоб здати трек потрібно авторизуватися");
-      return;
-    }
-    if (!this.service.isTracksUploadOpen()) {
-      this.toastr.info("Здача треків на даний раунд завершена");
-      return;
-    }
-    this.db.collection('tracks', ref => ref
-      .where('round', '==', this.currentRound.number)
-      .where('nickname', '==', this.service.getCurrentNickname())
-      .limit(1)
-    ).get().subscribe({
-      next: docs => {
-        if (docs.docs.length === 0) {
-          this.service.openDialog(TrackUploadComponent, {
-            width: 800
-          });
-        } else {
-          this.toastr.info("Ви вже здали трек для цього раунду. Здати трек можна лише один раз.");
-          return;
-        }
-      }
-    });
-  }
-
   public getTimerText(): string {
     if (this.service.getRemoteConfig().customTimerEnabled) {
       return this.service.getRemoteConfig().customTimerText;

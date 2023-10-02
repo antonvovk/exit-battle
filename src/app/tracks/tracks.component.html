@@ -40,19 +40,18 @@
     <div class="paginator-total">
       Всього здано: {{this.allNumberOfTracks}} треків
     </div>
-    <div class="paginator-container">
-      <div (click)="prevPage()" class="arrow">
-        <img alt="Ліва стрілка" height="16" src="assets/images/arrow-left.svg" width="16">
+    <div style="width: 100%; display: flex; justify-content: center;">
+      <div class="paginator-container">
+        <div (click)="prevPage()" class="arrow">
+          <img alt="Ліва стрілка" height="20" src="assets/images/arrow-left.svg" width="20">
+        </div>
+        <div class="paginator">
+          {{getPageNumberInFormat()}} / {{getTotalPagesInFormat()}}
+        </div>
+        <div (click)="nextPage()" class="arrow">
+          <img alt="Права стрілка" height="20" src="assets/images/arrow-right.svg" width="20">
+        </div>
       </div>
-      <div class="paginator">
-        {{getPageNumberInFormat()}} / {{getTotalPagesInFormat()}}
-      </div>
-      <div (click)="nextPage()" class="arrow">
-        <img alt="Права стрілка" height="16" src="assets/images/arrow-right.svg" width="16">
-      </div>
-    </div>
-    <div style="min-width: 140px">
-      <app-button (clicked)="openTrackUploadDialog()" [red]="true" title="Здати трек"></app-button>
     </div>
   </div>
 </div>

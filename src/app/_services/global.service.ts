@@ -13,6 +13,7 @@ import {Round} from "../_models/round";
 import {NgxSpinnerService} from "ngx-spinner";
 import {increment, serverTimestamp} from '@angular/fire/firestore';
 import User = firebase.User;
+import {TrackUploadComponent} from "../track-upload/track-upload.component";
 
 @Injectable({
   providedIn: 'root'
@@ -192,6 +193,33 @@ export class GlobalService {
       return false;
     }
     return this.firebaseUser.email === 'antonn.vovk@gmail.com';
+  }
+
+  public openTrackUploadDialog(): void {
+    if (!this.isLoggedIn) {
+      this.toastr.info("Щоб здати трек потрібно авторизуватися");
+      return;
+    }
+    if (!this.isTracksUploadOpen()) {
+      this.toastr.info("Здача треків на даний раунд завершена");
+      return;
+    }
+    this.db.collection('tracks', ref => ref
+      .where('round', '==', this.getCurrentRoundNumber())
+      .where('nickname', '==', this.getCurrentNickname())
+      .limit(1)
+    ).get().subscribe({
+      next: docs => {
+        if (docs.docs.length === 0) {
+          this.openDialog(TrackUploadComponent, {
+            width: 800
+          });
+        } else {
+          this.toastr.info("Ви вже здали трек для цього раунду. Здати трек можна лише один раз.");
+          return;
+        }
+      }
+    });
   }
 
   public uploadFile(file: File, lyrics: string, duration: number): Observable<number> {
