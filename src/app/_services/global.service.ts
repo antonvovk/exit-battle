@@ -309,7 +309,7 @@ export class GlobalService {
     return this.db.collection('tracks-counter').doc(round.number.toString()).get();
   }
 
-  private getCurrentRoundNumber(): number {
+  public getCurrentRoundNumber(): number {
     return this.remoteConfig.currentRoundNumber;
   }
 

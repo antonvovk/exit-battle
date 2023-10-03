@@ -32,7 +32,7 @@ export class TracksComponent {
     service.getRounds().subscribe({
       next: value => {
         this.rounds = value;
-        this.selectedRound = this.rounds[0];
+        this.selectedRound = this.rounds[this.service.getCurrentRoundNumber() - 1];
       }
     });
 
