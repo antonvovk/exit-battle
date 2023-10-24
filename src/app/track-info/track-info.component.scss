@@ -201,10 +201,26 @@ h1 {
   padding: 24px;
 }
 
+.judge-select {
+  select {
+    width: 100%;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+
+    option {
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+}
+
 .marks-editor-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap
+  flex-wrap: nowrap;
+  margin-top: 24px;
 }
 
 .editor-comment {

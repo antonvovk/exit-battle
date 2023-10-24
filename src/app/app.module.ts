@@ -25,6 +25,7 @@ import {TrackUploadComponent} from './track-upload/track-upload.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import {MarkEditorComponent} from './mark-editor/mark-editor.component';
 import {popperVariation, provideTippyConfig, TippyDirective, tooltipVariation} from "@ngneat/helipopper";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {popperVariation, provideTippyConfig, TippyDirective, tooltipVariation} f
       closeButton: true
     }),
     NgxSpinnerModule.forRoot({type: 'square-jelly-box'}),
-    TippyDirective
+    TippyDirective,
+    FormsModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

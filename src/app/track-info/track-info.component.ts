@@ -29,6 +29,18 @@ export class TrackInfoComponent {
     judgeName: 'CRESCO'
   };
   bonusForBeatToUpdate: boolean = false;
+  judges = [
+    'CRESCO',
+    'Тур',
+    'Гоня',
+    'Міша Правильний',
+    'Мамонт',
+    'Денні Дельта',
+    'Міша MRK',
+    'SIGHT MC',
+    'XXV кадр'
+  ];
+  selectedJudge = 'CRESCO';
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
@@ -101,6 +113,7 @@ export class TrackInfoComponent {
   }
 
   onEditClicked() {
+    this.selectedJudge = 'CRESCO';
     this.bonusForBeatToUpdate = false;
     this.markToUpdate = <Mark>{
       performance: 0,
@@ -141,9 +154,9 @@ export class TrackInfoComponent {
   }
 
   submitMark() {
+    this.markToUpdate.judgeName = this.selectedJudge;
     const marks = this.track.marks;
     marks.push(this.markToUpdate)
-
     this.db.collection('tracks').doc(this.track.id).update(<Track>{
       bonusForBeat: this.bonusForBeatToUpdate,
       marks: marks
