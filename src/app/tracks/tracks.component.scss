@@ -39,10 +39,32 @@
   }
 }
 
+.audio-container-pair {
+  margin-top: 16px;
+  min-height: 380px;
+  width: 100%;
+}
+
 .audio-container-row {
   @media screen and (max-width: 415px) {
     width: 100%;
   }
+}
+
+.pair-row {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.audio-container-row-pair {
+  max-width: 394px;
+  width: 100%;
 }
 
 .tracks-top-row {

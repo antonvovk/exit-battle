@@ -23,22 +23,43 @@
     Тема раунду: {{selectedRound.theme}}
   </div>
 
-  <div class="audio-container">
+  <div *ngIf="!isPairedRound" class="audio-container">
     <div *ngIf="allTracks.length !== 0 && tracks.length === 0">
       <h1>Не знайдено треків</h1>
     </div>
     <div *ngIf="allTracks.length === 0">
       <h1>Ще немає треків</h1>
     </div>
-    <div *ngFor="let track of tracks; let i = index; trackBy: trackByFn;" class="audio-container-row">
+    <div *ngFor="let track of tracks; trackBy: trackByTrack;" class="audio-container-row">
       <app-audio [clickable]="true" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges" [track]="track"
                  [width]="395"></app-audio>
     </div>
   </div>
 
+  <div *ngIf="isPairedRound" class="audio-container-pair">
+    <div *ngIf="allTracks.length !== 0 && pairs.length === 0">
+      <h1>Не знайдено треків</h1>
+    </div>
+    <div *ngIf="allTracks.length === 0">
+      <h1>Ще немає треків</h1>
+    </div>
+    <div *ngFor="let pair of pairs; trackBy: trackByPair;" class="pair-row">
+      <div class="audio-container-row-pair">
+        <app-audio [clickable]="true" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+                   [track]="pair.leftTrack"
+                   [width]="395"></app-audio>
+      </div>
+      <div class="audio-container-row-pair">
+        <app-audio [clickable]="true" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+                   [track]="pair.rightTrack"
+                   [width]="395"></app-audio>
+      </div>
+    </div>
+  </div>
+
   <div class="tracks-paginator">
     <div class="paginator-total">
-      Всього здано: {{this.allNumberOfTracks}} треків
+      Всього здано: {{this.numberOfTracks}} треків
     </div>
     <div style="width: 100%; display: flex; justify-content: center;">
       <div class="paginator-container">
