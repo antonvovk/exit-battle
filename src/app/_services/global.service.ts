@@ -13,6 +13,8 @@ import {Round} from "../_models/round";
 import {NgxSpinnerService} from "ngx-spinner";
 import {increment, serverTimestamp} from '@angular/fire/firestore';
 import {TrackUploadComponent} from "../track-upload/track-upload.component";
+import {GlobalState} from "../_models/global-state";
+import {Pair} from "../_models/pair";
 import User = firebase.User;
 
 @Injectable({
@@ -28,9 +30,8 @@ export class GlobalService {
   private dialogRef: DialogRef | undefined;
   private remoteConfig: RemoteConfig = <RemoteConfig>{};
 
-  private currentRound$ = new ReplaySubject<Round>(null);
-  private currentRoundNumber$ = new ReplaySubject<number>(null);
-  private rounds$ = new ReplaySubject<Round[]>(null);
+  private globalState: GlobalState = new GlobalState();
+  private globalState$ = new ReplaySubject<GlobalState>(null);
 
   constructor(private db: AngularFirestore,
               private auth: AngularFireAuth,
@@ -43,18 +44,20 @@ export class GlobalService {
     this.db.collection('remote-config').doc('main').get().subscribe({
       next: doc => {
         this.remoteConfig = doc.data() as RemoteConfig;
-        this.currentRoundNumber$.next(this.remoteConfig.currentRoundNumber);
-
-        this.db.collection('rounds').get().subscribe({
-          next: doc => {
-            const rounds = doc.docs.map(it => it.data() as Round);
-            const currentRound = rounds.find(r => r.number === this.getCurrentRoundNumber());
-
-            this.rounds$.next(rounds);
-            this.currentRound$.next(currentRound);
-            this.spinner.hide();
-          }
-        });
+        this.globalState.currentRoundNumber = this.remoteConfig.currentRoundNumber;
+        this.finalizeGlobalState();
+      }
+    });
+    this.db.collection('rounds').get().subscribe({
+      next: doc => {
+        this.globalState.rounds = doc.docs.map(it => it.data() as Round);
+        this.finalizeGlobalState();
+      }
+    });
+    this.db.collection('pairs').get().subscribe({
+      next: doc => {
+        this.globalState.pairs = doc.docs.map(it => it.data() as Pair);
+        this.finalizeGlobalState();
       }
     });
 
@@ -88,16 +91,8 @@ export class GlobalService {
     return localStorage.getItem('nickname')
   }
 
-  public getRounds(): Subject<Round[]> {
-    return this.rounds$;
-  }
-
-  public getCurrentRound(): Subject<Round> {
-    return this.currentRound$;
-  }
-
-  public getCurrentRoundNumberSubject(): Subject<number> {
-    return this.currentRoundNumber$;
+  public getGlobalState(): Subject<GlobalState> {
+    return this.globalState$;
   }
 
   public isRegistrationOpen(): boolean {
@@ -311,6 +306,12 @@ export class GlobalService {
 
   public getCurrentRoundNumber(): number {
     return this.remoteConfig.currentRoundNumber;
+  }
+
+  private finalizeGlobalState() {
+    if (this.globalState.isComplete()) {
+      this.globalState$.next(this.globalState);
+    }
   }
 
   private sendVerificationMail() {

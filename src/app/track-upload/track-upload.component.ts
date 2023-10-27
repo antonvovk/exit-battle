@@ -22,9 +22,9 @@ export class TrackUploadComponent {
               private toastr: ToastrService,
               private spinner: NgxSpinnerService
   ) {
-    this.service.getCurrentRound().subscribe({
-      next: round => {
-        this.currentRound = round;
+    this.service.getGlobalState().subscribe({
+      next: state => {
+        this.currentRound = state.currentRound;
       }
     });
   }

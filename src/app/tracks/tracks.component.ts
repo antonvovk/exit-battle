@@ -29,23 +29,20 @@ export class TracksComponent {
               private db: AngularFirestore,
               private spinner: NgxSpinnerService
   ) {
-    service.getRounds().subscribe({
-      next: value => {
-        this.rounds = value;
-        this.selectedRound = this.rounds[this.service.getCurrentRoundNumber() - 1];
-      }
-    });
+    service.getGlobalState().subscribe({
+      next: state => {
+        this.rounds = state.rounds;
+        this.selectedRound = state.currentRound;
 
-    service.getCurrentRoundNumberSubject().subscribe({
-      next: roundNumber => {
         db.collection('tracks', ref => ref.orderBy('uploadDate')
-          .where('round', '==', roundNumber)).get().subscribe({
+          .where('round', '==', state.currentRoundNumber)).get().subscribe({
           next: docs => {
             this.allTracks = docs.docs.map(doc => doc.data() as Track);
             this.tracks = this.allTracks.slice(0, 15);
             this.numberOfTracks = this.allTracks.length;
             this.allNumberOfTracks = this.allTracks.length;
-            this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15)
+            this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15);
+            this.spinner.hide();
           }
         });
       }

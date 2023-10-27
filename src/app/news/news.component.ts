@@ -23,9 +23,9 @@ export class NewsComponent implements OnDestroy {
               private toastr: ToastrService,
               private db: AngularFirestore
   ) {
-    this.service.getCurrentRound().subscribe({
-      next: round => {
-        this.currentRound = round;
+    this.service.getGlobalState().subscribe({
+      next: state => {
+        this.currentRound = state.currentRound;
         this.startTimer();
       }
     });
