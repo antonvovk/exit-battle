@@ -8,6 +8,9 @@ service cloud.firestore {
     match /rounds/{roundId} {
       allow read, get, list;
     }
+    match /pairs/{pairId} {
+      allow read, get, list;
+    }
     match /remote-config/{configId} {
       allow read, get, list;
     }
