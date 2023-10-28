@@ -37,7 +37,6 @@ export class TrackInfoComponent {
     'Мамонт',
     'Денні Дельта',
     'Міша MRK',
-    'SIGHT MC',
     'XXV кадр'
   ];
   selectedJudge = 'CRESCO';
@@ -93,9 +92,6 @@ export class TrackInfoComponent {
         break;
       case 'Міша MRK':
         judgeIcon = 'judge_misha_mrk.jpg';
-        break;
-      case 'SIGHT MC':
-        judgeIcon = 'judge_sight_mc.jpg';
         break;
       case 'XXV кадр':
         judgeIcon = 'judge_25_frame.jpg';
