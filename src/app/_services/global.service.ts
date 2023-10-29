@@ -54,7 +54,7 @@ export class GlobalService {
         this.finalizeGlobalState();
       }
     });
-    this.db.collection('pairs').get().subscribe({
+    this.db.collection('pairs', ref => ref.orderBy('number')).get().subscribe({
       next: doc => {
         this.globalState.pairs = doc.docs.map(it => it.data() as Pair);
         this.finalizeGlobalState();

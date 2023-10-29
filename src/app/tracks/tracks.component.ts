@@ -119,8 +119,8 @@ export class TracksComponent {
         this.updatePairs();
 
         if (this.isPairedRound) {
-          this.pairs = this.allPairsWithTracks.slice(0, 5);
-          this.totalPages = this.numberOfTracks <= 5 ? 1 : Math.ceil(this.numberOfTracks / 5);
+          this.pairs = this.allPairsWithTracks.slice(0, 3);
+          this.totalPages = this.numberOfTracks <= 3 ? 1 : Math.ceil(this.numberOfTracks / 3);
         } else {
           this.tracks = this.allTracks.slice(0, 15);
           this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15);
@@ -140,11 +140,11 @@ export class TracksComponent {
             it.middleNickname.toLowerCase().includes(this.searchString.trim().toLowerCase()) ||
             it.rightNickname.toLowerCase().includes(this.searchString.trim().toLowerCase())
           );
-        this.pairs = foundPairs.slice(this.currentPage * 5, (this.currentPage * 5) + 5);
-        this.totalPages = foundPairs.length <= 5 ? 1 : Math.ceil(foundPairs.length / 5);
+        this.pairs = foundPairs.slice(this.currentPage * 3, (this.currentPage * 3) + 3);
+        this.totalPages = foundPairs.length <= 3 ? 1 : Math.ceil(foundPairs.length / 3);
       } else {
-        this.pairs = this.allPairsWithTracks.slice(this.currentPage * 5, (this.currentPage * 5) + 5);
-        this.totalPages = this.allTracks.length <= 5 ? 1 : Math.ceil(this.allTracks.length / 5);
+        this.pairs = this.allPairsWithTracks.slice(this.currentPage * 3, (this.currentPage * 3) + 3);
+        this.totalPages = this.allTracks.length <= 3 ? 1 : Math.ceil(this.allTracks.length / 3);
       }
     } else {
       if (this.searchString != null && this.searchString.trim().length > 0) {
