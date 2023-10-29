@@ -52,14 +52,23 @@
 }
 
 .pair-row {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
   margin-bottom: 16px;
 
   &:last-child {
     margin-bottom: 0;
   }
+}
+
+.pair-tittle-container {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pair {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 .audio-container-row-pair {

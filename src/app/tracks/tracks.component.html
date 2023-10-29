@@ -44,15 +44,33 @@
       <h1>Ще немає треків</h1>
     </div>
     <div *ngFor="let pair of pairs; trackBy: trackByPair;" class="pair-row">
-      <div class="audio-container-row-pair">
-        <app-audio [clickable]="true" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
-                   [track]="pair.leftTrack"
-                   [width]="395"></app-audio>
+      <div class="pair-tittle-container">
+        <div>
+          {{pair.middleNickname == null ? 'Пара №' : 'Трійка №'}}{{pair.number}}
+        </div>
+        <div>
+          {{allTracksAreUploaded(pair) ? 'Переможець: ' : 'Очікуємо на композиції'}}
+        </div>
       </div>
-      <div class="audio-container-row-pair">
-        <app-audio [clickable]="true" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
-                   [track]="pair.rightTrack"
-                   [width]="395"></app-audio>
+      <div class="pair">
+        <div class="audio-container-row-pair">
+          <app-audio [clickable]="pair.leftTrack != null" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+                     [track]="pair.leftTrack"
+                     [pairNickname]="pair.leftNickname"
+                     [width]="395"></app-audio>
+        </div>
+        <div class="audio-container-row-pair" *ngIf="pair.middleNickname">
+          <app-audio [clickable]="pair.middleTrack != null" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+                     [track]="pair.middleTrack"
+                     [pairNickname]="pair.middleNickname"
+                     [width]="395"></app-audio>
+        </div>
+        <div class="audio-container-row-pair">
+          <app-audio [clickable]="pair.rightTrack != null" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+                     [track]="pair.rightTrack"
+                     [pairNickname]="pair.rightNickname"
+                     [width]="395"></app-audio>
+        </div>
       </div>
     </div>
   </div>

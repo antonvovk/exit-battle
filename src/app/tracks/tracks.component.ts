@@ -48,6 +48,13 @@ export class TracksComponent {
     return this.allPairsWithTracks.length !== 0;
   }
 
+  public allTracksAreUploaded(pair: PairWithTrack): boolean {
+    if (pair.middleNickname == null) {
+      return pair.leftTrack != null && pair.rightTrack != null;
+    }
+    return pair.leftTrack != null && pair.rightTrack != null && pair.middleTrack != null;
+  }
+
   trackByTrack(index: number, track: Track) {
     return track.id;
   }
