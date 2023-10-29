@@ -1,31 +1,35 @@
 <div [style.max-width]="width + 'px'" class="audio-block">
   <media-controller audio>
-    <audio (play)="onPlay($event)" [src]="track.audioUrl" preload="none" slot="media"></audio>
+    <audio (play)="onPlay($event)" [src]="track?.audioUrl" preload="none" slot="media"></audio>
     <media-control-bar>
-      <media-play-button>
-        <img alt="Старт" height="40" slot="play" src="assets/images/play.svg" style="height: 40px" width="40">
+      <media-play-button [style.cursor]="track != null ? 'pointer' : 'default'">
+        <img alt="Старт" height="40" slot="play"
+             [src]="track != null ? 'assets/images/play.svg' : 'assets/images/play-grey.svg'" style="height: 40px"
+             width="40">
         <img alt="Пауза" height="40" slot="pause" src="assets/images/stop.svg" style="height: 40px" width="40">
       </media-play-button>
       <div class="metadata">
         <span>
-          <span class="metadata-nickname">{{track.nickname}}</span>
+          <span class="metadata-nickname">{{track?.nickname ?? pairNickname}}</span>
           <span class="metadata-duration">{{getDurationAsString()}}</span>
         </span>
-        <span *ngIf="track.bonusForBeat" class="metadata-bonus" tp="Бонус за біт" tpPlacement="bottom">
+        <span *ngIf="track?.bonusForBeat" class="metadata-bonus" tp="Бонус за біт" tpPlacement="bottom">
           <img alt="Бонус" height="16" src="assets/images/plusone.svg" width="18">
         </span>
       </div>
       <media-time-range></media-time-range>
     </media-control-bar>
   </media-controller>
-  <div (click)="openTrackInfo()" [class.not-passed]="!track.passedToNextRound"
-       [class.passed]="track.passedToNextRound"
+  <div (click)="openTrackInfo()"
+       [class.not-passed]="track && !track?.passedToNextRound"
+       [class.passed]="track && track?.passedToNextRound"
+       [class.grey]="track == null"
        [style.cursor]="clickable ? 'cursor' : 'default'" class="mark">
     <div class="total-mark">
       {{getTotalMark()}}
     </div>
     <div class="judges-count">
-      {{track.marks.length}}/{{totalNumberOfJudges}}
+      {{track?.marks.length ?? 0}}/{{totalNumberOfJudges}}
     </div>
   </div>
 </div>

@@ -23,11 +23,14 @@ export class AudioComponent {
   @Input()
   clickable = false;
 
+  @Input()
+  pairNickname: string;
+
   constructor(private service: GlobalService) {
   }
 
   public getTotalMark(): string {
-    if (this.track.marks.length < this.totalNumberOfJudges) {
+    if (this.track == null || this.track.marks.length < this.totalNumberOfJudges) {
       return 0.0.toFixed(1);
     }
 
@@ -44,6 +47,9 @@ export class AudioComponent {
   }
 
   public getDurationAsString(): string {
+    if (this.track == null) {
+      return '0:00';
+    }
     const minutes = Math.floor(this.track.duration / 60);
     const seconds = Math.floor(this.track.duration % 60);
     return `${minutes}:${seconds <= 9 ? '0' + seconds : seconds}`

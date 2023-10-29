@@ -117,3 +117,13 @@ media-play-button {
     color: #0FC859;
   }
 }
+
+.grey {
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  background: lightgrey;
+
+  div:first-child {
+    color: gray;
+  }
+}
