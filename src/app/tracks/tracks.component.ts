@@ -53,7 +53,7 @@ export class TracksComponent {
   }
 
   trackByPair(index: number, pair: PairWithTrack) {
-    return pair.leftNickname + pair.rightNickname;
+    return pair.leftNickname + pair.middleNickname + pair.rightNickname;
   }
 
   selectRound(round: Round): void {
@@ -135,7 +135,11 @@ export class TracksComponent {
     if (this.isPairedRound) {
       if (this.searchString != null && this.searchString.trim().length > 0) {
         const foundPairs = this.allPairsWithTracks
-          .filter(it => it.leftNickname.toLowerCase().includes(this.searchString.trim().toLowerCase()) || it.rightNickname.toLowerCase().includes(this.searchString.trim().toLowerCase()));
+          .filter(it =>
+            it.leftNickname.toLowerCase().includes(this.searchString.trim().toLowerCase()) ||
+            it.middleNickname.toLowerCase().includes(this.searchString.trim().toLowerCase()) ||
+            it.rightNickname.toLowerCase().includes(this.searchString.trim().toLowerCase())
+          );
         this.pairs = foundPairs.slice(this.currentPage * 5, (this.currentPage * 5) + 5);
         this.totalPages = foundPairs.length <= 5 ? 1 : Math.ceil(foundPairs.length / 5);
       } else {
@@ -160,8 +164,10 @@ export class TracksComponent {
       .map(p => <PairWithTrack>{
         round: p.round,
         leftNickname: p.leftNickname,
+        middleNickname: p.middleNickname,
         rightNickname: p.rightNickname,
         leftTrack: this.allTracks.find(t => t.nickname === p.leftNickname),
+        middleTrack: this.allTracks.find(t => t.nickname === p.middleNickname),
         rightTrack: this.allTracks.find(t => t.nickname === p.rightNickname)
       });
   }
