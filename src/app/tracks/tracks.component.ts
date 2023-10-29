@@ -163,6 +163,8 @@ export class TracksComponent {
       .filter(p => p.round === this.selectedRound.number)
       .map(p => <PairWithTrack>{
         round: p.round,
+        number: p.number,
+        winnerNickname: p.winnerNickname,
         leftNickname: p.leftNickname,
         middleNickname: p.middleNickname,
         rightNickname: p.rightNickname,
