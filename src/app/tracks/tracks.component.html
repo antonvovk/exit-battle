@@ -48,14 +48,14 @@
         <div>
           {{pair.middleNickname == null ? 'Пара №' : 'Трійка №'}}{{pair.number}}
         </div>
-        <div *ngIf="!allTracksAreUploaded(pair)">
+        <div *ngIf="!allTracksAreUploaded(pair)" class="yellow">
           Очікуємо на композиції
         </div>
-        <div *ngIf="allTracksAreUploaded(pair) && !allMarksAreSet(pair)">
+        <div *ngIf="allTracksAreUploaded(pair) && !allMarksAreSet(pair)" class="yellow">
           Очікуємо на оцінки
         </div>
         <div *ngIf="allTracksAreUploaded(pair) && allMarksAreSet(pair)">
-          Переможець: {{determineWinner(pair)}}
+          Переможець: <span class="green">{{determineWinner(pair)}}</span>
         </div>
       </div>
       <div class="pair">

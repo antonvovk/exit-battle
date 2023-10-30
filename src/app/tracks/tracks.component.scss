@@ -41,7 +41,7 @@
 
 .audio-container-pair {
   margin-top: 16px;
-  min-height: 464px;
+  min-height: 366px;
   width: 100%;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .pair-row {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 
   &:last-child {
     margin-bottom: 0;
@@ -60,9 +60,21 @@
 }
 
 .pair-tittle-container {
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.32px;
+}
+
+.yellow {
+  color: #FFCF26;
+}
+
+.green {
+  color: #0FC859;
 }
 
 .pair {
