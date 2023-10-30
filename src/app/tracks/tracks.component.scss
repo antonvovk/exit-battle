@@ -222,3 +222,18 @@
     max-width: 300px;
   }
 }
+
+.hr-line-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.hr-line {
+  border-radius: 4px;
+  background: rgba(207, 207, 208, 0.20);
+  margin-right: 36px;
+  margin-left: 36px;
+  height: 2px;
+  width: 100%;
+}

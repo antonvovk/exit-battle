@@ -65,11 +65,16 @@
                      [track]="pair.leftTrack"
                      [width]="395"></app-audio>
         </div>
-        <div *ngIf="pair.middleNickname" class="audio-container-row-pair">
+        <div *ngIf="pair.middleNickname != null" class="audio-container-row-pair">
           <app-audio [clickable]="pair.middleTrack != null" [pairNickname]="pair.middleNickname"
                      [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [track]="pair.middleTrack"
                      [width]="395"></app-audio>
+        </div>
+        <div *ngIf="pair.middleNickname == null" class="audio-container-row-pair">
+          <div class="hr-line-container">
+            <div class="hr-line"></div>
+          </div>
         </div>
         <div class="audio-container-row-pair">
           <app-audio [clickable]="pair.rightTrack != null" [pairNickname]="pair.rightNickname"
