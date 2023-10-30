@@ -7,6 +7,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {NgxSpinnerService} from "ngx-spinner";
 import {Pair} from "../_models/pair";
 import {PairWithTrack} from "../_models/pair-with-track";
+import {Mark} from "../_models/mark";
 
 @Component({
   selector: 'app-tracks',
@@ -53,6 +54,28 @@ export class TracksComponent {
       return pair.leftTrack != null && pair.rightTrack != null;
     }
     return pair.leftTrack != null && pair.rightTrack != null && pair.middleTrack != null;
+  }
+
+  public allMarksAreSet(pair: PairWithTrack): boolean {
+    const numberOfJudges = this.selectedRound.totalNumberOfJudges;
+    if (pair.middleNickname == null) {
+      return pair.leftTrack.marks.length === numberOfJudges && pair.rightTrack.marks.length === numberOfJudges;
+    }
+    return pair.leftTrack.marks.length === numberOfJudges && pair.rightTrack.marks.length === numberOfJudges && pair.middleTrack.marks.length === numberOfJudges;
+  }
+
+  public determineWinner(pair: PairWithTrack): string {
+    const left = this.sumOfSquares(pair.leftTrack.marks.map(it => this.getMarkSum(it)));
+    const middle = this.sumOfSquares((pair.middleTrack?.marks ?? []).map(it => this.getMarkSum(it)));
+    const right = this.sumOfSquares(pair.rightTrack.marks.map(it => this.getMarkSum(it)));
+
+    if (left > middle && left > right) {
+      return pair.leftNickname;
+    } else if (right > middle && right > left) {
+      return pair.rightNickname;
+    } else {
+      return pair.middleNickname;
+    }
   }
 
   trackByTrack(index: number, track: Track) {
@@ -115,6 +138,14 @@ export class TracksComponent {
     this.currentPage = 0;
     this.searchString = value;
     this.updateTracksArray();
+  }
+
+  private getMarkSum(mark: Mark): number {
+    return mark.performance + mark.content + mark.generalImpression;
+  }
+
+  private sumOfSquares(seq: number[]): number {
+    return seq.reduce((sum, num) => sum + num ** 2, 0);
   }
 
   private fetchTracks() {

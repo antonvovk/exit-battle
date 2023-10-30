@@ -48,27 +48,33 @@
         <div>
           {{pair.middleNickname == null ? 'Пара №' : 'Трійка №'}}{{pair.number}}
         </div>
-        <div>
-          {{allTracksAreUploaded(pair) ? 'Переможець: ' : 'Очікуємо на композиції'}}
+        <div *ngIf="!allTracksAreUploaded(pair)">
+          Очікуємо на композиції
+        </div>
+        <div *ngIf="allTracksAreUploaded(pair) && !allMarksAreSet(pair)">
+          Очікуємо на оцінки
+        </div>
+        <div *ngIf="allTracksAreUploaded(pair) && allMarksAreSet(pair)">
+          Переможець: {{determineWinner(pair)}}
         </div>
       </div>
       <div class="pair">
         <div class="audio-container-row-pair">
-          <app-audio [clickable]="pair.leftTrack != null" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+          <app-audio [clickable]="pair.leftTrack != null" [pairNickname]="pair.leftNickname"
+                     [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [track]="pair.leftTrack"
-                     [pairNickname]="pair.leftNickname"
                      [width]="395"></app-audio>
         </div>
-        <div class="audio-container-row-pair" *ngIf="pair.middleNickname">
-          <app-audio [clickable]="pair.middleTrack != null" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+        <div *ngIf="pair.middleNickname" class="audio-container-row-pair">
+          <app-audio [clickable]="pair.middleTrack != null" [pairNickname]="pair.middleNickname"
+                     [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [track]="pair.middleTrack"
-                     [pairNickname]="pair.middleNickname"
                      [width]="395"></app-audio>
         </div>
         <div class="audio-container-row-pair">
-          <app-audio [clickable]="pair.rightTrack != null" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+          <app-audio [clickable]="pair.rightTrack != null" [pairNickname]="pair.rightNickname"
+                     [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [track]="pair.rightTrack"
-                     [pairNickname]="pair.rightNickname"
                      [width]="395"></app-audio>
         </div>
       </div>
