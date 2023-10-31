@@ -18,9 +18,6 @@ export class AudioComponent {
   track = <Track>{};
 
   @Input()
-  width = 0;
-
-  @Input()
   clickable = false;
 
   @Input()

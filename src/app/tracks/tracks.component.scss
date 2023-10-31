@@ -43,6 +43,10 @@
   margin-top: 16px;
   min-height: 366px;
   width: 100%;
+
+  @media screen and (max-width: 450px) {
+    margin-top: 24px;
+  }
 }
 
 .audio-container-row {
@@ -87,6 +91,10 @@
   @media screen and (max-width: 1250px) {
     flex-direction: column;
   }
+
+  @media screen and (max-width: 450px) {
+    background: none;
+  }
 }
 
 .audio-container-row-pair {
@@ -101,9 +109,20 @@
 
   @media screen and (max-width: 1250px) {
     padding-bottom: 0;
+    width: auto;
+    padding-right: 12px;
 
     &:last-child {
       padding-bottom: 12px;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    padding-left: 0;
+    padding-right: 0;
+
+    &:last-child {
+      padding-right: 0;
     }
   }
 }

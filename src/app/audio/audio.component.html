@@ -1,4 +1,4 @@
-<div [style.max-width]="width + 'px'" class="audio-block">
+<div class="audio-block">
   <media-controller audio>
     <audio (play)="onPlay($event)" [src]="track?.audioUrl" preload="none" slot="media"></audio>
     <media-control-bar>
