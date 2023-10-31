@@ -90,7 +90,6 @@
 }
 
 .audio-container-row-pair {
-  max-width: 394px;
   width: 100%;
   padding-top: 12px;
   padding-bottom: 12px;
@@ -98,6 +97,14 @@
 
   &:last-child {
     padding-right: 12px;
+  }
+
+  @media screen and (max-width: 1250px) {
+    padding-bottom: 0;
+
+    &:last-child {
+      padding-bottom: 12px;
+    }
   }
 }
 
@@ -224,6 +231,12 @@
 
   @media screen and (min-width: 430px) {
     max-width: 300px;
+  }
+}
+
+.hr-line-container-row {
+  @media screen and (max-width: 1250px) {
+    display: none;
   }
 }
 
