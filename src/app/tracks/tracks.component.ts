@@ -202,7 +202,6 @@ export class TracksComponent {
       .map(p => <PairWithTrack>{
         round: p.round,
         number: p.number,
-        winnerNickname: p.winnerNickname,
         leftNickname: p.leftNickname,
         middleNickname: p.middleNickname,
         rightNickname: p.rightNickname,
