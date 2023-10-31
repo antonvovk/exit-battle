@@ -83,6 +83,10 @@
   flex-direction: row;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
+
+  @media screen and (max-width: 1250px) {
+    flex-direction: column;
+  }
 }
 
 .audio-container-row-pair {

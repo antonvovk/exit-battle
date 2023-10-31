@@ -121,9 +121,9 @@ media-play-button {
 .grey {
   border-bottom-right-radius: 8px;
   border-top-right-radius: 8px;
-  background: lightgrey;
+  background: rgba(207, 207, 208, 0.10);
 
   div:first-child {
-    color: gray;
+    color: rgba(17, 16, 19, 0.4);
   }
 }
