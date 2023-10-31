@@ -157,8 +157,9 @@ export class TracksComponent {
         this.updatePairs();
 
         if (this.isPairedRound) {
+          const numberOfPairs = this.allPairsWithTracks.length;
           this.pairs = this.allPairsWithTracks.slice(0, 3);
-          this.totalPages = this.numberOfTracks <= 3 ? 1 : Math.ceil(this.numberOfTracks / 3);
+          this.totalPages = numberOfPairs <= 3 ? 1 : Math.ceil(numberOfPairs / 3);
         } else {
           this.tracks = this.allTracks.slice(0, 15);
           this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15);
@@ -182,7 +183,7 @@ export class TracksComponent {
         this.totalPages = foundPairs.length <= 3 ? 1 : Math.ceil(foundPairs.length / 3);
       } else {
         this.pairs = this.allPairsWithTracks.slice(this.currentPage * 3, (this.currentPage * 3) + 3);
-        this.totalPages = this.allTracks.length <= 3 ? 1 : Math.ceil(this.allTracks.length / 3);
+        this.totalPages = this.allPairsWithTracks.length <= 3 ? 1 : Math.ceil(this.allPairsWithTracks.length / 3);
       }
     } else {
       if (this.searchString != null && this.searchString.trim().length > 0) {
