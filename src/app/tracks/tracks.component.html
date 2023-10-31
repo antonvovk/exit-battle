@@ -37,11 +37,8 @@
   </div>
 
   <div *ngIf="isPairedRound" class="audio-container-pair">
-    <div *ngIf="allTracks.length !== 0 && pairs.length === 0">
+    <div *ngIf="allPairsWithTracks.length !== 0 && pairs.length === 0">
       <h1>Не знайдено треків</h1>
-    </div>
-    <div *ngIf="allTracks.length === 0">
-      <h1>Ще немає треків</h1>
     </div>
     <div *ngFor="let pair of pairs; trackBy: trackByPair;" class="pair-row">
       <div class="pair-tittle-container">

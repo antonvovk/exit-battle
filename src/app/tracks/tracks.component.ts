@@ -175,7 +175,7 @@ export class TracksComponent {
         const foundPairs = this.allPairsWithTracks
           .filter(it =>
             it.leftNickname.toLowerCase().includes(this.searchString.trim().toLowerCase()) ||
-            it.middleNickname.toLowerCase().includes(this.searchString.trim().toLowerCase()) ||
+            (it.middleNickname ?? '').toLowerCase().includes(this.searchString.trim().toLowerCase()) ||
             it.rightNickname.toLowerCase().includes(this.searchString.trim().toLowerCase())
           );
         this.pairs = foundPairs.slice(this.currentPage * 3, (this.currentPage * 3) + 3);
