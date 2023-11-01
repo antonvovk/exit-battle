@@ -1,20 +1,36 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {GlobalService} from "../_services/global.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 import {Round} from "../_models/round";
+import {Editor, toHTML, Toolbar} from "ngx-editor";
 
 @Component({
   selector: 'app-track-upload',
   templateUrl: './track-upload.component.html',
-  styleUrls: ['./track-upload.component.scss']
+  styleUrls: ['./track-upload.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class TrackUploadComponent {
+export class TrackUploadComponent implements OnInit, OnDestroy {
 
   public file: File;
   public readMetadata: boolean = false;
   public fileUrl: string;
   public currentRound = <Round>{};
+
+  editor: Editor;
+  html: '';
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+    ['horizontal_rule', 'format_clear'],
+  ];
+
   private duration: number;
   private lyrics: string;
 
@@ -27,6 +43,14 @@ export class TrackUploadComponent {
         this.currentRound = state.currentRound;
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.editor = new Editor();
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   onFileSelected($event: any) {
@@ -82,7 +106,7 @@ export class TrackUploadComponent {
     });
   }
 
-  onLyricsInput($event: any) {
-    this.lyrics = $event.target.value;
+  onLyricsInput(json: any) {
+    this.lyrics = toHTML(json);
   }
 }

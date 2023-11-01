@@ -26,7 +26,11 @@
   </div>
 
   <div class="lyrics">
-    <textarea (input)="onLyricsInput($event)" placeholder="Текст треку..."></textarea>
+    <div class="NgxEditor__Wrapper">
+      <ngx-editor-menu [disabled]="false" [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+      <ngx-editor (ngModelChange)="onLyricsInput($event)" [editor]="editor" [ngModel]="html"
+                  [placeholder]="'Текст треку...'"></ngx-editor>
+    </div>
   </div>
 
   <div class="upload-disclaimer">

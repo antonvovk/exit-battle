@@ -26,6 +26,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {MarkEditorComponent} from './mark-editor/mark-editor.component';
 import {popperVariation, provideTippyConfig, TippyDirective, tooltipVariation} from "@ngneat/helipopper";
 import {FormsModule} from "@angular/forms";
+import {NgxEditorModule} from "ngx-editor";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {FormsModule} from "@angular/forms";
     }),
     NgxSpinnerModule.forRoot({type: 'square-jelly-box'}),
     TippyDirective,
-    FormsModule
+    FormsModule,
+    NgxEditorModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

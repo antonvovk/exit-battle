@@ -214,7 +214,9 @@ export class GlobalService {
       next: docs => {
         if (docs.docs.length === 0) {
           this.openDialog(TrackUploadComponent, {
-            width: 800
+            width: 800,
+            closeButton: true,
+            enableClose: false
           });
         } else {
           this.toastr.info("Ви вже здали трек для цього раунду. Здати трек можна лише один раз.");
@@ -253,7 +255,7 @@ export class GlobalService {
           };
           const lyricsDocument = {
             id: trackId,
-            text: lyrics.replace(/\n\r?/g, '<br/>')
+            text: lyrics
           };
 
           const incrementValue = increment(1);

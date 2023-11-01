@@ -79,24 +79,15 @@ input[type=file] {
 .lyrics {
   width: 100%;
 
-  textarea {
-    width: 100%;
-    max-width: 698px;
-    min-height: 278px;
-    border-radius: 8px;
-    background: #FFF;
-    border: none;
-
-    color: rgba(17, 16, 19, 0.4);
-    font-weight: 700;
-    padding: 12px;
-    outline: none;
-
-    @media screen and (max-width: 800px) {
-      padding: 4px;
-      width: calc(100% - 4px);
-    }
+  * {
+    color: black;
   }
+}
+
+.NgxEditor__Content {
+  min-height: 278px;
+  max-height: calc(100vh - 700px);
+  overflow: scroll;
 }
 
 .upload-disclaimer {
