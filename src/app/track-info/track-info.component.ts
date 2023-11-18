@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {DialogRef} from "@ngneat/dialog";
 import {Data} from "@angular/router";
 import {Track} from "../_models/track";
@@ -10,7 +10,8 @@ import {ToastrService} from "ngx-toastr";
 @Component({
   selector: 'app-track-info',
   templateUrl: './track-info.component.html',
-  styleUrls: ['./track-info.component.scss']
+  styleUrls: ['./track-info.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TrackInfoComponent {
 

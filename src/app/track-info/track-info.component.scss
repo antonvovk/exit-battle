@@ -186,6 +186,10 @@ h1 {
   word-wrap: anywhere;
   overflow-y: scroll;
   height: calc(100vh - 400px);
+
+  * {
+    color: black;
+  }
 }
 
 .edit-track-border {
