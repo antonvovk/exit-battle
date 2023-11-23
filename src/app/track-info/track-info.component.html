@@ -28,7 +28,7 @@
         </div>
       </div>
       <div *ngIf="editingMode" class="editor-top-container">
-        <div class="judge-select">
+        <div class="track-judge-select">
           <select [(ngModel)]="selectedJudge">
             <option *ngFor="let judge of judges" [value]="judge">{{judge}}</option>
           </select>
@@ -61,11 +61,11 @@
     </div>
     <ng-container *ngIf="!editingMode">
       <div *ngFor="let mark of track.marks" class="mark-container">
-        <div class="judge-container">
-          <div class="judge-icon">
+        <div class="track-judge-container">
+          <div class="track-judge-icon">
             <img [src]="getJudgeIconUrl(mark)" alt="Фото судді" height="64" width="64"/>
           </div>
-          <div class="judge-name">
+          <div class="track-judge-name">
             {{mark.judgeName}}
           </div>
         </div>

@@ -79,7 +79,7 @@ h1 {
   }
 }
 
-.judge-container {
+.track-judge-container {
   display: flex;
   flex-direction: column;
   margin-right: 24px;
@@ -92,7 +92,7 @@ h1 {
   }
 }
 
-.judge-icon {
+.track-judge-icon {
   display: flex;
   justify-content: center;
 
@@ -103,7 +103,7 @@ h1 {
   }
 }
 
-.judge-name {
+.track-judge-name {
   color: #111013;
   font-size: 12px;
   font-weight: 600;
@@ -205,7 +205,7 @@ h1 {
   padding: 24px;
 }
 
-.judge-select {
+.track-judge-select {
   select {
     width: 100%;
     color: #000;
