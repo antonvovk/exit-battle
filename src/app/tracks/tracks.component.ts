@@ -50,6 +50,10 @@ export class TracksComponent {
   }
 
   public allTracksAreUploaded(pair: PairWithTrack): boolean {
+    if (new Date() >= this.selectedRound.endDate.toDate()) {
+      return true;
+    }
+
     if (pair.middleNickname == null) {
       return pair.leftTrack != null && pair.rightTrack != null;
     }
@@ -57,14 +61,31 @@ export class TracksComponent {
   }
 
   public allMarksAreSet(pair: PairWithTrack): boolean {
-    const numberOfJudges = this.selectedRound.totalNumberOfJudges;
     if (pair.middleNickname == null) {
-      return pair.leftTrack.marks.length === numberOfJudges && pair.rightTrack.marks.length === numberOfJudges;
+      if (pair.leftTrack == null || pair.rightTrack == null) {
+        return true;
+      }
     }
-    return pair.leftTrack.marks.length === numberOfJudges && pair.rightTrack.marks.length === numberOfJudges && pair.middleTrack.marks.length === numberOfJudges;
+
+    const numberOfJudges = this.selectedRound.totalNumberOfJudges;
+    const sufficientNumberOfJudges = Math.ceil(numberOfJudges / 2);
+    if (pair.middleNickname == null) {
+      return pair.leftTrack.marks.length >= sufficientNumberOfJudges && pair.rightTrack.marks.length >= sufficientNumberOfJudges;
+    }
+    return pair.leftTrack.marks.length >= sufficientNumberOfJudges && pair.rightTrack.marks.length >= sufficientNumberOfJudges && pair.middleTrack.marks.length >= sufficientNumberOfJudges;
   }
 
   public determineWinner(pair: PairWithTrack): string {
+    if (pair.leftTrack == null && pair.middleTrack == null) {
+      return pair.rightNickname;
+    }
+    if (pair.rightTrack == null && pair.middleTrack == null) {
+      return pair.leftNickname;
+    }
+    if (pair.leftTrack == null && pair.rightTrack == null) {
+      return pair.middleNickname;
+    }
+
     const left = this.sumOfSquares(pair.leftTrack.marks.map(it => this.getMarkSum(it)));
     const middle = this.sumOfSquares((pair.middleTrack?.marks ?? []).map(it => this.getMarkSum(it)));
     const right = this.sumOfSquares(pair.rightTrack.marks.map(it => this.getMarkSum(it)));
@@ -73,8 +94,10 @@ export class TracksComponent {
       return pair.leftNickname;
     } else if (right > middle && right > left) {
       return pair.rightNickname;
-    } else {
+    } else if (middle > left && middle > right) {
       return pair.middleNickname;
+    } else {
+      return null
     }
   }
 

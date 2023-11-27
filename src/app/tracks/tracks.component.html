@@ -45,15 +45,22 @@
         <div>
           {{pair.middleNickname == null ? 'Пара №' : 'Трійка №'}}{{pair.number}}
         </div>
-        <div *ngIf="!allTracksAreUploaded(pair)" class="yellow">
+        <div *ngIf="!allTracksAreUploaded(pair); else uploadedTracks" class="yellow">
           Очікуємо на композиції
         </div>
-        <div *ngIf="allTracksAreUploaded(pair) && !allMarksAreSet(pair)" class="yellow">
-          Очікуємо на оцінки
-        </div>
-        <div *ngIf="allTracksAreUploaded(pair) && allMarksAreSet(pair)">
-          Переможець: <span class="green">{{determineWinner(pair)}}</span>
-        </div>
+        <ng-template #uploadedTracks>
+          <div *ngIf="!allMarksAreSet(pair); else judgedTracks" class="yellow">
+            Очікуємо на оцінки
+          </div>
+          <ng-template #judgedTracks>
+            <div *ngIf="determineWinner(pair) as winner; else noWinner">
+              Переможець: <span class="green">{{winner}}</span>
+            </div>
+            <ng-template #noWinner>
+              <div class="yellow">Очікуємо на оцінки</div>
+            </ng-template>
+          </ng-template>
+        </ng-template>
       </div>
       <div class="pair">
         <div class="audio-container-row-pair">
