@@ -24,6 +24,7 @@ export class GlobalService {
 
   public selectedFooterMenuIndex = 0;
   private spinnerTextValue: string = 'Завантаження...';
+  private loadPercentage: number = 0;
   private dialog = inject(DialogService);
   private currentUser: User;
   private firebaseUser: any;
@@ -39,6 +40,7 @@ export class GlobalService {
               private toastr: ToastrService,
               private spinner: NgxSpinnerService
   ) {
+    this.spinnerTextValue = `Завантаження 0%`;
     this.spinner.show();
 
     this.db.collection('remote-config').doc('main').get().subscribe({
@@ -46,18 +48,24 @@ export class GlobalService {
         this.remoteConfig = doc.data() as RemoteConfig;
         this.globalState.currentRoundNumber = this.remoteConfig.currentRoundNumber;
         this.finalizeGlobalState();
+        this.loadPercentage += 20;
+        this.spinnerTextValue = `Завантаження ${this.loadPercentage}%`;
       }
     });
     this.db.collection('rounds').get().subscribe({
       next: doc => {
         this.globalState.rounds = doc.docs.map(it => it.data() as Round);
         this.finalizeGlobalState();
+        this.loadPercentage += 20;
+        this.spinnerTextValue = `Завантаження ${this.loadPercentage}%`;
       }
     });
     this.db.collection('pairs', ref => ref.orderBy('number')).get().subscribe({
       next: doc => {
         this.globalState.pairs = doc.docs.map(it => it.data() as Pair);
         this.finalizeGlobalState();
+        this.loadPercentage += 20;
+        this.spinnerTextValue = `Завантаження ${this.loadPercentage}%`;
       }
     });
 
@@ -71,6 +79,8 @@ export class GlobalService {
         localStorage.removeItem('nickname');
         this.firebaseUser = undefined;
       }
+      this.loadPercentage += 20;
+      this.spinnerTextValue = `Завантаження ${this.loadPercentage}%`;
     });
   }
 

@@ -188,7 +188,9 @@ export class TracksComponent {
           this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15);
         }
 
+        this.service.spinnerText = `Завантаження 100%`;
         this.spinner.hide();
+        this.service.spinnerText = 'Завантаження...';
       }
     });
   }
