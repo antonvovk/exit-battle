@@ -82,20 +82,27 @@ export class TracksComponent {
     if (pair.rightTrack == null && pair.middleTrack == null) {
       return pair.leftNickname;
     }
-    if (pair.leftTrack == null && pair.rightTrack == null) {
-      return pair.middleNickname;
+
+    const left = pair.leftTrack.marks.sort((a, b) => this.sortMarks(a, b))
+      .map(mark => this.getMarkSum(mark));
+    const right = pair.rightTrack.marks.sort((a, b) => this.sortMarks(a, b))
+      .map(mark => this.getMarkSum(mark));
+
+    let length = Math.min(left.length, right.length);
+    let leftCount = 0;
+    let rightCount = 0;
+    for (let i = 0; i < length; ++i) {
+      if (left[i] > right[i]) {
+        ++leftCount;
+      } else if (right[i] > left[i]) {
+        ++rightCount;
+      }
     }
 
-    const left = this.sumOfSquares(pair.leftTrack.marks.map(it => this.getMarkSum(it)));
-    const middle = this.sumOfSquares((pair.middleTrack?.marks ?? []).map(it => this.getMarkSum(it)));
-    const right = this.sumOfSquares(pair.rightTrack.marks.map(it => this.getMarkSum(it)));
-
-    if (left > middle && left > right) {
+    if (leftCount > rightCount) {
       return pair.leftNickname;
-    } else if (right > middle && right > left) {
+    } else if (rightCount > leftCount) {
       return pair.rightNickname;
-    } else if (middle > left && middle > right) {
-      return pair.middleNickname;
     } else {
       return null
     }
@@ -167,8 +174,14 @@ export class TracksComponent {
     return mark.performance + mark.content + mark.generalImpression;
   }
 
-  private sumOfSquares(seq: number[]): number {
-    return seq.reduce((sum, num) => sum + num ** 2, 0);
+  private sortMarks(a: Mark, b: Mark): number {
+    if (a > b) {
+      return 1;
+    }
+    if (a < b) {
+      return -1;
+    }
+    return 0;
   }
 
   private fetchTracks() {
