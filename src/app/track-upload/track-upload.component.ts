@@ -21,14 +21,8 @@ export class TrackUploadComponent implements OnInit, OnDestroy {
   editor: Editor;
   html: '';
   toolbar: Toolbar = [
-    ['bold', 'italic'],
-    ['underline', 'strike'],
-    ['code', 'blockquote'],
-    ['ordered_list', 'bullet_list'],
-    [{heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}],
-    ['text_color', 'background_color'],
-    ['align_left', 'align_center', 'align_right', 'align_justify'],
-    ['horizontal_rule', 'format_clear'],
+    ['bold', 'underline', 'strike'],
+    ['format_clear'],
   ];
 
   private duration: number;

@@ -109,6 +109,10 @@ input[type=file] {
   min-height: 278px;
   max-height: calc(100vh - 700px);
   overflow: scroll;
+
+  p {
+    margin: 0 !important;
+  }
 }
 
 .upload-disclaimer {
