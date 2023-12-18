@@ -194,6 +194,10 @@ h1 {
   p {
     margin: 0;
     font-size: 14px;
+
+    &:empty {
+      min-height: 17px;
+    }
   }
 
   a {
