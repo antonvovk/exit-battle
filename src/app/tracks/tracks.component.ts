@@ -99,9 +99,11 @@ export class TracksComponent {
       }
     }
 
-    if (leftCount > rightCount) {
+    const numberOfJudges = this.selectedRound.totalNumberOfJudges;
+    const sufficientNumberOfJudges = Math.ceil(numberOfJudges / 2);
+    if (leftCount >= sufficientNumberOfJudges) {
       return pair.leftNickname;
-    } else if (rightCount > leftCount) {
+    } else if (rightCount >= sufficientNumberOfJudges) {
       return pair.rightNickname;
     } else {
       return null
@@ -175,10 +177,10 @@ export class TracksComponent {
   }
 
   private sortMarks(a: Mark, b: Mark): number {
-    if (a > b) {
+    if (a.judgeName > b.judgeName) {
       return 1;
     }
-    if (a < b) {
+    if (a.judgeName < b.judgeName) {
       return -1;
     }
     return 0;
