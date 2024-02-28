@@ -10,7 +10,7 @@
              [class.round-active]="round.number === selectedRound.number"
              [class.round-inactive]="round.number !== selectedRound.number"
              class="round">
-          {{round.name}}
+          {{ round.name }}
         </div>
       </ng-container>
     </div>
@@ -20,7 +20,7 @@
   </div>
 
   <div class="round-theme">
-    Тема раунду: {{selectedRound.theme}}
+    Тема раунду: {{ selectedRound.theme }}
   </div>
 
   <div *ngIf="!isPairedRound" class="audio-container">
@@ -43,7 +43,7 @@
     <div *ngFor="let pair of pairs; trackBy: trackByPair;" class="pair-row">
       <div class="pair-tittle-container">
         <div>
-          {{pair.middleNickname == null ? 'Пара №' : 'Трійка №'}}{{pair.number}}
+          {{ pair.customName == null ? 'Пара №' + pair.number : pair.customName }}
         </div>
         <div *ngIf="!allTracksAreUploaded(pair); else uploadedTracks" class="yellow">
           Очікуємо на композиції
@@ -54,7 +54,7 @@
           </div>
           <ng-template #judgedTracks>
             <div *ngIf="determineWinner(pair) as winner; else noWinner">
-              Переможець: <span class="green">{{winner}}</span>
+              Переможець: <span class="green">{{ winner }}</span>
             </div>
             <ng-template #noWinner>
               <div class="yellow">Очікуємо на оцінки</div>
@@ -91,7 +91,7 @@
 
   <div class="tracks-paginator">
     <div class="paginator-total">
-      Всього здано: {{this.numberOfTracks}} треків
+      Всього здано: {{ this.numberOfTracks }} треків
     </div>
     <div style="width: 100%; display: flex; justify-content: center;">
       <div class="paginator-container">
@@ -99,7 +99,7 @@
           <img alt="Ліва стрілка" height="20" src="assets/images/arrow-left.svg" width="20">
         </div>
         <div class="paginator">
-          {{getPageNumberInFormat()}} / {{getTotalPagesInFormat()}}
+          {{ getPageNumberInFormat() }} / {{ getTotalPagesInFormat() }}
         </div>
         <div (click)="nextPage()" class="arrow">
           <img alt="Права стрілка" height="20" src="assets/images/arrow-right.svg" width="20">

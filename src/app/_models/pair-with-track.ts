@@ -9,4 +9,5 @@ export interface PairWithTrack {
   leftTrack: Track;
   middleTrack: Track;
   rightTrack: Track;
+  customName: string;
 }
