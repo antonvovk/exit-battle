@@ -33,7 +33,7 @@
   min-height: 480px;
   width: 100%;
 
-  @media screen and (max-width: 415px) {
+  @media screen and (max-width: 440px) {
     display: flex;
     flex-wrap: wrap;
   }
@@ -50,7 +50,7 @@
 }
 
 .audio-container-row {
-  @media screen and (max-width: 415px) {
+  @media screen and (max-width: 440px) {
     width: 100%;
   }
 }
@@ -133,7 +133,7 @@
   flex-grow: 1;
   width: 100%;
 
-  @media screen and (max-width: 430px) {
+  @media screen and (max-width: 550px) {
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -143,7 +143,7 @@
   display: flex;
   flex-wrap: wrap;
 
-  @media screen and (max-width: 415px) {
+  @media screen and (max-width: 550px) {
     justify-content: center;
   }
 }
@@ -244,8 +244,12 @@
   margin-bottom: 16px;
   width: 100%;
 
-  @media screen and (min-width: 430px) {
+  @media screen and (min-width: 550px) {
     max-width: 300px;
+  }
+
+  @media screen and (max-width: 550px) {
+    max-width: 550px;
   }
 }
 
