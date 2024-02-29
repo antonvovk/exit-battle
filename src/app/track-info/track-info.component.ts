@@ -39,7 +39,9 @@ export class TrackInfoComponent {
     'Денні Дельта',
     'Міша MRK',
     'XXV кадр',
-    'SDU'
+    'SDU',
+    'OTOY',
+    'Libenson'
   ];
   selectedJudge = 'CRESCO';
 
@@ -100,6 +102,12 @@ export class TrackInfoComponent {
         break;
       case 'SDU':
         judgeIcon = 'judge_sdu.jpg';
+        break;
+      case 'OTOY':
+        judgeIcon = 'otoy.png';
+        break;
+      case 'Libenson':
+        judgeIcon = 'libenson.png';
         break;
       default:
         judgeIcon = 'default-judge.png';
