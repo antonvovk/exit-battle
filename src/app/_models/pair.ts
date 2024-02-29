@@ -4,4 +4,5 @@ export interface Pair {
   leftNickname: string;
   middleNickname: string;
   rightNickname: string;
+  customName: string;
 }
