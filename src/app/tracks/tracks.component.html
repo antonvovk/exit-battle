@@ -41,11 +41,12 @@
       <h1>Не знайдено треків</h1>
     </div>
     <div *ngFor="let pair of pairs; trackBy: trackByPair;" class="pair-row">
-      <div class="pair-tittle-container">
-        <div>
+      <div [class.pair-tittle-container-final]="pair.round >= 7" [class.pair-tittle-container]="pair.round < 7">
+        <div [class.pair-tittle-text-left-final]="pair.round >= 7">
           {{ pair.customName == null ? 'Пара №' + pair.number : pair.customName }}
         </div>
-        <div *ngIf="!allTracksAreUploaded(pair); else uploadedTracks" class="yellow">
+        <div *ngIf="!allTracksAreUploaded(pair); else uploadedTracks" class="yellow"
+             [class.pair-tittle-text-right-final]="pair.round >= 7">
           Очікуємо на композиції
         </div>
         <ng-template #uploadedTracks>

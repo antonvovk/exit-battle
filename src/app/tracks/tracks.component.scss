@@ -73,6 +73,39 @@
   letter-spacing: 0.32px;
 }
 
+.pair-tittle-container-final {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: flex-end;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.32px;
+  width: 100%;
+
+  @media screen and (max-width: 650px) {
+    justify-content: space-between;
+  }
+}
+
+.pair-tittle-text-left-final {
+  width: 100%;
+  text-align: center;
+
+  @media screen and (max-width: 650px) {
+    width: auto;
+    text-align: left;
+  }
+}
+
+.pair-tittle-text-right-final {
+  position: fixed;
+
+  @media screen and (max-width: 650px) {
+    position: inherit;
+  }
+}
+
 .yellow {
   color: #FFCF26;
 }
