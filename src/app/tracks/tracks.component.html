@@ -50,15 +50,17 @@
           Очікуємо на композиції
         </div>
         <ng-template #uploadedTracks>
-          <div *ngIf="!allMarksAreSet(pair); else judgedTracks" class="yellow">
+          <div *ngIf="!allMarksAreSet(pair); else judgedTracks" class="yellow"
+               [class.pair-tittle-text-right-final]="pair.round >= 7">
             Очікуємо на оцінки
           </div>
           <ng-template #judgedTracks>
-            <div *ngIf="determineWinner(pair) as winner; else noWinner">
+            <div *ngIf="determineWinner(pair) as winner; else noWinner"
+                 [class.pair-tittle-text-right-final]="pair.round >= 7">
               Переможець: <span class="green">{{ winner }}</span>
             </div>
             <ng-template #noWinner>
-              <div class="yellow">Очікуємо на оцінки</div>
+              <div class="yellow" [class.pair-tittle-text-right-final]="pair.round >= 7">Очікуємо на оцінки</div>
             </ng-template>
           </ng-template>
         </ng-template>
