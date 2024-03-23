@@ -61,6 +61,9 @@ export class TracksComponent {
   }
 
   public allMarksAreSet(pair: PairWithTrack): boolean {
+    if (pair.winner) {
+      return true;
+    }
     if (pair.middleNickname == null) {
       if (pair.leftTrack == null || pair.rightTrack == null) {
         return true;
@@ -76,6 +79,9 @@ export class TracksComponent {
   }
 
   public determineWinner(pair: PairWithTrack): string {
+    if (pair.winner) {
+      return pair.winner;
+    }
     if (pair.leftTrack == null && pair.middleTrack == null) {
       return pair.rightNickname;
     }
@@ -249,7 +255,8 @@ export class TracksComponent {
         leftTrack: this.allTracks.find(t => t.nickname === p.leftNickname),
         middleTrack: this.allTracks.find(t => t.nickname === p.middleNickname),
         rightTrack: this.allTracks.find(t => t.nickname === p.rightNickname),
-        customName: p.customName
+        customName: p.customName,
+        winner: p.winner
       });
   }
 }

@@ -10,4 +10,5 @@ export interface PairWithTrack {
   middleTrack: Track;
   rightTrack: Track;
   customName: string;
+  winner: string;
 }
