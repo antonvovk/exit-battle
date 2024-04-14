@@ -45,13 +45,14 @@
         <div [class.pair-tittle-text-left-final]="pair.round >= 7">
           {{ pair.customName == null ? 'Пара №' + pair.number : pair.customName }}
         </div>
-        <div *ngIf="!allTracksAreUploaded(pair); else uploadedTracks" class="yellow"
-             [class.pair-tittle-text-right-final]="pair.round >= 7">
+        <div *ngIf="!allTracksAreUploaded(pair); else uploadedTracks"
+             [class.pair-tittle-text-right-final]="pair.round >= 7"
+             class="yellow">
           Очікуємо на композиції
         </div>
         <ng-template #uploadedTracks>
-          <div *ngIf="!allMarksAreSet(pair); else judgedTracks" class="yellow"
-               [class.pair-tittle-text-right-final]="pair.round >= 7">
+          <div *ngIf="!allMarksAreSet(pair); else judgedTracks" [class.pair-tittle-text-right-final]="pair.round >= 7"
+               class="yellow">
             Очікуємо на оцінки
           </div>
           <ng-template #judgedTracks>
@@ -60,7 +61,7 @@
               Переможець: <span class="green">{{ winner }}</span>
             </div>
             <ng-template #noWinner>
-              <div class="yellow" [class.pair-tittle-text-right-final]="pair.round >= 7">Очікуємо на оцінки</div>
+              <div [class.pair-tittle-text-right-final]="pair.round >= 7" class="yellow">Очікуємо на оцінки</div>
             </ng-template>
           </ng-template>
         </ng-template>

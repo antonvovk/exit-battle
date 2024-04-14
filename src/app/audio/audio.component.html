@@ -10,8 +10,8 @@
       </media-play-button>
       <div class="metadata">
         <span>
-          <span class="metadata-nickname">{{track?.nickname ?? pairNickname}}</span>
-          <span class="metadata-duration">{{getDurationAsString()}}</span>
+          <span class="metadata-nickname">{{ track?.nickname ?? pairNickname }}</span>
+          <span class="metadata-duration">{{ getDurationAsString() }}</span>
         </span>
         <span *ngIf="track?.bonusForBeat" class="metadata-bonus" tp="Бонус за біт" tpPlacement="bottom">
           <img alt="Бонус" height="16" src="assets/images/plusone.svg" width="18">
@@ -26,10 +26,10 @@
        [class.passed]="track && track?.passedToNextRound"
        [style.cursor]="clickable ? 'cursor' : 'default'" class="mark">
     <div class="total-mark">
-      {{getTotalMark()}}
+      {{ getTotalMark() }}
     </div>
     <div class="judges-count">
-      {{track?.marks.length ?? 0}}/{{totalNumberOfJudges}}
+      {{ track?.marks.length ?? 0 }}/{{ totalNumberOfJudges }}
     </div>
   </div>
 </div>

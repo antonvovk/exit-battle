@@ -5,7 +5,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '../environments/environment';
-import {getAuth, provideAuth} from '@angular/fire/auth';
 import {getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {getStorage, provideStorage} from '@angular/fire/storage';
 import {HeaderComponent} from './header/header.component';
@@ -16,14 +15,11 @@ import {TracksComponent} from './tracks/tracks.component';
 import {AudioComponent} from './audio/audio.component';
 import {AboutComponent} from './about/about.component';
 import {FooterComponent} from './footer/footer.component';
-import {AuthComponent} from "./auth/auth.component";
 import {FIREBASE_OPTIONS} from "@angular/fire/compat";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TrackInfoComponent} from './track-info/track-info.component';
-import {TrackUploadComponent} from './track-upload/track-upload.component';
 import {NgxSpinnerModule} from "ngx-spinner";
-import {MarkEditorComponent} from './mark-editor/mark-editor.component';
 import {popperVariation, provideTippyConfig, TippyDirective, tooltipVariation} from "@ngneat/helipopper";
 import {FormsModule} from "@angular/forms";
 import {NgxEditorModule} from "ngx-editor";
@@ -39,17 +35,13 @@ import {NgxEditorModule} from "ngx-editor";
     AudioComponent,
     AboutComponent,
     FooterComponent,
-    AuthComponent,
     TrackInfoComponent,
-    TrackUploadComponent,
-    MarkEditorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     ToastrModule.forRoot({

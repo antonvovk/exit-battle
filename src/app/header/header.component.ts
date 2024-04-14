@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {AuthComponent} from "../auth/auth.component";
 import {GlobalService} from "../_services/global.service";
 
 @Component({
@@ -10,24 +9,6 @@ import {GlobalService} from "../_services/global.service";
 export class HeaderComponent {
 
   constructor(private service: GlobalService) {
-  }
-
-  get isLoggedIn(): boolean {
-    return this.service.isLoggedIn;
-  }
-
-  get nickname(): string {
-    return this.service.nickname;
-  }
-
-  public openAuthDialog() {
-    this.service.openDialog(AuthComponent, {
-      width: 440
-    });
-  }
-
-  public signOut() {
-    this.service.signOut();
   }
 
   public onCupPrizeClicked() {

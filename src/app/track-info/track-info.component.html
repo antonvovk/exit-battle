@@ -10,7 +10,7 @@
       (click)="selectMarksMenuItem()"
       [ngClass]="{'track-info-menu-item-selected ': selectedMenuItem === 'marks', 'track-info-menu-item-unselected' : selectedMenuItem === 'lyrics'}"
       class="track-info-menu-item">
-      Оцінки {{track.marks.length}}/{{totalNumberOfJudges}}
+      Оцінки {{ track.marks.length }}/{{ totalNumberOfJudges }}
     </div>
     <div
       (click)="selectLyricsMenuItem()"
@@ -21,80 +21,37 @@
   </div>
 
   <div [hidden]="selectedMenuItem !== 'marks'" class="parent-marks-container">
-    <div *ngIf="isAdmin()" style="margin-bottom: 12px;">
-      <div *ngIf="!editingMode" class="edit-track-border">
-        <div style="padding-top: 36px; padding-bottom: 36px; width: 160px;">
-          <app-button (clicked)="onEditClicked()" [red]="true" title="Оцінити"></app-button>
+    <div *ngFor="let mark of track.marks" class="mark-container">
+      <div class="track-judge-container">
+        <div class="track-judge-icon">
+          <img [src]="getJudgeIconUrl(mark)" alt="Фото судді" height="64" width="64"/>
+        </div>
+        <div class="track-judge-name">
+          {{ mark.judgeName }}
         </div>
       </div>
-      <div *ngIf="editingMode" class="editor-top-container">
-        <div class="track-judge-select">
-          <select [(ngModel)]="selectedJudge">
-            <option *ngFor="let judge of judges" [value]="judge">{{judge}}</option>
-          </select>
-        </div>
-        <div class="marks-editor-container">
-          <div style="margin-right: 40px">
-            <app-mark-editor (value)="updatePerformance($event)" [amount]="5" [name]="'Аудіальність'"></app-mark-editor>
+      <div class="mark-content-container">
+        <div [innerHtml]="getMarkText(mark)" class="mark-text"></div>
+        <div class="mark-numbers-container">
+          <div class="left-marks-numbers">
+            <div class="mark-block mr-8">
+              Аудіальність: {{ mark.performance }}
+            </div>
+            <div class="mark-block mr-8">
+              Текст: {{ mark.content }}
+            </div>
+            <div class="mark-block">
+              ЗВ: {{ mark.generalImpression }}
+            </div>
           </div>
-          <div style="margin-right: 40px">
-            <app-mark-editor (value)="updateContent($event)" [amount]="5" [name]="'Текстуальність'"></app-mark-editor>
-          </div>
-          <div style="margin-right: 40px">
-            <app-mark-editor (value)="updateGeneralImpression($event)" [amount]="2"
-                             [name]="'Враження'"></app-mark-editor>
-          </div>
-          <div *ngIf="track.round <= 1">
-            <app-mark-editor (value)="updateBonus($event)" [amount]="1" [name]="'Бонус'"></app-mark-editor>
-          </div>
-        </div>
-        <div class="editor-comment">
-          <textarea (input)="onJudgeCommentInput($event)" placeholder="Коментар судді..."></textarea>
-        </div>
-        <div style="width: 100%; display: flex; justify-content: center">
-          <div style="padding-top: 16px; width: 196px;">
-            <app-button (clicked)="submitMark()" [red]="true"
-                        [title]="'Надіслати - ' + markToUpdateSum() + ' балів'"></app-button>
+          <div style="display: flex; flex-direction: row; flex-wrap: nowrap">
+            <div class="mark-block">
+              Загалом: {{ (mark.performance + mark.content + mark.generalImpression) }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <ng-container *ngIf="!editingMode">
-      <div *ngFor="let mark of track.marks" class="mark-container">
-        <div class="track-judge-container">
-          <div class="track-judge-icon">
-            <img [src]="getJudgeIconUrl(mark)" alt="Фото судді" height="64" width="64"/>
-          </div>
-          <div class="track-judge-name">
-            {{mark.judgeName}}
-          </div>
-        </div>
-        <div class="mark-content-container">
-          <div [innerHtml]="getMarkText(mark)" class="mark-text"></div>
-          <div class="mark-numbers-container">
-            <div class="left-marks-numbers">
-              <div class="mark-block mr-8">
-                Аудіальність: {{mark.performance}}
-              </div>
-              <div class="mark-block mr-8">
-                Текст: {{mark.content}}
-              </div>
-              <div class="mark-block">
-                ЗВ: {{mark.generalImpression}}
-              </div>
-            </div>
-            <div style="display: flex; flex-direction: row; flex-wrap: nowrap">
-              <div (click)="removeMark(mark)" *ngIf="isAdmin()" class="trash-icon">
-                <img alt="Кошик" height="20" src="assets/images/trash.svg" width="20">
-              </div>
-              <div class="mark-block">
-                Загалом: {{(mark.performance + mark.content + mark.generalImpression)}}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-container>
   </div>
 
   <div *ngIf="selectedMenuItem === 'lyrics'" [innerHtml]="lyrics" class="track-lyrics">

@@ -16,15 +16,4 @@
       <hr/>
     </div>
   </div>
-  <div *ngIf="!isLoggedIn" style="min-width: 120px">
-    <app-button (clicked)="openAuthDialog()" title="Вхід"></app-button>
-  </div>
-  <div *ngIf="isLoggedIn" style="display: flex; align-items: center">
-    <div *ngIf="nickname" class="nickname">
-      Вітаємо, {{nickname}}
-    </div>
-    <div style="min-width: 120px">
-      <app-button (clicked)="signOut()" title="Вихід"></app-button>
-    </div>
-  </div>
 </div>
