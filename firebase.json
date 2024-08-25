@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "exit-battle-season2",
     "public": "dist/exit-battle",
     "ignore": [
       "firebase.json",
