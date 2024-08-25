@@ -1,45 +1,30 @@
-<div *ngIf="currentView === 'login'" class="rows">
+<div *ngIf="currentView === 'first'" class="rows">
   <h1>Увійти</h1>
   <div class="input-row">
-    <app-input (value)="onEmail($event)" placeholder="Електронна пошта"/>
+    <app-input (value)="onPhoneNumber($event)" placeholder="Номер телефону"/>
   </div>
-  <div class="input-row-last">
-    <app-input (value)="onPassword($event)" [type]="'password'" placeholder="Пароль"/>
-  </div>
+  <div class="input-row-last" id="recaptcha-container" style="display: flex; justify-content: center"></div>
   <div class="button">
-    <app-button (clicked)="login()" [red]="true" title="Увійти"/>
-  </div>
-  <div *ngIf="isRegistrationOpen()" class="bottom">
-    Ще не створили аккаунт?&nbsp;<span (click)="changeViewToRegistration()">Реєстрація<hr/></span>
-  </div>
-  <div class="bottom">
-    Забули пароль?&nbsp;<span (click)="changeViewToForgot()">Скинути пароль<hr/></span>
+    <app-button (clicked)="signInWithPhoneNumber()" [red]="true" title="Продовжити"/>
   </div>
 </div>
-<div *ngIf="currentView === 'registration'" class="rows">
+
+<div *ngIf="currentView === 'second'" class="rows">
+  <h1>Увійти</h1>
+  <div class="input-row">
+    <app-input (value)="onVerificationCode($event)" placeholder="Код підтвердження"/>
+  </div>
+  <div class="button">
+    <app-button (clicked)="confirmVerificationCode()" [red]="true" title="Підтвердити"/>
+  </div>
+</div>
+
+<div *ngIf="currentView === 'third'" class="rows">
   <h1>Реєстрація</h1>
   <div class="input-row">
-    <app-input (value)="onEmail($event)" placeholder="Електронна пошта"/>
-  </div>
-  <div class="input-row-last">
-    <app-input (value)="onPassword($event)" [type]="'password'" placeholder="Пароль"/>
-  </div>
-  <div class="input-row-last">
     <app-input (value)="onNickname($event)" placeholder="Нікнейм"/>
   </div>
   <div class="button">
-    <app-button (clicked)="signUp()" [red]="true" title="Продовжити"/>
-  </div>
-  <div class="bottom">
-    Вже маєте аккаунт?&nbsp;<span (click)="changeViewToLogin()">Увійти<hr/></span>
-  </div>
-</div>
-<div *ngIf="currentView === 'forgot'" class="rows">
-  <h1>Зміна паролю</h1>
-  <div class="input-row">
-    <app-input (value)="onEmail($event)" placeholder="Електронна пошта"/>
-  </div>
-  <div class="button" style="margin-top: 32px">
-    <app-button (clicked)="resetPassword()" [red]="true" title="Скинути пароль"/>
+    <app-button (clicked)="completeSignUp()" [red]="true" title="Завершити"/>
   </div>
 </div>

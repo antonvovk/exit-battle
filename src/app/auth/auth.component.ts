@@ -1,112 +1,165 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {GlobalService} from "../_services/global.service";
 import {ToastrService} from "ngx-toastr";
+import {RecaptchaVerifier} from "@firebase/auth";
+import {Auth} from '@angular/fire/auth';
+import {AngularFireAuth} from "@angular/fire/compat/auth";
+import firebase from "firebase/compat";
+import {NgxSpinnerService} from "ngx-spinner";
+import ConfirmationResult = firebase.auth.ConfirmationResult;
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent {
+export class AuthComponent implements AfterViewInit {
 
-  currentView: 'login' | 'registration' | 'forgot' = 'login';
+  recaptchaSolved: boolean = false;
+  recaptchaVerifier: RecaptchaVerifier;
+  confirmationResult: ConfirmationResult;
 
-  email = '';
-  password = '';
+  currentView: 'first' | 'second' | 'third' = 'first';
+
+  phoneNumber = '';
+  verificationCode = '';
   nickname = '';
 
   constructor(private service: GlobalService,
-              private toastr: ToastrService) {
+              private auth: Auth,
+              private fireAuth: AngularFireAuth,
+              private toastr: ToastrService,
+              private spinner: NgxSpinnerService
+  ) {
+    auth.languageCode = 'uk';
   }
 
-  public isRegistrationOpen(): boolean {
-    return this.service.isRegistrationOpen();
+  ngAfterViewInit(): void {
+    this.recaptchaVerifier = new RecaptchaVerifier(this.auth, 'recaptcha-container', {
+      'size': 'normal',
+      'callback': (_response: string) => {
+        this.recaptchaSolved = true;
+      },
+      'expired-callback': () => {
+        this.recaptchaSolved = false;
+      }
+    });
+    this.recaptchaVerifier.render().then((_widgetId) => {
+    });
   }
 
-  changeViewToLogin() {
-    this.currentView = 'login';
-    this.email = '';
-    this.password = '';
-    this.nickname = '';
+  onPhoneNumber(value: string) {
+    this.phoneNumber = value;
   }
 
-  changeViewToRegistration() {
-    this.currentView = 'registration';
-    this.email = '';
-    this.password = '';
-    this.nickname = '';
+  onVerificationCode(value: string) {
+    this.verificationCode = value;
   }
 
-  changeViewToForgot() {
-    this.currentView = 'forgot';
-    this.email = '';
-    this.password = '';
-    this.nickname = '';
-  }
-
-  onEmail(value: string) {
-    this.email = value;
-  }
-
-  onPassword(value: any) {
-    this.password = value;
-  }
-
-  onNickname(value: any) {
+  onNickname(value: string) {
     this.nickname = value;
   }
 
-  login() {
-    if (!this.isEmailAndPasswordValid()) {
+  signInWithPhoneNumber() {
+    if (!this.isPhoneNumberValid() || !this.isCaptchaValid()) {
       return;
     }
-    this.service.signIn(this.email.trim(), this.password.trim());
+    this.spinner.show();
+    this.fireAuth
+      .signInWithPhoneNumber(this.getPhoneNumberFormatted(), this.recaptchaVerifier)
+      .then((confirmationResult) => {
+        this.confirmationResult = confirmationResult;
+        this.currentView = 'second';
+        this.toastr.info(`Ми надіслали код підтвердження на номер ${this.getPhoneNumberFormatted()}`);
+      })
+      .catch((error) => {
+        this.service.handleFirebaseError(error);
+      })
+      .finally(() => {
+        this.spinner.hide();
+      })
   }
 
-  signUp() {
-    if (!this.isRegistrationOpen()) {
+  confirmVerificationCode() {
+    if (!this.isVerificationCodeValid()) {
       return;
     }
-    if (!this.isEmailAndPasswordValid() || !this.isNicknameValid()) {
-      return;
-    }
-    this.service.signUp(this.email.trim(), this.password.trim(), this.nickname);
+    this.spinner.show();
+    this.confirmationResult.confirm(this.verificationCode)
+      .then((result) => {
+        if (result.additionalUserInfo.isNewUser === false) {
+          this.service.closeAllDialogs();
+          this.toastr.success('Ви ввійшли в обліковий запис');
+          return;
+        }
+
+        this.currentView = 'third';
+      })
+      .catch((error) => {
+        this.service.handleFirebaseError(error);
+      })
+      .finally(() => {
+        this.spinner.hide();
+      })
   }
 
-  resetPassword() {
-    if (!this.isEmailValid()) {
-      return;
-    }
-    this.service.resetPassword(this.email.trim());
+  completeSignUp() {
+    this.spinner.show();
+    const updateUserProfiledPromise = this.service.updateProfileDisplayName(this.nickname);
+    const createUserInDbPromise = this.service.createUserInDatabase(this.nickname);
+    Promise.all([updateUserProfiledPromise, createUserInDbPromise])
+      .then(() => {
+        this.service.closeAllDialogs();
+        this.toastr.success('Ви ввійшли в обліковий запис');
+      })
+      .catch((error) => {
+        this.service.handleFirebaseError(error);
+      })
+      .finally(() => {
+        this.spinner.hide();
+      })
   }
 
-  private isEmailAndPasswordValid() {
-    if (this.email.trim().length === 0) {
-      this.toastr.error("Електронна адреса не може бути порожньою")
+  private isPhoneNumberValid(): boolean {
+    if (this.phoneNumber.trim().length === 0) {
+      this.toastr.error("Номер телефону не може бути порожнім")
       return false;
     }
-    if (this.password.trim().length === 0) {
-      this.toastr.error("Пароль не може бути порожнім")
-      return false;
-    }
-    if (this.password.trim().length < 6) {
-      this.toastr.error("Пароль має бути не менше 6 символів")
+    if (!this.getPhoneNumberFormatted().match(/^\+380\d{9}$|^38\d{10}$|^0\d{9}$|^\d{9}$/gm)) {
+      this.toastr.error("Некоректний номер телефону")
       return false;
     }
     return true;
   }
 
-  private isNicknameValid() {
-    if (this.nickname.length === 0) {
-      this.toastr.error("Нікнейм не може бути порожнім")
+  private getPhoneNumberFormatted(): string {
+    const value = this.phoneNumber.trim().replace(/[ \-()]/gm, '')
+    if (value.startsWith('+380')) {
+      return value;
+    } else if (value.startsWith('380')) {
+      return '+' + value;
+    } else if (value.startsWith('0')) {
+      return '+38' + value;
+    } else {
+      return '+380' + value;
+    }
+  }
+
+  private isCaptchaValid(): boolean {
+    if (this.recaptchaSolved !== true) {
+      this.toastr.error("reCAPTCHA не вирішена")
       return false;
     }
     return true;
   }
 
-  private isEmailValid() {
-    if (this.email.trim().length === 0) {
-      this.toastr.error("Електронна адреса не може бути порожньою")
+  private isVerificationCodeValid() {
+    if (this.verificationCode.trim().length === 0) {
+      this.toastr.error("Код підтвердження не може бути порожнім")
+      return false;
+    }
+    if (!this.verificationCode.trim().match(/^\d{6}$/gm)) {
+      this.toastr.error("Код підтвердження має складатися з 6 цифр")
       return false;
     }
     return true;
