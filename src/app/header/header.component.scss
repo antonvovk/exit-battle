@@ -2,6 +2,7 @@
   margin-top: 30px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   @media screen and (max-width: 600px) {
     padding-right: 16px;
@@ -42,6 +43,12 @@
 }
 
 .header-menu-item:hover {
+  hr {
+    display: block;
+  }
+}
+
+.header-menu-item-hr {
   hr {
     display: block;
   }
