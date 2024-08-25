@@ -1,16 +1,22 @@
 rules_version = '2';
 
-// Craft rules based on data in your Firestore database
-// allow write: if firestore.get(
-//    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
 service firebase.storage {
+
+  function canUserUploadTracks() {
+    return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.canUploadTracks == true;
+  }
+
+  function isTracksUploadOpen() {
+    return firestore.get(/databases/(default)/documents/remote-config/main).data.isTracksUploadOpen == true;
+  }
+
   match /b/{bucket}/o {
     match /{allPaths=**} {
       allow create, write, read, delete, get, list, update: if false;
     }
     match /tracks/{allPaths=**} {
       allow read, get, list;
-      allow create: if request.auth != null && request.auth.token.email_verified;
+      allow create: if request.auth != null && isTracksUploadOpen() && canUserUploadTracks();
     }
   }
 }

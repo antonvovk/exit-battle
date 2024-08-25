@@ -15,22 +15,28 @@ service cloud.firestore {
       allow read, get, list;
     }
     match /users/{userId} {
-      allow create;
-      allow update: if request.auth != null && request.auth.token.email_verified && request.auth.uid == userId;
-      allow get: if request.auth != null && request.auth.token.email_verified && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow get: if request.auth != null && request.auth.uid == userId;
     }
     match /tracks/{trackId} {
       allow read, get, list;
-      allow create: if request.auth != null && request.auth.token.email_verified;
-      allow update: if request.auth != null && request.auth.token.email_verified && request.auth.token.email == "antonn.vovk@gmail.com";
+      allow create: if request.auth != null &&
+          get(/databases/(default)/documents/remote-config/main).data.isTracksUploadOpen == true &&
+          get(/databases/(default)/documents/users/$(request.auth.uid)).data.canUploadTracks == true;
+      allow update: if request.auth != null &&
+          get(/databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin == true;
     }
     match /tracks-counter/{trackCounterId} {
       allow read, get, list;
-      allow create, update: if request.auth != null && request.auth.token.email_verified;
+      allow create, update: if request.auth != null &&
+          get(/databases/(default)/documents/remote-config/main).data.isTracksUploadOpen == true &&
+          get(/databases/(default)/documents/users/$(request.auth.uid)).data.canUploadTracks == true;
     }
     match /lyrics/{lyricsId} {
       allow read, get, list;
-      allow create: if request.auth != null && request.auth.token.email_verified;
+      allow create: if request.auth != null &&
+          get(/databases/(default)/documents/remote-config/main).data.isTracksUploadOpen == true &&
+          get(/databases/(default)/documents/users/$(request.auth.uid)).data.canUploadTracks == true;
     }
   }
 }
