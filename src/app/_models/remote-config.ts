@@ -3,7 +3,7 @@ import Timestamp = firebase.firestore.Timestamp;
 
 export interface RemoteConfig {
   currentRoundNumber: number;
-  isRegistrationOpen: boolean;
+  canNewUsersUploadTracks: boolean;
   isTracksUploadOpen: boolean;
   customTimerEnabled: boolean;
   customTimerText: string;
