@@ -10,7 +10,6 @@ service firebase.storage {
     }
     match /tracks/{allPaths=**} {
       allow read, get, list;
-      allow create: if request.auth != null && request.auth.token.email_verified;
     }
   }
 }

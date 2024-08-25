@@ -14,23 +14,14 @@ service cloud.firestore {
     match /remote-config/{configId} {
       allow read, get, list;
     }
-    match /users/{userId} {
-      allow create;
-      allow update: if request.auth != null && request.auth.token.email_verified && request.auth.uid == userId;
-      allow get: if request.auth != null && request.auth.token.email_verified && request.auth.uid == userId;
-    }
     match /tracks/{trackId} {
       allow read, get, list;
-      allow create: if request.auth != null && request.auth.token.email_verified;
-      allow update: if request.auth != null && request.auth.token.email_verified && request.auth.token.email == "antonn.vovk@gmail.com";
     }
     match /tracks-counter/{trackCounterId} {
       allow read, get, list;
-      allow create, update: if request.auth != null && request.auth.token.email_verified;
     }
     match /lyrics/{lyricsId} {
       allow read, get, list;
-      allow create: if request.auth != null && request.auth.token.email_verified;
     }
   }
 }
