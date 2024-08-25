@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "target": "exit-battle-season2",
     "public": "dist/exit-battle",
     "ignore": [
       "firebase.json",
@@ -10,13 +9,9 @@
   },
   "firestore": {
     "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json",
-    "database": "season2"
+    "indexes": "firestore.indexes.json"
   },
-  "storage": [
-    {
-      "rules": "storage.rules",
-      "bucket": "exit-battle-season2"
-    }
-  ]
+  "storage": {
+    "rules": "storage.rules"
+  }
 }
