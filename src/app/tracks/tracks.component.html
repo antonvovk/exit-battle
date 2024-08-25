@@ -24,12 +24,14 @@
   </div>
 
   <div *ngIf="!isPairedRound" class="audio-container">
-    <div *ngIf="allTracks.length !== 0 && tracks.length === 0">
-      <h1>Не знайдено треків</h1>
-    </div>
-    <div *ngIf="allTracks.length === 0">
-      <h1>Ще немає треків</h1>
-    </div>
+    <ng-container *ngIf="allTracks.length !== 0 && tracks.length === 0">
+      <h1></h1>
+      <h1 style="text-align: center">Не знайдено треків</h1>
+    </ng-container>
+    <ng-container *ngIf="allTracks.length === 0" style="width: 100%">
+      <h1></h1>
+      <h1 style="text-align: center">Ще немає треків</h1>
+    </ng-container>
     <div *ngFor="let track of tracks; trackBy: trackByTrack;" class="audio-container-row">
       <app-audio [clickable]="true" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                  [track]="track"></app-audio>
