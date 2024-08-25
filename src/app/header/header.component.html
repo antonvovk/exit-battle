@@ -21,7 +21,7 @@
   </div>
   <div *ngIf="isLoggedIn" style="display: flex; align-items: center">
     <div *ngIf="nickname" class="nickname">
-      Вітаємо, {{nickname}}
+      Вітаємо, {{ nickname }}
     </div>
     <div style="min-width: 120px">
       <app-button (clicked)="signOut()" title="Вийти"></app-button>

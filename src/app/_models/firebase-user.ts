@@ -3,5 +3,6 @@ export interface FirebaseUser {
   phoneNumber: string;
   nickname: string;
   canUploadTracks: boolean;
+  role: 'participant' | 'spectator';
   isAdmin: boolean;
 }

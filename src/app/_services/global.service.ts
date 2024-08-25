@@ -119,14 +119,15 @@ export class GlobalService {
     return this.currentUser.updateProfile({displayName})
   }
 
-  public createUserInDatabase(nickname: string): Promise<void> {
+  public createUserInDatabase(nickname: string, role: string): Promise<void> {
     const user = this.currentUser;
     const userRef: AngularFirestoreDocument<any> = this.db.collection('users').doc(user.uid);
     const userData = {
       uid: user.uid,
       phoneNumber: user.phoneNumber,
       nickname: nickname,
-      canUploadTracks: this.remoteConfig.canNewUsersUploadTracks
+      canUploadTracks: this.remoteConfig.canNewUsersUploadTracks,
+      role: role
     };
     return userRef.set(userData);
   }

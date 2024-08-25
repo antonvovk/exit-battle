@@ -4,11 +4,11 @@
          [class.menu-item-selected]="item.index === selectedFooterMenuIndex"
          [class.menu-item-unselected]="item.index !== selectedFooterMenuIndex"
          class="menu-item">
-      {{item.name}}
+      {{ item.name }}
     </div>
   </div>
   <div class="about-content">
-    <h1 *ngIf="selectedFooterMenuIndex != 1">{{getCurrentFooterMenuName()}}</h1>
+    <h1 *ngIf="selectedFooterMenuIndex != 1">{{ getCurrentFooterMenuName() }}</h1>
     <div *ngIf="selectedFooterMenuIndex === 0">
       <p>
         Ми віримо в силу слова та реп-музики як засобу вираження думок, емоцій та боротьби за своє місце у світі. Наш

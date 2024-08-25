@@ -10,7 +10,7 @@
       (click)="selectMarksMenuItem()"
       [ngClass]="{'track-info-menu-item-selected ': selectedMenuItem === 'marks', 'track-info-menu-item-unselected' : selectedMenuItem === 'lyrics'}"
       class="track-info-menu-item">
-      Оцінки {{track.marks.length}}/{{totalNumberOfJudges}}
+      Оцінки {{ track.marks.length }}/{{ totalNumberOfJudges }}
     </div>
     <div
       (click)="selectLyricsMenuItem()"
@@ -30,7 +30,7 @@
       <div *ngIf="editingMode" class="editor-top-container">
         <div class="track-judge-select">
           <select [(ngModel)]="selectedJudge">
-            <option *ngFor="let judge of judges" [value]="judge">{{judge}}</option>
+            <option *ngFor="let judge of judges" [value]="judge">{{ judge }}</option>
           </select>
         </div>
         <div class="marks-editor-container">
@@ -66,7 +66,7 @@
             <img [src]="getJudgeIconUrl(mark)" alt="Фото судді" height="64" width="64"/>
           </div>
           <div class="track-judge-name">
-            {{mark.judgeName}}
+            {{ mark.judgeName }}
           </div>
         </div>
         <div class="mark-content-container">
@@ -74,13 +74,13 @@
           <div class="mark-numbers-container">
             <div class="left-marks-numbers">
               <div class="mark-block mr-8">
-                Аудіальність: {{mark.performance}}
+                Аудіальність: {{ mark.performance }}
               </div>
               <div class="mark-block mr-8">
-                Текст: {{mark.content}}
+                Текст: {{ mark.content }}
               </div>
               <div class="mark-block">
-                ЗВ: {{mark.generalImpression}}
+                ЗВ: {{ mark.generalImpression }}
               </div>
             </div>
             <div style="display: flex; flex-direction: row; flex-wrap: nowrap">
@@ -88,7 +88,7 @@
                 <img alt="Кошик" height="20" src="assets/images/trash.svg" width="20">
               </div>
               <div class="mark-block">
-                Загалом: {{(mark.performance + mark.content + mark.generalImpression)}}
+                Загалом: {{ (mark.performance + mark.content + mark.generalImpression) }}
               </div>
             </div>
           </div>
