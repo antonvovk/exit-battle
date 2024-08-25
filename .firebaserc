@@ -2,8 +2,8 @@
   "targets": {
     "exit-battle": {
       "hosting": {
-        "exit-battle": [
-          "exit-battle"
+        "exit-battle-season2": [
+          "exit-battle-season2"
         ]
       }
     }
