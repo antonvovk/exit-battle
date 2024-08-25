@@ -15,6 +15,7 @@ import {increment, serverTimestamp} from '@angular/fire/firestore';
 import {TrackUploadComponent} from "../track-upload/track-upload.component";
 import {GlobalState} from "../_models/global-state";
 import {Pair} from "../_models/pair";
+import {FirebaseUser} from "../_models/firebase-user";
 import User = firebase.User;
 
 @Injectable({
@@ -27,7 +28,7 @@ export class GlobalService {
   private loadPercentage: number = 0;
   private dialog = inject(DialogService);
   private currentUser: User;
-  private firebaseUser: any;
+  private firebaseUser: FirebaseUser;
   private dialogRef: DialogRef | undefined;
   private remoteConfig: RemoteConfig = <RemoteConfig>{};
 
@@ -70,13 +71,11 @@ export class GlobalService {
     });
 
     this.auth.authState.subscribe((user) => {
-      if (user && user.emailVerified) {
+      if (user) {
         this.currentUser = user;
-        localStorage.setItem('user', JSON.stringify(this.currentUser));
         this.updateFirebaseUser(user.uid);
       } else {
-        localStorage.removeItem('user');
-        localStorage.removeItem('nickname');
+        this.currentUser = null;
         this.firebaseUser = undefined;
       }
       this.loadPercentage += 20;
@@ -93,24 +92,15 @@ export class GlobalService {
   }
 
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return user != null && user.emailVerified;
-  }
-
-  get nickname(): string {
-    return localStorage.getItem('nickname')
+    return this.currentUser != null;
   }
 
   public getGlobalState(): Subject<GlobalState> {
     return this.globalState$;
   }
 
-  public isRegistrationOpen(): boolean {
-    return this.remoteConfig.isRegistrationOpen;
-  }
-
   public isTracksUploadOpen(): boolean {
-    return this.remoteConfig.isTracksUploadOpen;
+    return this.remoteConfig.isTracksUploadOpen && this.firebaseUser?.canUploadTracks;
   }
 
   public getRemoteConfig(): RemoteConfig {
@@ -121,70 +111,30 @@ export class GlobalService {
     this.dialogRef = this.dialog.open(template, config);
   }
 
-  public signIn(email: string, password: string) {
-    this.spinner.show();
-    return this.auth
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        if (!result.user.emailVerified) {
-          this.toastr.error('Для того щоб ввійти потрібно активувати акаунт перейшовши за посиланням надісланим на вашу електронну адресу');
-          this.sendVerificationMail().then(() => {
-            this.toastr.info("Ми повторно надіслали на вашу електронну адресу лист для активації профілю");
-          });
-          this.signOut();
-          return;
-        }
-        localStorage.setItem('user', JSON.stringify(result.user));
-        this.updateFirebaseUser(result.user.uid);
-        this.updateUserVerificationStatusInDatabase(result.user);
-        this.toastr.info('Ви ввійшли в обліковий запис');
-        this.dialog.closeAll();
-      })
-      .catch((error) => {
-        this.handleFirebaseError(error);
-      })
-      .finally(() => {
-        this.spinner.hide();
-      });
+  public closeAllDialogs() {
+    this.dialog.closeAll();
   }
 
-  public signUp(email: string, password: string, nickname: string) {
-    this.spinner.show();
-    return this.auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.sendVerificationMail();
-        this.createUserInDatabase(result.user, nickname);
-      })
-      .catch((error) => {
-        this.handleFirebaseError(error);
-      })
-      .finally(() => {
-        this.spinner.hide();
-      })
+  public updateProfileDisplayName(displayName: string): Promise<void> {
+    return this.currentUser.updateProfile({displayName})
   }
 
-  public resetPassword(email: string) {
-    this.spinner.show();
-    return this.auth
-      .sendPasswordResetEmail(email)
-      .then(() => {
-        this.toastr.info("На вашу електронну адресу надіслано лист для скидання паролю")
-        this.dialog.closeAll()
-      })
-      .catch((error) => {
-        this.handleFirebaseError(error);
-      })
-      .finally(() => {
-        this.spinner.hide();
-      })
+  public createUserInDatabase(nickname: string): Promise<void> {
+    const user = this.currentUser;
+    const userRef: AngularFirestoreDocument<any> = this.db.collection('users').doc(user.uid);
+    const userData = {
+      uid: user.uid,
+      phoneNumber: user.phoneNumber,
+      nickname: nickname,
+      canUploadTracks: this.remoteConfig.canNewUsersUploadTracks
+    };
+    return userRef.set(userData);
   }
 
   public signOut() {
     return this.auth.signOut()
       .then(() => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('nickname');
+        this.currentUser = null;
         this.firebaseUser = undefined;
       })
       .catch((error) => {
@@ -197,14 +147,11 @@ export class GlobalService {
   }
 
   public getCurrentNickname(): string {
-    return this.firebaseUser.nickname;
+    return this.currentUser.displayName;
   }
 
   public isAdmin(): boolean {
-    if (this.firebaseUser == null) {
-      return false;
-    }
-    return this.firebaseUser.email === 'antonn.vovk@gmail.com';
+    return this.firebaseUser?.isAdmin === true;
   }
 
   public openTrackUploadDialog(): void {
@@ -307,6 +254,10 @@ export class GlobalService {
       this.toastr.error('Адреса електронної пошти вже використовується іншим обліковим записом');
     } else if (error.code === 'auth/user-disabled') {
       this.toastr.info('Ваш аккаунт деактивовано');
+    } else if (error.code === 'auth/invalid-phone-number') {
+      this.toastr.error(`Недійсний номер телефону`)
+    } else if (error.code === 'auth/invalid-verification-code') {
+      this.toastr.error(`Неправильний код підтвердження`)
     } else {
       this.toastr.error(`Неочікувана помилка`, error.message)
     }
@@ -320,53 +271,18 @@ export class GlobalService {
     return this.remoteConfig.currentRoundNumber;
   }
 
-  private finalizeGlobalState() {
-    if (this.globalState.isComplete()) {
-      this.globalState$.next(this.globalState);
-    }
-  }
-
-  private sendVerificationMail() {
-    return this.auth.currentUser
-      .then(u => u.sendEmailVerification());
-  }
-
-  private createUserInDatabase(user: any, nickname: string) {
-    const userRef: AngularFirestoreDocument<any> = this.db.collection('users').doc(user.uid);
-    const userData = {
-      uid: user.uid,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      nickname: nickname
-    };
-    userRef.set(userData)
-      .then(() => {
-        this.toastr.info("На вашу електронну адресу надіслано лист для активації профілю")
-        this.dialog.closeAll();
-      })
-      .catch((error) => {
-        this.handleFirebaseError(error);
-      });
-  }
-
-  private updateUserVerificationStatusInDatabase(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.db.collection('users').doc(user.uid);
-    const userData = {
-      emailVerified: user.emailVerified,
-    };
-    userRef.update(userData)
-      .catch((error) => {
-        this.handleFirebaseError(error);
-      })
-  }
-
   private updateFirebaseUser(userId: string) {
     if (!this.isLoggedIn) {
       return;
     }
     this.db.collection('users').doc(userId).ref.get().then(doc => {
-      this.firebaseUser = doc.data();
-      localStorage.setItem('nickname', this.firebaseUser.nickname);
+      this.firebaseUser = doc.data() as FirebaseUser;
     });
+  }
+
+  private finalizeGlobalState() {
+    if (this.globalState.isComplete()) {
+      this.globalState$.next(this.globalState);
+    }
   }
 }

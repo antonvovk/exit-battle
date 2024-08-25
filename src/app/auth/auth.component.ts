@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy} from '@angular/core';
 import {GlobalService} from "../_services/global.service";
 import {ToastrService} from "ngx-toastr";
 import {RecaptchaVerifier} from "@firebase/auth";
@@ -13,7 +13,7 @@ import ConfirmationResult = firebase.auth.ConfirmationResult;
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent implements AfterViewInit {
+export class AuthComponent implements AfterViewInit, OnDestroy {
 
   recaptchaSolved: boolean = false;
   recaptchaVerifier: RecaptchaVerifier;
@@ -32,6 +32,7 @@ export class AuthComponent implements AfterViewInit {
               private spinner: NgxSpinnerService
   ) {
     auth.languageCode = 'uk';
+    service.spinnerText = 'Завантаження...';
   }
 
   ngAfterViewInit(): void {
@@ -46,6 +47,10 @@ export class AuthComponent implements AfterViewInit {
     });
     this.recaptchaVerifier.render().then((_widgetId) => {
     });
+  }
+
+  ngOnDestroy() {
+    this.recaptchaVerifier.clear();
   }
 
   onPhoneNumber(value: string) {

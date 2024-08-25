@@ -17,12 +17,14 @@ export class HeaderComponent {
   }
 
   get nickname(): string {
-    return this.service.nickname;
+    return this.service.getCurrentNickname();
   }
 
   public openAuthDialog() {
     this.service.openDialog(AuthComponent, {
-      width: 440
+      width: 440,
+      closeButton: true,
+      enableClose: false
     });
   }
 
