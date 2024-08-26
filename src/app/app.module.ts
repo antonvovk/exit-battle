@@ -3,22 +3,11 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
-import {environment} from '../environments/environment';
-import {getAuth, provideAuth} from '@angular/fire/auth';
-import {getFirestore, provideFirestore} from '@angular/fire/firestore';
-import {getStorage, provideStorage} from '@angular/fire/storage';
 import {HeaderComponent} from './header/header.component';
 import {ButtonComponent} from './button/button.component';
 import {NewsComponent} from './news/news.component';
 import {FooterComponent} from './footer/footer.component';
-import {FIREBASE_OPTIONS} from "@angular/fire/compat";
-import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {NgxSpinnerModule} from "ngx-spinner";
-import {popperVariation, provideTippyConfig, TippyDirective, tooltipVariation} from "@ngneat/helipopper";
-import {FormsModule} from "@angular/forms";
-import {NgxEditorModule} from "ngx-editor";
 
 @NgModule({
   declarations: [
@@ -31,30 +20,7 @@ import {NgxEditorModule} from "ngx-editor";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage()),
-    ToastrModule.forRoot({
-      progressBar: true,
-      progressAnimation: 'decreasing',
-      closeButton: true
-    }),
-    NgxSpinnerModule.forRoot({type: 'square-jelly-box'}),
-    TippyDirective,
-    FormsModule,
-    NgxEditorModule
-  ],
-  providers: [
-    {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
-    provideTippyConfig({
-      defaultVariation: 'tooltip',
-      variations: {
-        tooltip: tooltipVariation,
-        popper: popperVariation,
-      }
-    })
+    BrowserAnimationsModule
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -39,9 +39,7 @@
               "src/site.webmanifest"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css",
-              "node_modules/ngx-spinner/animations/square-jelly-box.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -113,9 +111,7 @@
               "src/site.webmanifest"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css",
-              "node_modules/ngx-spinner/animations/square-jelly-box.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }

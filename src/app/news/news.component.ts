@@ -1,7 +1,5 @@
 import {Component, OnDestroy} from '@angular/core';
-import {ToastrService} from "ngx-toastr";
 import {Subscription, timer} from "rxjs";
-import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Component({
   selector: 'app-news',
@@ -16,9 +14,7 @@ export class NewsComponent implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private toastr: ToastrService,
-              private db: AngularFirestore
-  ) {
+  constructor() {
     this.startTimer();
   }
 
@@ -27,13 +23,12 @@ export class NewsComponent implements OnDestroy {
   }
 
   public getTimerText(): string {
-    return 'Раунд завершиться через';
+    return 'Новий сезон через';
   }
 
   private startTimer() {
     this.subscription = timer(0, 2000).subscribe(() => {
-      let diff;
-      diff = new Date().getTime() - new Date().getTime();
+      let diff = new Date('2024-09-09T12:00:00.000+03:00').getTime() - new Date().getTime();
 
       if (diff < 0) {
         this.days = 0;
