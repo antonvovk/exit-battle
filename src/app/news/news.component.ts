@@ -27,13 +27,13 @@ export class NewsComponent implements OnDestroy {
   }
 
   public getTimerText(): string {
-    return 'Раунд завершиться через';
+    return 'Новий сезон через';
   }
 
   private startTimer() {
     this.subscription = timer(0, 2000).subscribe(() => {
       let diff;
-      diff = new Date().getTime() - new Date().getTime();
+      diff = new Date('2024-08-31T00:00:00.000').getTime() - new Date().getTime();
 
       if (diff < 0) {
         this.days = 0;
