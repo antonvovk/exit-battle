@@ -11,19 +11,11 @@ import {getStorage, provideStorage} from '@angular/fire/storage';
 import {HeaderComponent} from './header/header.component';
 import {ButtonComponent} from './button/button.component';
 import {NewsComponent} from './news/news.component';
-import {InputComponent} from './input/input.component';
-import {TracksComponent} from './tracks/tracks.component';
-import {AudioComponent} from './audio/audio.component';
-import {AboutComponent} from './about/about.component';
 import {FooterComponent} from './footer/footer.component';
-import {AuthComponent} from "./auth/auth.component";
 import {FIREBASE_OPTIONS} from "@angular/fire/compat";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {TrackInfoComponent} from './track-info/track-info.component';
-import {TrackUploadComponent} from './track-upload/track-upload.component';
 import {NgxSpinnerModule} from "ngx-spinner";
-import {MarkEditorComponent} from './mark-editor/mark-editor.component';
 import {popperVariation, provideTippyConfig, TippyDirective, tooltipVariation} from "@ngneat/helipopper";
 import {FormsModule} from "@angular/forms";
 import {NgxEditorModule} from "ngx-editor";
@@ -34,15 +26,7 @@ import {NgxEditorModule} from "ngx-editor";
     HeaderComponent,
     ButtonComponent,
     NewsComponent,
-    InputComponent,
-    TracksComponent,
-    AudioComponent,
-    AboutComponent,
-    FooterComponent,
-    AuthComponent,
-    TrackInfoComponent,
-    TrackUploadComponent,
-    MarkEditorComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,

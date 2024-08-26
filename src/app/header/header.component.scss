@@ -46,6 +46,12 @@
   }
 }
 
+.header-menu-item-hr {
+  hr {
+    display: block;
+  }
+}
+
 .header-menu-item:last-child {
   margin-right: 0;
 }

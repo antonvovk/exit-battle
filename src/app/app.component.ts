@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import {GlobalService} from "./_services/global.service";
 
 @Component({
   selector: 'app-root',
@@ -12,11 +11,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('video')
   videoElement: ElementRef<any>;
 
-  constructor(private service: GlobalService) {
-  }
-
-  get spinnerText(): string {
-    return this.service.spinnerText;
+  constructor() {
   }
 
   ngAfterViewInit() {

@@ -1,8 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
-import {GlobalService} from "../_services/global.service";
 import {ToastrService} from "ngx-toastr";
 import {Subscription, timer} from "rxjs";
-import {Round} from "../_models/round";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Component({
@@ -17,18 +15,11 @@ export class NewsComponent implements OnDestroy {
   minutes: number;
 
   private subscription: Subscription;
-  private currentRound = <Round>{};
 
-  constructor(private service: GlobalService,
-              private toastr: ToastrService,
+  constructor(private toastr: ToastrService,
               private db: AngularFirestore
   ) {
-    this.service.getGlobalState().subscribe({
-      next: state => {
-        this.currentRound = state.currentRound;
-        this.startTimer();
-      }
-    });
+    this.startTimer();
   }
 
   ngOnDestroy() {
@@ -36,25 +27,13 @@ export class NewsComponent implements OnDestroy {
   }
 
   public getTimerText(): string {
-    if (this.service.getRemoteConfig().customTimerEnabled) {
-      return this.service.getRemoteConfig().customTimerText;
-    } else {
-      return 'Раунд завершиться через';
-    }
-  }
-
-  public openTrackUploadDialog(): void {
-    this.service.openTrackUploadDialog();
+    return 'Раунд завершиться через';
   }
 
   private startTimer() {
     this.subscription = timer(0, 2000).subscribe(() => {
       let diff;
-      if (this.service.getRemoteConfig().customTimerEnabled) {
-        diff = this.service.getRemoteConfig().customTimerDate.toDate().getTime() - new Date().getTime();
-      } else {
-        diff = this.currentRound.endDate.toDate().getTime() - new Date().getTime();
-      }
+      diff = new Date().getTime() - new Date().getTime();
 
       if (diff < 0) {
         this.days = 0;

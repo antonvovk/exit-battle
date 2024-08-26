@@ -2,29 +2,10 @@
   <div>
     <img alt="Лого" class="logo" height="32" src="assets/images/logo-dark.svg" width="110">
   </div>
-  <div class="header-menu">
-    <div class="header-menu-item">
-      <a (click)="onCupPrizeClicked()" href="/#about">Призовий фонд</a>
-      <hr/>
-    </div>
-    <div class="header-menu-item">
-      <a href="/#tracks">Треки учасників</a>
-      <hr/>
-    </div>
-    <div class="header-menu-item">
-      <a (click)="onAboutCupClicked()" href="/#about">Про захід</a>
-      <hr/>
-    </div>
-  </div>
-  <div *ngIf="!isLoggedIn" style="min-width: 120px">
-    <app-button (clicked)="openAuthDialog()" title="Увійти"></app-button>
-  </div>
-  <div *ngIf="isLoggedIn" style="display: flex; align-items: center">
-    <div *ngIf="nickname" class="nickname">
-      Вітаємо, {{ nickname }}
-    </div>
-    <div style="min-width: 120px">
-      <app-button (clicked)="signOut()" title="Вийти"></app-button>
+  <div style="min-width: 70px">
+    <div class="header-menu-item header-menu-item-hr">
+      <a href="https://season1.exitbattle.com/" rel="noopener noreferrer">Сезон 1</a>
+      <hr style="width: 70px"/>
     </div>
   </div>
 </div>
