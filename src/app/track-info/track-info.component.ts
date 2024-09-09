@@ -147,11 +147,11 @@ export class TrackInfoComponent {
     this.markToUpdate.text = event.target.value.replace(/\n\r?/g, '<br/>');
   }
 
-  markToUpdateSum(): number {
+  markToUpdateSum(): string {
     const performance: number = this.markToUpdate.performance ?? 0;
     const content: number = this.markToUpdate.content ?? 0;
     const generalImpression: number = this.markToUpdate.generalImpression ?? 0;
-    return performance + content + generalImpression;
+    return (performance + content + generalImpression).toFixed(1);
   }
 
   updatePerformance(event: any) {
