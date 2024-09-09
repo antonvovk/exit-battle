@@ -99,8 +99,16 @@ export class GlobalService {
     return this.globalState$;
   }
 
+  public isSpectator(): boolean {
+    return this.firebaseUser?.role === 'spectator';
+  }
+
+  public canUploadTracks(): boolean {
+    return this.firebaseUser?.canUploadTracks
+  }
+
   public isTracksUploadOpen(): boolean {
-    return this.remoteConfig.isTracksUploadOpen && this.firebaseUser?.canUploadTracks;
+    return this.remoteConfig.isTracksUploadOpen;
   }
 
   public getRemoteConfig(): RemoteConfig {
@@ -126,7 +134,7 @@ export class GlobalService {
       uid: user.uid,
       phoneNumber: user.phoneNumber,
       nickname: nickname,
-      canUploadTracks: this.remoteConfig.canNewUsersUploadTracks,
+      canUploadTracks: role === 'participant' ? this.remoteConfig.canNewUsersUploadTracks : false,
       role: role
     };
     return userRef.set(userData);
@@ -158,6 +166,14 @@ export class GlobalService {
   public openTrackUploadDialog(): void {
     if (!this.isLoggedIn) {
       this.toastr.info("Щоб здати трек потрібно авторизуватися");
+      return;
+    }
+    if (this.isSpectator()) {
+      this.toastr.info("Ви не можете здати трек, оскільки зареєструвалися як 'Глядач'");
+      return;
+    }
+    if (!this.canUploadTracks()) {
+      this.toastr.info("Ви не можете здати трек");
       return;
     }
     if (!this.isTracksUploadOpen()) {
