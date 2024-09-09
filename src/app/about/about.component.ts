@@ -28,10 +28,6 @@ export class AboutComponent {
     {
       index: 4,
       name: 'Правила заходу'
-    },
-    {
-      index: 5,
-      name: 'Підтримка спонсорів'
     }
   ];
 
