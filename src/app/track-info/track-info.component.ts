@@ -36,7 +36,7 @@ export class TrackInfoComponent {
     'Гоня',
     'Міша Правильний',
     'Мамонт',
-    'Денні Дельта',
+    'Влад Павлов',
     'Міша MRK',
     'XXV кадр',
     'SDU',
@@ -91,8 +91,8 @@ export class TrackInfoComponent {
       case 'Мамонт':
         judgeIcon = 'judge_mamont.jpg';
         break;
-      case 'Денні Дельта':
-        judgeIcon = 'judge_delta.jpg';
+      case 'Влад Павлов':
+        judgeIcon = 'judge_pavlov.jpg';
         break;
       case 'Міша MRK':
         judgeIcon = 'judge_misha_mrk.jpg';
