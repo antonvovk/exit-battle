@@ -1,7 +1,7 @@
 <div *ngIf="currentView === 'first'" class="rows">
   <h1>Увійти</h1>
   <div class="input-row">
-    <app-input (value)="onPhoneNumber($event)" placeholder="Номер телефону"/>
+    <app-input (value)="onPhoneNumber($event)" placeholder="Номер телефону" type="tel"/>
   </div>
   <div class="input-row-last" id="recaptcha-container" style="display: flex; justify-content: center"></div>
   <div class="button">
