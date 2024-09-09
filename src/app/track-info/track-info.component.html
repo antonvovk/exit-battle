@@ -22,7 +22,7 @@
 
   <div [hidden]="selectedMenuItem !== 'marks'" class="parent-marks-container">
     <div *ngIf="isAdmin()" style="margin-bottom: 12px;">
-      <div *ngIf="!editingMode" class="edit-track-border">
+      <div *ngIf="!editingMode && !trackIsAlreadyJudged()" class="edit-track-border">
         <div style="padding-top: 36px; padding-bottom: 36px; width: 160px;">
           <app-button (clicked)="onEditClicked()" [red]="true" title="Оцінити"></app-button>
         </div>

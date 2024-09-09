@@ -139,6 +139,13 @@ export class TrackInfoComponent {
     return mark.judgeName === this.service.getCurrentNickname();
   }
 
+  trackIsAlreadyJudged(): boolean {
+    if (this.service.getCurrentNickname() === 'CRESCO') {
+      return false;
+    }
+    return this.track.marks.some(mark => mark.judgeName === this.getCurrentNickname())
+  }
+
   getCurrentNickname(): string {
     return this.service.getCurrentNickname();
   }
