@@ -28,7 +28,7 @@ export class NewsComponent implements OnDestroy {
 
   private startTimer() {
     this.subscription = timer(0, 2000).subscribe(() => {
-      let diff = new Date('2024-09-09T12:00:00.000+03:00').getTime() - new Date().getTime();
+      let diff = new Date('2024-09-10T12:00:00.000+03:00').getTime() - new Date().getTime();
 
       if (diff < 0) {
         this.days = 0;
