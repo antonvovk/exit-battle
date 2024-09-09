@@ -132,6 +132,17 @@ export class TrackInfoComponent {
     return this.service.isAdmin();
   }
 
+  canJudgeDeleteMark(mark: Mark): boolean {
+    if (this.service.getCurrentNickname() === 'CRESCO') {
+      return true;
+    }
+    return mark.judgeName === this.service.getCurrentNickname();
+  }
+
+  getCurrentNickname(): string {
+    return this.service.getCurrentNickname();
+  }
+
   onEditClicked() {
     this.selectedJudge = this.service.getCurrentNickname();
     this.markToUpdate = <Mark>{

@@ -28,23 +28,23 @@
         </div>
       </div>
       <div *ngIf="editingMode" class="editor-top-container">
-        <div class="track-judge-select" *ngIf="selectedJudge === 'CRESCO'">
+        <div *ngIf="getCurrentNickname() === 'CRESCO'" class="track-judge-select">
           <select [(ngModel)]="selectedJudge">
             <option *ngFor="let judge of judges" [value]="judge">{{ judge }}</option>
           </select>
         </div>
         <div class="marks-editor-container">
           <div style="width: 100%">
-            <input style="width: 100%" (input)="updatePerformance($event)" placeholder="Аудіальність" type="number"
-                   step=".1" [min]="0" [max]="5"/>
+            <input (input)="updatePerformance($event)" [max]="5" [min]="0" placeholder="Аудіальність"
+                   step=".1" style="width: 100%" type="number"/>
           </div>
           <div style="width: 100%">
-            <input style="width: 100%" (input)="updateContent($event)" placeholder="Текстуальність" type="number"
-                   step=".1" [min]="0" [max]="5"/>
+            <input (input)="updateContent($event)" [max]="5" [min]="0" placeholder="Текстуальність"
+                   step=".1" style="width: 100%" type="number"/>
           </div>
           <div style="width: 100%">
-            <input style="width: 100%" (input)="updateGeneralImpression($event)" placeholder="Враження" type="number"
-                   step=".1" [min]="0" [max]="2"/>
+            <input (input)="updateGeneralImpression($event)" [max]="2" [min]="0" placeholder="Враження"
+                   step=".1" style="width: 100%" type="number"/>
           </div>
         </div>
         <div class="editor-comment">
@@ -83,7 +83,7 @@
               </div>
             </div>
             <div style="display: flex; flex-direction: row; flex-wrap: nowrap">
-              <div (click)="removeMark(mark)" *ngIf="isAdmin()" class="trash-icon">
+              <div (click)="removeMark(mark)" *ngIf="isAdmin() && canJudgeDeleteMark(mark)" class="trash-icon">
                 <img alt="Кошик" height="20" src="assets/images/trash.svg" width="20">
               </div>
               <div class="mark-block">
