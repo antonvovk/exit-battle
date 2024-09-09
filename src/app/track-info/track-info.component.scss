@@ -250,11 +250,20 @@ h1 {
 .marks-editor-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+
+  @media screen and (max-width: 550px) {
+    flex-wrap: wrap;
+  }
 
   div {
     input {
       color: #000;
+      width: 80%;
+
+      @media screen and (max-width: 550px) {
+        width: 100%;
+      }
     }
   }
 }
