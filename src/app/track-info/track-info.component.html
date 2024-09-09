@@ -44,9 +44,6 @@
             <app-mark-editor (value)="updateGeneralImpression($event)" [amount]="2"
                              [name]="'Враження'"></app-mark-editor>
           </div>
-          <div *ngIf="track.round <= 1">
-            <app-mark-editor (value)="updateBonus($event)" [amount]="1" [name]="'Бонус'"></app-mark-editor>
-          </div>
         </div>
         <div class="editor-comment">
           <textarea (input)="onJudgeCommentInput($event)" placeholder="Коментар судді..."></textarea>

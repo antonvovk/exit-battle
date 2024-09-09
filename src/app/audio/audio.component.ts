@@ -37,9 +37,6 @@ export class AudioComponent {
     });
 
     let result = sum / this.totalNumberOfJudges;
-    if (this.track.bonusForBeat === true) {
-      result += 1;
-    }
     return result.toFixed(1);
   }
 

@@ -29,7 +29,6 @@ export class TrackInfoComponent {
     text: '',
     judgeName: 'CRESCO'
   };
-  bonusForBeatToUpdate: boolean = false;
   judges = [
     'CRESCO',
     'Тур',
@@ -135,7 +134,6 @@ export class TrackInfoComponent {
 
   onEditClicked() {
     this.selectedJudge = 'CRESCO';
-    this.bonusForBeatToUpdate = false;
     this.markToUpdate = <Mark>{
       performance: 0,
       content: 0,
@@ -151,11 +149,10 @@ export class TrackInfoComponent {
   }
 
   markToUpdateSum(): number {
-    const bonus: number = this.bonusForBeatToUpdate === true ? 1 : 0;
     const performance: number = this.markToUpdate.performance ?? 0;
     const content: number = this.markToUpdate.content ?? 0;
     const generalImpression: number = this.markToUpdate.generalImpression ?? 0;
-    return performance + content + generalImpression + bonus;
+    return performance + content + generalImpression;
   }
 
   updatePerformance(value: number) {
@@ -170,21 +167,15 @@ export class TrackInfoComponent {
     this.markToUpdate.generalImpression = value;
   }
 
-  updateBonus(value: number) {
-    this.bonusForBeatToUpdate = value === 1;
-  }
-
   submitMark() {
     this.markToUpdate.judgeName = this.selectedJudge;
     const marks = this.track.marks;
     marks.push(this.markToUpdate)
     this.db.collection('tracks').doc(this.track.id).update(<Track>{
-      bonusForBeat: this.bonusForBeatToUpdate,
       marks: marks
     })
       .then(() => {
         this.track.marks = marks;
-        this.track.bonusForBeat = this.bonusForBeatToUpdate;
       })
       .catch((error) => {
         this.service.handleFirebaseError(error);
@@ -198,12 +189,10 @@ export class TrackInfoComponent {
     const marks = this.track.marks.filter(it => it.judgeName !== mark.judgeName);
 
     this.db.collection('tracks').doc(this.track.id).update(<Track>{
-      bonusForBeat: false,
       marks: marks
     })
       .then(() => {
         this.track.marks = marks;
-        this.track.bonusForBeat = false;
       })
       .catch((error) => {
         this.service.handleFirebaseError(error);

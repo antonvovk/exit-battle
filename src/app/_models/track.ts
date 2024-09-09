@@ -10,6 +10,5 @@ export interface Track {
   audioUrl: string;
   passedToNextRound: boolean;
   marks: Mark[];
-  bonusForBeat: boolean;
   uploadDate: Timestamp;
 }
