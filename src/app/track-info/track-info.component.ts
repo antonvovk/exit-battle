@@ -26,8 +26,7 @@ export class TrackInfoComponent {
     performance: 0,
     content: 0,
     generalImpression: 0,
-    text: '',
-    judgeName: 'CRESCO'
+    text: ''
   };
   judges = [
     'CRESCO',
@@ -45,7 +44,7 @@ export class TrackInfoComponent {
     'O3BROEN',
     'Полтавський Палій'
   ];
-  selectedJudge = 'CRESCO';
+  selectedJudge: string;
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
@@ -57,6 +56,7 @@ export class TrackInfoComponent {
         this.lyrics = value.get('text');
       }
     });
+    this.selectedJudge = this.service.getCurrentNickname();
   }
 
   selectMarksMenuItem() {
@@ -133,13 +133,12 @@ export class TrackInfoComponent {
   }
 
   onEditClicked() {
-    this.selectedJudge = 'CRESCO';
+    this.selectedJudge = this.service.getCurrentNickname();
     this.markToUpdate = <Mark>{
       performance: 0,
       content: 0,
       generalImpression: 0,
-      text: '',
-      judgeName: 'CRESCO'
+      text: ''
     };
     this.editingMode = true;
   }
@@ -155,16 +154,16 @@ export class TrackInfoComponent {
     return performance + content + generalImpression;
   }
 
-  updatePerformance(value: number) {
-    this.markToUpdate.performance = value;
+  updatePerformance(event: any) {
+    this.markToUpdate.performance = +event.target.value;
   }
 
-  updateContent(value: number) {
-    this.markToUpdate.content = value;
+  updateContent(event: any) {
+    this.markToUpdate.content = +event.target.value;
   }
 
-  updateGeneralImpression(value: number) {
-    this.markToUpdate.generalImpression = value;
+  updateGeneralImpression(event: any) {
+    this.markToUpdate.generalImpression = +event.target.value;
   }
 
   submitMark() {

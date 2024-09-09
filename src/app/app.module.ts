@@ -23,7 +23,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {TrackInfoComponent} from './track-info/track-info.component';
 import {TrackUploadComponent} from './track-upload/track-upload.component';
 import {NgxSpinnerModule} from "ngx-spinner";
-import {MarkEditorComponent} from './mark-editor/mark-editor.component';
 import {FormsModule} from "@angular/forms";
 import {NgxEditorModule} from "ngx-editor";
 
@@ -40,8 +39,7 @@ import {NgxEditorModule} from "ngx-editor";
     FooterComponent,
     AuthComponent,
     TrackInfoComponent,
-    TrackUploadComponent,
-    MarkEditorComponent
+    TrackUploadComponent
   ],
   imports: [
     BrowserModule,

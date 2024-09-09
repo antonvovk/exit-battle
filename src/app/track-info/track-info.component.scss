@@ -231,6 +231,8 @@ h1 {
 }
 
 .track-judge-select {
+  margin-bottom: 24px;
+
   select {
     width: 100%;
     color: #000;
@@ -248,8 +250,13 @@ h1 {
 .marks-editor-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  margin-top: 24px;
+  flex-wrap: wrap;
+
+  div {
+    input {
+      color: #000;
+    }
+  }
 }
 
 .editor-comment {
