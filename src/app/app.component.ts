@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {GlobalService} from "./_services/global.service";
 
 @Component({
@@ -6,21 +6,14 @@ import {GlobalService} from "./_services/global.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
-  title = 'exit-battle';
+export class AppComponent {
 
-  @ViewChild('video')
-  videoElement: ElementRef<any>;
+  title = 'exit-battle';
 
   constructor(private service: GlobalService) {
   }
 
   get spinnerText(): string {
     return this.service.spinnerText;
-  }
-
-  ngAfterViewInit() {
-    this.videoElement.nativeElement.muted = true;
-    this.videoElement.nativeElement.play();
   }
 }
