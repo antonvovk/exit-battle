@@ -287,8 +287,12 @@ export class GlobalService {
     return this.remoteConfig.currentRoundNumber;
   }
 
+  public updateFirebaseUserFromCurrentUser() {
+    this.updateFirebaseUser(this.currentUser?.uid);
+  }
+
   private updateFirebaseUser(userId: string) {
-    if (!this.isLoggedIn) {
+    if (!this.isLoggedIn || userId == null) {
       return;
     }
     this.db.collection('users').doc(userId).ref.get().then(doc => {

@@ -117,6 +117,7 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
       .then(() => {
         this.service.closeAllDialogs();
         this.toastr.success('Ви ввійшли в обліковий запис');
+        this.service.updateFirebaseUserFromCurrentUser();
       })
       .catch((error) => {
         this.service.handleFirebaseError(error);
