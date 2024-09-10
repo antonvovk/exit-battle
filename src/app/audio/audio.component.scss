@@ -28,7 +28,8 @@ media-time-range {
   position: absolute;
   background: #fff;
   margin-left: 70px;
-  margin-top: 10px;
+  margin-top: -10px;
+  height: 100%;
   width: calc(100% - 80px);
   display: flex;
   align-items: center;
