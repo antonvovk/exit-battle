@@ -156,7 +156,7 @@ export class GlobalService {
   }
 
   public getCurrentNickname(): string {
-    return this.currentUser.displayName;
+    return this.currentUser?.displayName;
   }
 
   public isAdmin(): boolean {
