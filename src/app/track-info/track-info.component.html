@@ -28,7 +28,8 @@
         </div>
       </div>
       <div *ngIf="editingMode" class="editor-top-container">
-        <div *ngIf="getCurrentNickname() === 'CRESCO'" class="track-judge-select">
+        <div *ngIf="getCurrentNickname() === 'CRESCO' || getCurrentNickname() === 'AV admin'"
+             class="track-judge-select">
           <select [(ngModel)]="selectedJudge">
             <option *ngFor="let judge of judges" [value]="judge">{{ judge }}</option>
           </select>

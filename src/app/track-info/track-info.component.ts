@@ -133,14 +133,14 @@ export class TrackInfoComponent {
   }
 
   canJudgeDeleteMark(mark: Mark): boolean {
-    if (this.service.getCurrentNickname() === 'CRESCO') {
+    if (this.service.getCurrentNickname() === 'CRESCO' || this.service.getCurrentNickname() === 'AV admin') {
       return true;
     }
     return mark.judgeName === this.service.getCurrentNickname();
   }
 
   trackIsAlreadyJudged(): boolean {
-    if (this.service.getCurrentNickname() === 'CRESCO') {
+    if (this.service.getCurrentNickname() === 'CRESCO' || this.service.getCurrentNickname() === 'AV admin') {
       return false;
     }
     return this.track.marks.some(mark => mark.judgeName === this.getCurrentNickname())
