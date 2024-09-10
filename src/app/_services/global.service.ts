@@ -31,6 +31,7 @@ export class GlobalService {
   private firebaseUser: FirebaseUser;
   private dialogRef: DialogRef | undefined;
   private remoteConfig: RemoteConfig = <RemoteConfig>{};
+  private signOutOnEmptyUsername: boolean = false;
 
   private globalState: GlobalState = new GlobalState();
   private globalState$ = new ReplaySubject<GlobalState>(null);
@@ -72,14 +73,23 @@ export class GlobalService {
 
     this.auth.authState.subscribe((user) => {
       if (user) {
+        if (this.signOutOnEmptyUsername === false && !user.displayName) {
+          this.toastr.warning("Вам потрібно завершити реєстрацію");
+          this.signOutOnEmptyUsername = true;
+          this.signOut();
+          return;
+        }
+
         this.currentUser = user;
         this.updateFirebaseUser(user.uid);
       } else {
         this.currentUser = null;
         this.firebaseUser = undefined;
       }
+
       this.loadPercentage += 20;
       this.spinnerTextValue = `Завантаження ${this.loadPercentage}%`;
+      this.signOutOnEmptyUsername = true;
     });
   }
 
@@ -127,17 +137,25 @@ export class GlobalService {
     return this.currentUser.updateProfile({displayName})
   }
 
-  public createUserInDatabase(nickname: string, role: string): Promise<void> {
+  public createUserInDatabase(isNewUser: boolean, nickname: string, role: string): Promise<void> {
     const user = this.currentUser;
     const userRef: AngularFirestoreDocument<any> = this.db.collection('users').doc(user.uid);
-    const userData = {
-      uid: user.uid,
-      phoneNumber: user.phoneNumber,
-      nickname: nickname,
-      canUploadTracks: role === 'participant' ? this.remoteConfig.canNewUsersUploadTracks : false,
-      role: role
-    };
-    return userRef.set(userData);
+
+    if (isNewUser) {
+      const userData = {
+        uid: user.uid,
+        phoneNumber: user.phoneNumber,
+        nickname: nickname,
+        canUploadTracks: role === 'participant' ? this.remoteConfig.canNewUsersUploadTracks : false,
+        role: role
+      };
+      return userRef.set(userData);
+    } else {
+      const userData = {
+        nickname: nickname
+      };
+      return userRef.update(userData);
+    }
   }
 
   public signOut() {

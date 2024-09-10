@@ -24,7 +24,7 @@
   <div class="input-row">
     <app-input (value)="onNickname($event)" placeholder="Нікнейм"/>
   </div>
-  <div class="input-row" style="display: flex; justify-content: space-evenly;">
+  <div class="input-row" style="display: flex; justify-content: space-evenly;" *ngIf="isNewUser">
     <div>
       <input [(ngModel)]="selectedRole" id="participant" name="drone" style="cursor: pointer" type="radio"
              value="participant">

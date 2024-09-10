@@ -25,6 +25,7 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
   verificationCode = '';
   nickname = '';
   selectedRole: 'participant' | 'spectator' = 'participant';
+  isNewUser: boolean = false;
 
   constructor(private service: GlobalService,
               private auth: Auth,
@@ -93,7 +94,8 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
     this.spinner.show();
     this.confirmationResult.confirm(this.verificationCode)
       .then((result) => {
-        if (result.additionalUserInfo.isNewUser === false) {
+        this.isNewUser = result.additionalUserInfo.isNewUser;
+        if (result.additionalUserInfo.isNewUser === false && result.user.displayName) {
           this.service.closeAllDialogs();
           this.toastr.success('Ви ввійшли в обліковий запис');
           return;
@@ -115,7 +117,7 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
     }
     this.spinner.show();
     const updateUserProfiledPromise = this.service.updateProfileDisplayName(this.nickname);
-    const createUserInDbPromise = this.service.createUserInDatabase(this.nickname, this.selectedRole);
+    const createUserInDbPromise = this.service.createUserInDatabase(this.isNewUser, this.nickname, this.selectedRole);
     Promise.all([updateUserProfiledPromise, createUserInDbPromise])
       .then(() => {
         this.service.closeAllDialogs();
