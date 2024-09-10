@@ -110,6 +110,9 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
   }
 
   completeSignUp() {
+    if (!this.isNicknameValid()) {
+      return;
+    }
     this.spinner.show();
     const updateUserProfiledPromise = this.service.updateProfileDisplayName(this.nickname);
     const createUserInDbPromise = this.service.createUserInDatabase(this.nickname, this.selectedRole);
@@ -167,6 +170,14 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
     }
     if (!this.verificationCode.trim().match(/^\d{6}$/gm)) {
       this.toastr.error("Код підтвердження має складатися з 6 цифр")
+      return false;
+    }
+    return true;
+  }
+
+  private isNicknameValid() {
+    if (this.nickname.trim().length === 0) {
+      this.toastr.error("Нікнейм не може бути порожнім")
       return false;
     }
     return true;
