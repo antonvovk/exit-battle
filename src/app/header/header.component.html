@@ -8,12 +8,13 @@
       <hr/>
     </div>
     <div class="header-menu-item">
-      <a href="/#tracks">Треки учасників</a>
+      <a (click)="onAboutCupClicked()" href="/#about">Про захід</a>
       <hr/>
     </div>
     <div class="header-menu-item">
-      <a (click)="onAboutCupClicked()" href="/#about">Про захід</a>
-      <hr/>
+      <a href="https://season1.exitbattle.com/" rel="noopener noreferrer">Попередній сезон
+        <hr/>
+      </a>
     </div>
   </div>
   <div *ngIf="!isLoggedIn" style="min-width: 120px">
