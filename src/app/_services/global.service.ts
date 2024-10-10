@@ -137,7 +137,7 @@ export class GlobalService {
     return this.currentUser.updateProfile({displayName})
   }
 
-  public createUserInDatabase(isNewUser: boolean, nickname: string, role: string): Promise<void> {
+  public createUserInDatabase(isNewUser: boolean, nickname: string): Promise<void> {
     const user = this.currentUser;
     const userRef: AngularFirestoreDocument<any> = this.db.collection('users').doc(user.uid);
 
@@ -146,8 +146,8 @@ export class GlobalService {
         uid: user.uid,
         phoneNumber: user.phoneNumber,
         nickname: nickname,
-        canUploadTracks: role === 'participant' ? this.remoteConfig.canNewUsersUploadTracks : false,
-        role: role
+        canUploadTracks: false,
+        role: 'spectator'
       };
       return userRef.set(userData);
     } else {

@@ -24,7 +24,6 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
   phoneNumber = '';
   verificationCode = '';
   nickname = '';
-  selectedRole: 'participant' | 'spectator' = 'participant';
   isNewUser: boolean = false;
 
   constructor(private service: GlobalService,
@@ -117,7 +116,7 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
     }
     this.spinner.show();
     const updateUserProfiledPromise = this.service.updateProfileDisplayName(this.nickname);
-    const createUserInDbPromise = this.service.createUserInDatabase(this.isNewUser, this.nickname, this.selectedRole);
+    const createUserInDbPromise = this.service.createUserInDatabase(this.isNewUser, this.nickname);
     Promise.all([updateUserProfiledPromise, createUserInDbPromise])
       .then(() => {
         this.service.closeAllDialogs();
