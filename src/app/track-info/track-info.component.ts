@@ -32,7 +32,6 @@ export class TrackInfoComponent {
   judges = [
     'CRESCO',
     'Тур',
-    'Гоня',
     'Міша Правильний',
     'Мамонт',
     'Влад Павлов',
@@ -41,7 +40,6 @@ export class TrackInfoComponent {
     'SDU',
     'OTOY',
     'Libenson',
-    'ANTONIO',
     'O3BROEN',
     'Полтавський Палій'
   ];
@@ -85,9 +83,6 @@ export class TrackInfoComponent {
       case 'Тур':
         judgeIcon = 'judge_tur.jpg';
         break;
-      case 'Гоня':
-        judgeIcon = 'judge_gonya.jpg';
-        break;
       case 'Міша Правильний':
         judgeIcon = 'judge_misha.jpg';
         break;
@@ -111,9 +106,6 @@ export class TrackInfoComponent {
         break;
       case 'Libenson':
         judgeIcon = 'libenson.png';
-        break;
-      case 'ANTONIO':
-        judgeIcon = 'judge_antonio.jpg';
         break;
       case 'O3BROEN':
         judgeIcon = 'judge_ozbroen.jpg';
