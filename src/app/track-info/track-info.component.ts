@@ -6,6 +6,7 @@ import {GlobalService} from "../_services/global.service";
 import {Mark} from "../_models/mark";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {ToastrService} from "ngx-toastr";
+import {arrayRemove, arrayUnion} from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-track-info',
@@ -186,13 +187,11 @@ export class TrackInfoComponent {
 
   submitMark() {
     this.markToUpdate.judgeName = this.selectedJudge;
-    const marks = this.track.marks;
-    marks.push(this.markToUpdate)
-    this.db.collection('tracks').doc(this.track.id).update(<Track>{
-      marks: marks
+    this.db.collection('tracks').doc(this.track.id).update({
+      marks: arrayUnion(this.markToUpdate)
     })
       .then(() => {
-        this.track.marks = marks;
+        this.track.marks.push(this.markToUpdate)
       })
       .catch((error) => {
         this.service.handleFirebaseError(error);
@@ -203,13 +202,17 @@ export class TrackInfoComponent {
   }
 
   removeMark(mark: Mark) {
-    const marks = this.track.marks.filter(it => it.judgeName !== mark.judgeName);
+    const markToRemove = this.track.marks.find(it => it.judgeName === mark.judgeName);
+    if (markToRemove == null) {
+      return;
+    }
 
-    this.db.collection('tracks').doc(this.track.id).update(<Track>{
-      marks: marks
+    this.db.collection('tracks').doc(this.track.id).update({
+      marks: arrayRemove(markToRemove)
     })
       .then(() => {
-        this.track.marks = marks;
+        const index = this.track.marks.indexOf(markToRemove)
+        this.track.marks.splice(index, 1);
       })
       .catch((error) => {
         this.service.handleFirebaseError(error);
