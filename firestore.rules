@@ -40,5 +40,8 @@ service cloud.firestore {
           get(/databases/(default)/documents/remote-config/main).data.isTracksUploadOpen == true &&
           get(/databases/(default)/documents/users/$(request.auth.uid)).data.canUploadTracks == true;
     }
+    match /polls/{pollId} {
+      allow read, get;
+    }
   }
 }

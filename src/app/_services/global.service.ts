@@ -16,6 +16,7 @@ import {TrackUploadComponent} from "../track-upload/track-upload.component";
 import {GlobalState} from "../_models/global-state";
 import {Pair} from "../_models/pair";
 import {FirebaseUser} from "../_models/firebase-user";
+import {Poll} from "../_models/poll";
 import User = firebase.User;
 
 @Injectable({
@@ -32,6 +33,7 @@ export class GlobalService {
   private dialogRef: DialogRef | undefined;
   private remoteConfig: RemoteConfig = <RemoteConfig>{};
   private signOutOnEmptyUsername: boolean = false;
+  private activePoll: Poll | undefined;
 
   private globalState: GlobalState = new GlobalState();
   private globalState$ = new ReplaySubject<GlobalState>(null);
@@ -48,6 +50,7 @@ export class GlobalService {
     this.db.collection('remote-config').doc('main').get().subscribe({
       next: doc => {
         this.remoteConfig = doc.data() as RemoteConfig;
+        this.fetchPoll(this.remoteConfig.activePollId);
         this.globalState.currentRoundNumber = this.remoteConfig.currentRoundNumber;
         this.finalizeGlobalState();
         this.loadPercentage += 20;
@@ -322,5 +325,17 @@ export class GlobalService {
     if (this.globalState.isComplete()) {
       this.globalState$.next(this.globalState);
     }
+  }
+
+  private fetchPoll(pollId: string): void {
+    if (pollId == null) {
+      return;
+    }
+    this.db.collection('polls').doc(pollId).get().subscribe({
+      next: doc => {
+        this.activePoll = doc.data() as Poll;
+        console.log(this.activePoll);
+      }
+    });
   }
 }
