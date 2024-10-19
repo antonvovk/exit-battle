@@ -7,4 +7,5 @@ export interface RemoteConfig {
   customTimerEnabled: boolean;
   customTimerText: string;
   customTimerDate: Timestamp;
+  activePollId: string;
 }
