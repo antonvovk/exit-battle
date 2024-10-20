@@ -80,28 +80,15 @@ media-play-button {
   align-content: center;
 }
 
-.total-mark {
-  width: 100%;
-  text-align: center;
-  font-weight: 700;
-}
-
-.judges-count {
-  font-weight: 400;
-  color: #111013;
-  font-size: 12px;
-  letter-spacing: 0.24px;
-}
-
-.not-passed {
-  background: rgba(200, 15, 46, 0.10);
+.not-checked {
+  background: rgba(207, 207, 208, 0.05);
 
   div:first-child {
     color: #C80F2E;
   }
 }
 
-.passed {
+.checked {
   background: rgba(15, 200, 89, 0.10);
 
   div:first-child {
@@ -109,12 +96,10 @@ media-play-button {
   }
 }
 
-.grey {
-  border-bottom-right-radius: 8px;
-  border-top-right-radius: 8px;
-  background: rgba(207, 207, 208, 0.10);
+.red {
+  background: rgba(200, 15, 46, 0.10);
 
   div:first-child {
-    color: rgba(17, 16, 19, 0.4);
+    color: #C80F2E;
   }
 }

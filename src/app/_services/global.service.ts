@@ -17,6 +17,7 @@ import {GlobalState} from "../_models/global-state";
 import {Pair} from "../_models/pair";
 import {FirebaseUser} from "../_models/firebase-user";
 import {Poll} from "../_models/poll";
+import {PollVote} from "../_models/poll-vote";
 import User = firebase.User;
 
 @Injectable({
@@ -34,6 +35,9 @@ export class GlobalService {
   private remoteConfig: RemoteConfig = <RemoteConfig>{};
   private signOutOnEmptyUsername: boolean = false;
   private activePoll: Poll | undefined;
+  private pollResults: { [optionId: string]: number } = {};
+  private hasUserVoted: boolean = false;
+  private pollLeader: string | undefined;
 
   private globalState: GlobalState = new GlobalState();
   private globalState$ = new ReplaySubject<GlobalState>(null);
@@ -108,8 +112,24 @@ export class GlobalService {
     return this.currentUser != null;
   }
 
+  get userId(): string {
+    return this.currentUser?.uid;
+  }
+
   get showPollNotification(): boolean {
     return this.activePoll != null;
+  }
+
+  getPollResult(optionId: string): number {
+    return this.pollResults[optionId] || 0;
+  }
+
+  getPollLeader(): string {
+    return this.pollLeader;
+  }
+
+  getHasUserVoted(): boolean {
+    return this.hasUserVoted;
   }
 
   public getActivePoll(): Poll {
@@ -346,7 +366,23 @@ export class GlobalService {
     });
     this.db.collection('poll-votes').doc(pollId).valueChanges().subscribe({
       next: docs => {
-        console.log(docs);
+        const pollVote = docs as PollVote;
+        delete pollVote['id'];
+        this.hasUserVoted = Object.keys(pollVote).includes(this.userId);
+        this.pollResults = {};
+        for (const userId in pollVote) {
+          const userVotes = pollVote[userId];
+          for (const optionId in userVotes) {
+            if (userVotes[optionId]) {
+              this.pollResults[optionId] = (this.pollResults[optionId] || 0) + 1;
+            }
+          }
+        }
+
+        const entries = Object.entries(this.pollResults);
+        const maxValue = Math.max(...entries.map(([key, value]) => value));
+        const keysWithMaxValue = entries.filter(([key, value]) => value === maxValue).map(([key]) => key);
+        this.pollLeader = keysWithMaxValue.length === 1 ? keysWithMaxValue[0] : undefined;
       }
     })
   }

@@ -1,7 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Track} from "../_models/track";
 import {GlobalService} from "../_services/global.service";
-import {TrackInfoComponent} from "../track-info/track-info.component";
 
 @Component({
   selector: 'app-audio-poll',
@@ -11,32 +10,18 @@ import {TrackInfoComponent} from "../track-info/track-info.component";
 export class AudioPollComponent {
 
   @Input()
-  totalNumberOfJudges = 0;
+  canVote: boolean = false;
 
   @Input()
   track = <Track>{};
 
   @Input()
-  clickable = false;
+  checked: boolean = false;
 
-  @Input()
-  pairNickname: string;
+  @Output()
+  checkedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private service: GlobalService) {
-  }
-
-  public getTotalMark(): string {
-    if (this.track == null || this.track.marks.length < this.totalNumberOfJudges) {
-      return 0.0.toFixed(1);
-    }
-
-    let sum = 0;
-    this.track.marks.forEach(mark => {
-      sum += mark.performance + mark.content + mark.generalImpression;
-    });
-
-    let result = sum / this.totalNumberOfJudges;
-    return result.toFixed(1);
   }
 
   public getDurationAsString(): string {
@@ -48,19 +33,6 @@ export class AudioPollComponent {
     return `${minutes}:${seconds <= 9 ? '0' + seconds : seconds}`
   }
 
-  public openTrackInfo() {
-    if (!this.clickable) {
-      return;
-    }
-    this.service.openDialog(TrackInfoComponent, {
-      width: 800,
-      data: {
-        totalNumberOfJudges: this.totalNumberOfJudges,
-        track: this.track
-      }
-    });
-  }
-
   onPlay(e: Event) {
     const audios = document.getElementsByTagName('audio');
     const length = audios.length;
@@ -69,5 +41,20 @@ export class AudioPollComponent {
         audios[i].pause();
       }
     }
+  }
+
+  getPollResult(): number {
+    return this.service.getPollResult(this.track.id);
+  }
+
+  isLeader(): boolean {
+    return this.track.id === this.service.getPollLeader();
+  }
+
+  vote() {
+    if (!this.canVote) {
+      return;
+    }
+    this.checkedChange.emit();
   }
 }

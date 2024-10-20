@@ -10,23 +10,35 @@
       </media-play-button>
       <div class="metadata">
         <span>
-          <span class="metadata-nickname">{{ track?.nickname ?? pairNickname }}</span>
+          <span class="metadata-nickname">{{ track?.nickname }}</span>
           <span class="metadata-duration">{{ getDurationAsString() }}</span>
         </span>
       </div>
       <media-time-range></media-time-range>
     </media-control-bar>
   </media-controller>
-  <div (click)="openTrackInfo()"
-       [class.grey]="track == null"
-       [class.not-passed]="track && !track?.passedToNextRound"
-       [class.passed]="track && track?.passedToNextRound"
-       [style.cursor]="clickable ? 'cursor' : 'default'" class="mark">
-    <div class="total-mark">
-      {{ getTotalMark() }}
+  <ng-container *ngIf="canVote">
+    <div
+      (click)="vote()"
+      [class.checked]="checked"
+      [class.not-checked]="!checked"
+      [style.cursor]="canVote ? 'cursor' : 'default'" class="mark">
+      <div *ngIf="!checked">
+        <img height="20" src="assets/images/vote-empty.svg" width="20">
+      </div>
+      <div *ngIf="checked">
+        <img height="20" src="assets/images/vote-checked.svg" width="20">
+      </div>
     </div>
-    <div class="judges-count">
-      {{ track?.marks.length ?? 0 }}/{{ totalNumberOfJudges }}
+  </ng-container>
+  <ng-container *ngIf="!canVote">
+    <div
+      [class.checked]="isLeader()"
+      [class.red]="!isLeader()"
+      [style.cursor]="canVote ? 'cursor' : 'default'" class="mark">
+      <div>
+        {{ this.getPollResult() }}
+      </div>
     </div>
-  </div>
+  </ng-container>
 </div>

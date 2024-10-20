@@ -3,6 +3,8 @@ import {GlobalService} from "../_services/global.service";
 import {Poll} from "../_models/poll";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {Track} from "../_models/track";
+import {ToastrService} from "ngx-toastr";
+import {PollVote} from "../_models/poll-vote";
 
 @Component({
   selector: 'app-poll',
@@ -13,8 +15,10 @@ export class PollComponent {
 
   poll: Poll;
   tracks: Track[] = []
+  voteState: { [userId: string]: boolean } = {};
 
   constructor(private service: GlobalService,
+              private toastr: ToastrService,
               private db: AngularFirestore
   ) {
     this.poll = service.getActivePoll();
@@ -27,11 +31,36 @@ export class PollComponent {
       });
   }
 
+  get canVote(): boolean {
+    return this.service.isLoggedIn && !this.service.getHasUserVoted();
+  }
+
+  get isLoggedIn(): boolean {
+    return this.service.isLoggedIn;
+  }
+
   trackByTrack(index: number, track: Track) {
     return track.id;
   }
 
   vote() {
+    if (Object.values(this.voteState).every(value => value === false)) {
+      this.toastr.error("Виберіть один з треків");
+      return;
+    }
+    const pollVote = <PollVote>{};
+    pollVote[this.service.userId] = this.voteState;
+    this.db.collection('poll-votes').doc(this.poll.id).update(pollVote)
+      .then(() => {
+      })
+      .catch((error) => {
+        this.service.handleFirebaseError(error);
+      });
+  }
 
+  onCheckedChange(trackId: string) {
+    const oldValue = this.voteState[trackId];
+    this.voteState = {};
+    this.voteState[trackId] = !oldValue;
   }
 }

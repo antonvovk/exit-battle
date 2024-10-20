@@ -6,14 +6,21 @@
     style="overflow-y: scroll; display: flex; flex-direction: row; flex-wrap: wrap; width: 100%; max-height: calc(100vh - 300px);">
     <div class="audio-container">
       <div *ngFor="let track of tracks; trackBy: trackByTrack;" class="audio-container-row">
-        <app-audio [clickable]="true" [totalNumberOfJudges]="3"
-                   [track]="track"></app-audio>
+        <app-audio-poll (checkedChange)="onCheckedChange(track.id)" [canVote]="this.canVote"
+                        [checked]="voteState[track.id]"
+                        [track]="track"></app-audio-poll>
       </div>
     </div>
   </div>
   <div style="display: flex; justify-content: center; width: 100%; margin-top: 24px;">
-    <div style="width: 166px">
+    <div *ngIf="!isLoggedIn">
+      Для участі в голосуванні потрібно авторизуватися!
+    </div>
+    <div *ngIf="canVote" style="width: 166px">
       <app-button (clicked)="vote()" [red]="true" [title]="'Віддати голос'"></app-button>
+    </div>
+    <div *ngIf="isLoggedIn && !canVote">
+      Дякуємо за участь в голосуванні!
     </div>
   </div>
 </div>

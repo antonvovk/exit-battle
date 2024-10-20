@@ -45,6 +45,9 @@ service cloud.firestore {
     }
     match /poll-votes/{pollId} {
       allow read, get;
+      allow update: if request.auth != null &&
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly([request.auth.uid]) &&
+            request.resource.data.diff(resource.data).affectedKeys().size() == 1;
     }
   }
 }
