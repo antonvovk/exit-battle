@@ -38,6 +38,7 @@ export class GlobalService {
   private pollResults: { [optionId: string]: number } = {};
   private hasUserVoted: boolean = false;
   private pollLeader: string | undefined;
+  private volume: number = 100;
 
   private globalState: GlobalState = new GlobalState();
   private globalState$ = new ReplaySubject<GlobalState>(null);
@@ -130,6 +131,18 @@ export class GlobalService {
 
   getHasUserVoted(): boolean {
     return this.hasUserVoted;
+  }
+
+  getVolume(): number {
+    return this.volume;
+  }
+
+  getVolumeForAudioComponent(): number {
+    return this.volume / 100;
+  }
+
+  setVolume(volume: number): void {
+    this.volume = volume;
   }
 
   public getActivePoll(): Poll {

@@ -62,6 +62,10 @@ export class AudioComponent {
     });
   }
 
+  public getVolumeForAudioComponent(): number {
+    return this.service.getVolumeForAudioComponent();
+  }
+
   onPlay(e: Event) {
     const audios = document.getElementsByTagName('audio');
     const length = audios.length;

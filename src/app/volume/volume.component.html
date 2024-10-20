@@ -1,0 +1,10 @@
+<div class="volume-container">
+  <img alt="Volume Icon" class="volume-icon" height="24" src="assets/images/volume.svg" width="24"/>
+  <input
+    (input)="onVolumeChange($event)"
+    [value]="getVolume()"
+    class="slider"
+    max="100"
+    min="0"
+    type="range"/>
+</div>

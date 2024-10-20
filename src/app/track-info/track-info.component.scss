@@ -23,13 +23,14 @@ h1 {
 .track-info-menu {
   display: flex;
   width: 100%;
-  margin-top: 24px;
   margin-bottom: 16px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .track-info-menu-item {
   width: 117px;
-  height: 32px;
+  height: 30px;
   border-radius: 40px;
   display: flex;
   justify-content: center;
@@ -161,6 +162,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 
   @media screen and (max-width: 550px) {
     margin-right: 4px !important;
@@ -294,4 +296,12 @@ h1 {
   background: #C80F2E;
   padding: 2px;
   cursor: pointer;
+}
+
+.volume {
+  margin-top: 24px;
+
+  @media screen and (max-width: 625px) {
+    width: 100%;
+  }
 }

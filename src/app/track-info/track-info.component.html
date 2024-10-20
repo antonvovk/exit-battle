@@ -6,17 +6,22 @@
     <app-audio [totalNumberOfJudges]="this.totalNumberOfJudges" [track]="track"></app-audio>
   </div>
   <div class="track-info-menu">
-    <div
-      (click)="selectMarksMenuItem()"
-      [ngClass]="{'track-info-menu-item-selected ': selectedMenuItem === 'marks', 'track-info-menu-item-unselected' : selectedMenuItem === 'lyrics'}"
-      class="track-info-menu-item">
-      Оцінки {{ track.marks.length }}/{{ totalNumberOfJudges }}
+    <div style="display: flex; align-items: center; margin-top: 24px;">
+      <div
+        (click)="selectMarksMenuItem()"
+        [ngClass]="{'track-info-menu-item-selected ': selectedMenuItem === 'marks', 'track-info-menu-item-unselected' : selectedMenuItem === 'lyrics'}"
+        class="track-info-menu-item">
+        Оцінки {{ track.marks.length }}/{{ totalNumberOfJudges }}
+      </div>
+      <div
+        (click)="selectLyricsMenuItem()"
+        [ngClass]="{'track-info-menu-item-selected ': selectedMenuItem === 'lyrics', 'track-info-menu-item-unselected' : selectedMenuItem === 'marks'}"
+        class="track-info-menu-item">
+        Текст
+      </div>
     </div>
-    <div
-      (click)="selectLyricsMenuItem()"
-      [ngClass]="{'track-info-menu-item-selected ': selectedMenuItem === 'lyrics', 'track-info-menu-item-unselected' : selectedMenuItem === 'marks'}"
-      class="track-info-menu-item">
-      Текст
+    <div class="volume">
+      <app-volume></app-volume>
     </div>
   </div>
 

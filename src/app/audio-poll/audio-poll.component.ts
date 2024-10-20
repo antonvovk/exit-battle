@@ -33,6 +33,10 @@ export class AudioPollComponent {
     return `${minutes}:${seconds <= 9 ? '0' + seconds : seconds}`
   }
 
+  public getVolumeForAudioComponent(): number {
+    return this.service.getVolumeForAudioComponent();
+  }
+
   onPlay(e: Event) {
     const audios = document.getElementsByTagName('audio');
     const length = audios.length;

@@ -27,6 +27,7 @@ import {FormsModule} from "@angular/forms";
 import {NgxEditorModule} from "ngx-editor";
 import {PollComponent} from './poll/poll.component';
 import {AudioPollComponent} from './audio-poll/audio-poll.component';
+import {VolumeComponent} from './volume/volume.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {AudioPollComponent} from './audio-poll/audio-poll.component';
     TrackInfoComponent,
     TrackUploadComponent,
     PollComponent,
-    AudioPollComponent
+    AudioPollComponent,
+    VolumeComponent
   ],
   imports: [
     BrowserModule,
