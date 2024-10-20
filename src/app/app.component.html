@@ -22,9 +22,9 @@
     <div class="poll-notification-text">
       <div (click)="openPollDialog()" style="cursor: pointer; display: flex; flex-wrap: wrap">
         <div>
-          Триває <a class="poll-notification-text-underline">голосування</a> за
+          Триває <a class="poll-notification-text-underline">голосування</a> за&nbsp;
         </div>
-        <div>&nbsp;{{ activePoll.name }}!</div>
+        <div>{{ activePoll.name }}!</div>
       </div>
     </div>
     <div (click)="pollNotificationClosed = true" class="poll-notification-close">
