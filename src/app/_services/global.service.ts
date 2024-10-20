@@ -356,7 +356,7 @@ export class GlobalService {
   }
 
   private fetchPoll(pollId: string): void {
-    if (pollId == null) {
+    if (pollId == null || pollId === '') {
       return;
     }
     this.db.collection('polls').doc(pollId).get().subscribe({
