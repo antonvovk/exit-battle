@@ -1,0 +1,120 @@
+.audio-block {
+  border-radius: 8px;
+  height: 80px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+media-controller {
+  width: 100%;
+  border-radius: 8px;
+  --media-background-color: #fff;
+  --media-control-background: #fff;
+}
+
+media-control-bar {
+  width: 100%;
+  border-radius: 8px;
+}
+
+media-time-range {
+  height: 20px;
+  --media-control-hover-background: #fff;
+}
+
+.metadata {
+  position: absolute;
+  background: #fff;
+  margin-left: 70px;
+  margin-top: -10px;
+  height: 100%;
+  width: calc(100% - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metadata-nickname {
+  color: #111013;
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+  margin-right: 8px;
+}
+
+.metadata-duration {
+  color: rgba(17, 16, 19, 0.40);
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+media-time-range {
+  margin-top: 35px;
+  border-radius: 8px;
+  --media-preview-time-background: #000;
+  --media-primary-color: #a1a1a4;
+  --media-range-track-background: #CFCFD0;
+  --media-range-track-pointer-background: #a1a1a4;
+  --media-preview-time-margin: 0 0 0;
+}
+
+media-play-button {
+  border-radius: 8px;
+  --media-control-hover-background: #fff;
+}
+
+.mark {
+  cursor: pointer;
+  width: 64px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+.total-mark {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+}
+
+.judges-count {
+  font-weight: 400;
+  color: #111013;
+  font-size: 12px;
+  letter-spacing: 0.24px;
+}
+
+.not-passed {
+  background: rgba(200, 15, 46, 0.10);
+
+  div:first-child {
+    color: #C80F2E;
+  }
+}
+
+.passed {
+  background: rgba(15, 200, 89, 0.10);
+
+  div:first-child {
+    color: #0FC859;
+  }
+}
+
+.grey {
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  background: rgba(207, 207, 208, 0.10);
+
+  div:first-child {
+    color: rgba(17, 16, 19, 0.4);
+  }
+}

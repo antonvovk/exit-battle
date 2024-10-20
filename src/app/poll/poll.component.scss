@@ -1,0 +1,18 @@
+.audio-container {
+  display: grid;
+  align-content: flex-start;
+  grid-gap: 16px;
+  grid-template-columns: repeat(auto-fill, 394px);
+  width: 100%;
+
+  @media screen and (max-width: 440px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.audio-container-row {
+  @media screen and (max-width: 440px) {
+    width: 100%;
+  }
+}

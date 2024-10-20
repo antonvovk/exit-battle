@@ -1,16 +1,16 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {PollComponent} from './poll.component';
+import {AudioPollComponent} from './audio-poll.component';
 
-describe('PollComponent', () => {
-  let component: PollComponent;
-  let fixture: ComponentFixture<PollComponent>;
+describe('AudioPollComponent', () => {
+  let component: AudioPollComponent;
+  let fixture: ComponentFixture<AudioPollComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PollComponent]
+      declarations: [AudioPollComponent]
     });
-    fixture = TestBed.createComponent(PollComponent);
+    fixture = TestBed.createComponent(AudioPollComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

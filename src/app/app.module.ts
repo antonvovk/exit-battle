@@ -25,7 +25,8 @@ import {TrackUploadComponent} from './track-upload/track-upload.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import {FormsModule} from "@angular/forms";
 import {NgxEditorModule} from "ngx-editor";
-import { PollComponent } from './poll/poll.component';
+import {PollComponent} from './poll/poll.component';
+import {AudioPollComponent} from './audio-poll/audio-poll.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PollComponent } from './poll/poll.component';
     AuthComponent,
     TrackInfoComponent,
     TrackUploadComponent,
-    PollComponent
+    PollComponent,
+    AudioPollComponent
   ],
   imports: [
     BrowserModule,

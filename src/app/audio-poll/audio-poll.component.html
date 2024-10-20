@@ -1,0 +1,32 @@
+<div class="audio-block">
+  <media-controller audio>
+    <audio (play)="onPlay($event)" [src]="track?.audioUrl" preload="none" slot="media"></audio>
+    <media-control-bar>
+      <media-play-button [style.cursor]="track != null ? 'pointer' : 'default'">
+        <img [src]="track != null ? 'assets/images/play.svg' : 'assets/images/play-grey.svg'" alt="Старт" height="40"
+             slot="play" style="height: 40px"
+             width="40">
+        <img alt="Пауза" height="40" slot="pause" src="assets/images/stop.svg" style="height: 40px" width="40">
+      </media-play-button>
+      <div class="metadata">
+        <span>
+          <span class="metadata-nickname">{{ track?.nickname ?? pairNickname }}</span>
+          <span class="metadata-duration">{{ getDurationAsString() }}</span>
+        </span>
+      </div>
+      <media-time-range></media-time-range>
+    </media-control-bar>
+  </media-controller>
+  <div (click)="openTrackInfo()"
+       [class.grey]="track == null"
+       [class.not-passed]="track && !track?.passedToNextRound"
+       [class.passed]="track && track?.passedToNextRound"
+       [style.cursor]="clickable ? 'cursor' : 'default'" class="mark">
+    <div class="total-mark">
+      {{ getTotalMark() }}
+    </div>
+    <div class="judges-count">
+      {{ track?.marks.length ?? 0 }}/{{ totalNumberOfJudges }}
+    </div>
+  </div>
+</div>

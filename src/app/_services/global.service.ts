@@ -342,7 +342,6 @@ export class GlobalService {
     this.db.collection('polls').doc(pollId).get().subscribe({
       next: doc => {
         this.activePoll = doc.data() as Poll;
-        console.log(this.activePoll);
       }
     });
     this.db.collection('poll-votes').doc(pollId).valueChanges().subscribe({

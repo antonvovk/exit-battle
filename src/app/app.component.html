@@ -4,7 +4,7 @@
   <p style="font-size: 24px; color: white">{{ spinnerText }}</p>
 </ngx-spinner>
 
-<img alt="Background" src="assets/images/background.jpg" class="background-image"/>
+<img alt="Background" class="background-image" src="assets/images/background.jpg"/>
 
 <div class="main-container">
   <div class="main-container-content">
@@ -17,15 +17,18 @@
   </div>
 </div>
 
-<div class="poll-notification" *ngIf="showPollNotification && !pollNotificationClosed">
+<div *ngIf="showPollNotification && !pollNotificationClosed" class="poll-notification">
   <div class="poll-notification-content">
     <div class="poll-notification-text">
-      <div style="cursor: pointer;" (click)="openPollDialog()">
-        Триває <a class="poll-notification-text-underline">голосування</a> за {{ activePoll.name }}!
+      <div (click)="openPollDialog()" style="cursor: pointer; display: flex; flex-wrap: wrap">
+        <div>
+          Триває <a class="poll-notification-text-underline">голосування</a> за
+        </div>
+        <div>&nbsp;{{ activePoll.name }}!</div>
       </div>
     </div>
-    <div class="poll-notification-close" (click)="pollNotificationClosed = true">
-      <img src="assets/images/x.png" alt="Close" width="24" height="24">
+    <div (click)="pollNotificationClosed = true" class="poll-notification-close">
+      <img alt="Close" height="24" src="assets/images/x.png" width="24">
     </div>
   </div>
 </div>

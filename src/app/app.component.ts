@@ -30,7 +30,7 @@ export class AppComponent {
 
   openPollDialog() {
     this.service.openDialog(PollComponent, {
-      width: 1264
+      width: 1270
     });
   }
 }
