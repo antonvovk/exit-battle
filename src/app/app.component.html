@@ -16,3 +16,16 @@
     <app-footer></app-footer>
   </div>
 </div>
+
+<div class="poll-notification" *ngIf="showPollNotification && !pollNotificationClosed">
+  <div class="poll-notification-content">
+    <div class="poll-notification-text">
+      <div style="cursor: pointer;" (click)="openPollDialog()">
+        Триває <a class="poll-notification-text-underline">голосування</a> за {{ activePoll.name }}!
+      </div>
+    </div>
+    <div class="poll-notification-close" (click)="pollNotificationClosed = true">
+      <img src="assets/images/x.png" alt="Close" width="24" height="24">
+    </div>
+  </div>
+</div>

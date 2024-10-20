@@ -108,6 +108,14 @@ export class GlobalService {
     return this.currentUser != null;
   }
 
+  get showPollNotification(): boolean {
+    return this.activePoll != null;
+  }
+
+  public getActivePoll(): Poll {
+    return this.activePoll;
+  }
+
   public getGlobalState(): Subject<GlobalState> {
     return this.globalState$;
   }
@@ -337,5 +345,10 @@ export class GlobalService {
         console.log(this.activePoll);
       }
     });
+    this.db.collection('poll-votes').doc(pollId).valueChanges().subscribe({
+      next: docs => {
+        console.log(docs);
+      }
+    })
   }
 }

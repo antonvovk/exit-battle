@@ -43,5 +43,8 @@ service cloud.firestore {
     match /polls/{pollId} {
       allow read, get;
     }
+    match /poll-votes/{pollId} {
+      allow read, get;
+    }
   }
 }
