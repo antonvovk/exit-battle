@@ -317,6 +317,15 @@ export class GlobalService {
     return uploadTask.percentageChanges();
   }
 
+  public updateTrackPlaybacksCounts(track: Track): void {
+    this.db.collection('tracks-playback-counter').doc(track.id)
+      .set({count: increment(1)}, {merge: true})
+      .then(() => {
+      })
+      .catch(() => {
+      });
+  }
+
   public handleFirebaseError(error: any) {
     if (error.code === 'auth/user-not-found') {
       this.toastr.error(`Користувача з такою електронною поштою не знайдено`)
