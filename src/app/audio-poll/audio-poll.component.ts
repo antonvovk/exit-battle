@@ -45,6 +45,12 @@ export class AudioPollComponent {
         audios[i].pause();
       }
     }
+
+    const audioElement = (e.target as HTMLAudioElement);
+    const currentTime = audioElement.currentTime;
+    if (currentTime <= 1) {
+      this.service.updateTrackPlaybacksCounts(this.track);
+    }
   }
 
   getPollResult(): number {
