@@ -318,8 +318,8 @@ export class GlobalService {
   }
 
   public updateTrackPlaybacksCounts(track: Track): void {
-    this.db.collection('tracks-playback-counter').doc(track.id)
-      .set({count: increment(1)}, {merge: true})
+    this.db.collection('tracks').doc(track.id)
+      .update({playbackCount: increment(1)})
       .then(() => {
       })
       .catch(() => {

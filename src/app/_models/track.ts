@@ -11,4 +11,5 @@ export interface Track {
   passedToNextRound: boolean;
   marks: Mark[];
   uploadDate: Timestamp;
+  playbackCount: number;
 }

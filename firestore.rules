@@ -27,6 +27,8 @@ service cloud.firestore {
           get(/databases/(default)/documents/users/$(request.auth.uid)).data.canUploadTracks == true;
       allow update: if request.auth != null &&
           get(/databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['playbackCount']) &&
+          request.resource.data.diff(resource.data).affectedKeys().size() == 1;
     }
     match /tracks-counter/{trackCounterId} {
       allow read, get, list;
@@ -48,10 +50,6 @@ service cloud.firestore {
       allow update: if request.auth != null &&
             request.resource.data.diff(resource.data).affectedKeys().hasOnly([request.auth.uid]) &&
             request.resource.data.diff(resource.data).affectedKeys().size() == 1;
-    }
-    match /tracks-playback-counter/{trackPlaybackId} {
-      allow read, get;
-      allow create, update;
     }
   }
 }

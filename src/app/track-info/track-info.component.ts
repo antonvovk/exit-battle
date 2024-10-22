@@ -59,11 +59,11 @@ export class TrackInfoComponent implements OnDestroy {
       }
     });
     this.selectedJudge = this.service.getCurrentNickname();
-    db.collection('tracks-playback-counter').doc(this.track.id).valueChanges()
+    db.collection('tracks').doc(this.track.id).valueChanges()
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe({
         next: doc => {
-          this.playbackCount = (doc as any)?.count;
+          this.playbackCount = (doc as Track).playbackCount;
         }
       })
   }
