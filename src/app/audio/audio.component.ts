@@ -23,6 +23,9 @@ export class AudioComponent {
   @Input()
   pairNickname: string;
 
+  @Input()
+  playbackCount: number = undefined;
+
   constructor(private service: GlobalService) {
   }
 

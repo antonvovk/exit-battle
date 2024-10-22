@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {DialogRef} from "@ngneat/dialog";
 import {Data} from "@angular/router";
 import {Track} from "../_models/track";
@@ -7,6 +7,7 @@ import {Mark} from "../_models/mark";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {ToastrService} from "ngx-toastr";
 import {arrayRemove, arrayUnion} from "@angular/fire/firestore";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-track-info',
@@ -14,7 +15,7 @@ import {arrayRemove, arrayUnion} from "@angular/fire/firestore";
   styleUrls: ['./track-info.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class TrackInfoComponent {
+export class TrackInfoComponent implements OnDestroy {
 
   ref: DialogRef<Data> = inject(DialogRef);
   totalNumberOfJudges: number;
@@ -44,6 +45,8 @@ export class TrackInfoComponent {
     'Полтавський Палій'
   ];
   selectedJudge: string;
+  playbackCount: number = undefined;
+  componentDestroyed$: Subject<boolean> = new Subject()
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
@@ -56,6 +59,18 @@ export class TrackInfoComponent {
       }
     });
     this.selectedJudge = this.service.getCurrentNickname();
+    db.collection('tracks-playback-counter').doc(this.track.id).valueChanges()
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe({
+        next: doc => {
+          this.playbackCount = (doc as any)?.count;
+        }
+      })
+  }
+
+  ngOnDestroy() {
+    this.componentDestroyed$.next(true)
+    this.componentDestroyed$.complete()
   }
 
   selectMarksMenuItem() {
