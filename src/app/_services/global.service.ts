@@ -406,6 +406,6 @@ export class GlobalService {
         const keysWithMaxValue = entries.filter(([key, value]) => value === maxValue).map(([key]) => key);
         this.pollLeader = keysWithMaxValue.length === 1 ? keysWithMaxValue[0] : undefined;
       }
-    })
+    });
   }
 }

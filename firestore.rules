@@ -51,5 +51,12 @@ service cloud.firestore {
             request.resource.data.diff(resource.data).affectedKeys().hasOnly([request.auth.uid]) &&
             request.resource.data.diff(resource.data).affectedKeys().size() == 1;
     }
+    match /track-mark-reviews/{trackId} {
+      allow read, get;
+      allow create: if request.auth != null;
+      allow update: if request.auth != null &&
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly([request.auth.uid]) &&
+            request.resource.data.diff(resource.data).affectedKeys().size() == 1;
+    }
   }
 }

@@ -34,7 +34,7 @@
         </div>
       </div>
       <div *ngIf="editingMode" class="editor-top-container">
-        <div *ngIf="getCurrentNickname() === 'CRESCO' || getCurrentNickname() === 'AV admin'"
+        <div *ngIf="getCurrentNickname() === 'CRESCO'"
              class="track-judge-select">
           <select [(ngModel)]="selectedJudge">
             <option *ngFor="let judge of judges" [value]="judge">{{ judge }}</option>
@@ -82,6 +82,54 @@
           </div>
           <div class="track-judge-name">
             {{ mark.judgeName }}
+          </div>
+          <div class="mark-review-container">
+            <ng-container *ngIf="getUserReview(mark.judgeName) === false">
+              <div (click)="dislike(mark.judgeName)" class="dislike"
+                   style="background: rgb(200,15,46); color: #FFFFFF; cursor: not-allowed;">
+                <div style="display: flex; align-items: center; justify-content: center">
+                  <img alt="dislike" height="16" src="assets/images/dislike-white.svg" style="margin-right: 4px;"
+                       width="16"/>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; color: #FFFFFF;">
+                  {{ getDislikesCount(mark.judgeName) }}
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="getUserReview(mark.judgeName) !== false">
+              <div (click)="dislike(mark.judgeName)" class="dislike"
+                   style="background: rgba(200,15,46,0.05); color: #C80F2E; cursor: pointer;">
+                <div style="display: flex; align-items: center; justify-content: center">
+                  <img alt="dislike" height="16" src="assets/images/dislike-red.svg" style="margin-right: 4px;"
+                       width="16"/>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; color: #C80F2E;">
+                  {{ getDislikesCount(mark.judgeName) }}
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="getUserReview(mark.judgeName) === true">
+              <div (click)="like(mark.judgeName)" class="like"
+                   style="background: rgb(15,200,89); color: #FFFFFF; cursor: not-allowed;">
+                <div style="display: flex; align-items: center; justify-content: center">
+                  <img alt="like" height="16" src="assets/images/like-white.svg" style="margin-right: 4px;" width="16"/>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; color: #FFFFFF;">
+                  {{ getLikesCount(mark.judgeName) }}
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="getUserReview(mark.judgeName) !== true">
+              <div (click)="like(mark.judgeName)" class="like"
+                   style="background: rgba(15,200,89,0.05); color: #0FC859; cursor: pointer;">
+                <div style="display: flex; align-items: center; justify-content: center">
+                  <img alt="like" height="16" src="assets/images/like-green.svg" style="margin-right: 4px;" width="16"/>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; color: #0FC859;">
+                  {{ getLikesCount(mark.judgeName) }}
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
         <div class="mark-content-container">

@@ -8,6 +8,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {ToastrService} from "ngx-toastr";
 import {arrayRemove, arrayUnion} from "@angular/fire/firestore";
 import {Subject, takeUntil} from "rxjs";
+import {TrackMarkReview} from "../_models/track-mark-review";
 
 @Component({
   selector: 'app-track-info',
@@ -46,7 +47,10 @@ export class TrackInfoComponent implements OnDestroy {
   ];
   selectedJudge: string;
   playbackCount: number = undefined;
-  componentDestroyed$: Subject<boolean> = new Subject()
+  componentDestroyed$: Subject<boolean> = new Subject();
+  private likesResults: { [judgeName: string]: number } = {};
+  private dislikesResults: { [judgeName: string]: number } = {};
+  private userReview: { [judgeName: string]: boolean } = {};
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
@@ -66,12 +70,50 @@ export class TrackInfoComponent implements OnDestroy {
           this.playbackCount = (doc as Track).playbackCount ?? 0;
           this.track.playbackCount = this.playbackCount;
         }
-      })
+      });
+    this.db.collection('track-mark-reviews').doc(this.track.id).valueChanges()
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe({
+        next: docs => {
+          if (docs == null) {
+            return;
+          }
+          const markReview = docs as TrackMarkReview;
+          delete markReview['id'];
+          this.likesResults = {};
+          this.dislikesResults = {};
+          for (const userId in markReview) {
+            const userReview = markReview[userId];
+            if (userId === this.service.userId) {
+              this.userReview = userReview;
+            }
+            for (const judgeName in userReview) {
+              if (userReview[judgeName] === true) {
+                this.likesResults[judgeName] = (this.likesResults[judgeName] || 0) + 1;
+              } else if (userReview[judgeName] === false) {
+                this.dislikesResults[judgeName] = (this.dislikesResults[judgeName] || 0) + 1;
+              }
+            }
+          }
+        }
+      });
   }
 
   ngOnDestroy() {
     this.componentDestroyed$.next(true)
     this.componentDestroyed$.complete()
+  }
+
+  getLikesCount(judgeName: string): number {
+    return this.likesResults[judgeName] || 0;
+  }
+
+  getDislikesCount(judgeName: string): number {
+    return this.dislikesResults[judgeName] || 0;
+  }
+
+  getUserReview(judgeName: string): boolean | undefined {
+    return this.userReview[judgeName];
   }
 
   selectMarksMenuItem() {
@@ -142,14 +184,14 @@ export class TrackInfoComponent implements OnDestroy {
   }
 
   canJudgeDeleteMark(mark: Mark): boolean {
-    if (this.service.getCurrentNickname() === 'CRESCO' || this.service.getCurrentNickname() === 'AV admin') {
+    if (this.service.getCurrentNickname() === 'CRESCO') {
       return true;
     }
     return mark.judgeName === this.service.getCurrentNickname();
   }
 
   trackIsAlreadyJudged(): boolean {
-    if (this.service.getCurrentNickname() === 'CRESCO' || this.service.getCurrentNickname() === 'AV admin') {
+    if (this.service.getCurrentNickname() === 'CRESCO') {
       return false;
     }
     return this.track.marks.some(mark => mark.judgeName === this.getCurrentNickname())
@@ -227,6 +269,46 @@ export class TrackInfoComponent implements OnDestroy {
       })
       .finally(() => {
         this.editingMode = false;
+      });
+  }
+
+  like(judgeName: string) {
+    if (this.getUserReview(judgeName) === true) {
+      return;
+    }
+    if (!this.service.isLoggedIn) {
+      this.toastr.info("Потрібно бути зареєстрованим на сайті");
+      return;
+    }
+
+    const markReview = <TrackMarkReview>{};
+    markReview[this.service.userId] = {};
+    markReview[this.service.userId][judgeName] = true;
+    this.db.collection('track-mark-reviews').doc(this.track.id).set(markReview, {merge: true})
+      .then(() => {
+      })
+      .catch((error) => {
+        this.service.handleFirebaseError(error);
+      });
+  }
+
+  dislike(judgeName: string) {
+    if (this.getUserReview(judgeName) === false) {
+      return;
+    }
+    if (!this.service.isLoggedIn) {
+      this.toastr.info("Потрібно бути зареєстрованим на сайті");
+      return;
+    }
+
+    const markReview = <TrackMarkReview>{};
+    markReview[this.service.userId] = {};
+    markReview[this.service.userId][judgeName] = false;
+    this.db.collection('track-mark-reviews').doc(this.track.id).set(markReview, {merge: true})
+      .then(() => {
+      })
+      .catch((error) => {
+        this.service.handleFirebaseError(error);
       });
   }
 }

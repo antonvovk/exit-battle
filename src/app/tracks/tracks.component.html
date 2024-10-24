@@ -33,8 +33,8 @@
       <h1 style="text-align: center">Ще немає треків</h1>
     </ng-container>
     <div *ngFor="let track of tracks; trackBy: trackByTrack;" class="audio-container-row">
-      <app-audio [clickable]="true" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
-                 [playbackCount]="track.playbackCount"
+      <app-audio [clickable]="true" [playbackCount]="track.playbackCount"
+                 [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                  [track]="track"></app-audio>
     </div>
   </div>
@@ -72,14 +72,14 @@
       <div class="pair">
         <div class="audio-container-row-pair">
           <app-audio [clickable]="pair.leftTrack != null" [pairNickname]="pair.leftNickname"
-                     [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [playbackCount]="pair.leftTrack.playbackCount"
+                     [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [track]="pair.leftTrack"></app-audio>
         </div>
         <div *ngIf="pair.middleNickname != null" class="audio-container-row-pair">
           <app-audio [clickable]="pair.middleTrack != null" [pairNickname]="pair.middleNickname"
-                     [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [playbackCount]="pair.middleTrack.playbackCount"
+                     [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [track]="pair.middleTrack"></app-audio>
         </div>
         <div *ngIf="pair.middleNickname == null" class="audio-container-row-pair hr-line-container-row">
@@ -91,8 +91,8 @@
         </div>
         <div class="audio-container-row-pair">
           <app-audio [clickable]="pair.rightTrack != null" [pairNickname]="pair.rightNickname"
-                     [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [playbackCount]="pair.rightTrack.playbackCount"
+                     [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [track]="pair.rightTrack"></app-audio>
         </div>
       </div>
