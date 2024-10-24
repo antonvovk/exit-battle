@@ -21,6 +21,9 @@ export class AudioPollComponent {
   @Output()
   checkedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @Input()
+  playbackCount: number = undefined;
+
   constructor(private service: GlobalService) {
   }
 

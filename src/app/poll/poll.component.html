@@ -8,6 +8,7 @@
       <div *ngFor="let track of tracks; trackBy: trackByTrack;" class="audio-container-row">
         <app-audio-poll (checkedChange)="onCheckedChange(track.id)" [canVote]="this.canVote"
                         [checked]="voteState[track.id]"
+                        [playbackCount]="track.playbackCount"
                         [track]="track"></app-audio-poll>
       </div>
     </div>

@@ -64,6 +64,7 @@ export class TrackInfoComponent implements OnDestroy {
       .subscribe({
         next: doc => {
           this.playbackCount = (doc as Track).playbackCount ?? 0;
+          this.track.playbackCount = this.playbackCount;
         }
       })
   }

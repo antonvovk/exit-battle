@@ -14,12 +14,12 @@
           <span class="metadata-nickname">{{ track?.nickname ?? pairNickname }}</span>
           <span class="metadata-duration">{{ getDurationAsString() }}</span>
         </span>
-        <span *ngIf="playbackCount != null" style="display: flex; align-items: center">
+        <span style="display: flex; align-items: center">
           <span style="margin-right: 2px">
             <img alt="Playback count" height="12" src="assets/images/playback.svg" width="13">
           </span>
           <span class="playback-count">
-            {{ playbackCount }}
+            {{ playbackCount ?? 0 }}
           </span>
         </span>
       </div>

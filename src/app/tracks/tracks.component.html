@@ -34,6 +34,7 @@
     </ng-container>
     <div *ngFor="let track of tracks; trackBy: trackByTrack;" class="audio-container-row">
       <app-audio [clickable]="true" [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+                 [playbackCount]="track.playbackCount"
                  [track]="track"></app-audio>
     </div>
   </div>
@@ -72,11 +73,13 @@
         <div class="audio-container-row-pair">
           <app-audio [clickable]="pair.leftTrack != null" [pairNickname]="pair.leftNickname"
                      [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+                     [playbackCount]="pair.leftTrack.playbackCount"
                      [track]="pair.leftTrack"></app-audio>
         </div>
         <div *ngIf="pair.middleNickname != null" class="audio-container-row-pair">
           <app-audio [clickable]="pair.middleTrack != null" [pairNickname]="pair.middleNickname"
                      [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+                     [playbackCount]="pair.middleTrack.playbackCount"
                      [track]="pair.middleTrack"></app-audio>
         </div>
         <div *ngIf="pair.middleNickname == null" class="audio-container-row-pair hr-line-container-row">
@@ -89,6 +92,7 @@
         <div class="audio-container-row-pair">
           <app-audio [clickable]="pair.rightTrack != null" [pairNickname]="pair.rightNickname"
                      [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
+                     [playbackCount]="pair.rightTrack.playbackCount"
                      [track]="pair.rightTrack"></app-audio>
         </div>
       </div>

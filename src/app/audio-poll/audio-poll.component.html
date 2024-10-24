@@ -14,6 +14,14 @@
           <span class="metadata-nickname">{{ track?.nickname }}</span>
           <span class="metadata-duration">{{ getDurationAsString() }}</span>
         </span>
+        <span style="display: flex; align-items: center">
+          <span style="margin-right: 2px">
+            <img alt="Playback count" height="12" src="assets/images/playback.svg" width="13">
+          </span>
+          <span class="playback-count">
+            {{ playbackCount ?? 0 }}
+          </span>
+        </span>
       </div>
       <media-time-range></media-time-range>
     </media-control-bar>
