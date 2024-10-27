@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {GlobalService} from "../_services/global.service";
-import {Poll} from "../_models/poll";
+import {Poll, PollStatus} from "../_models/poll";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {Track} from "../_models/track";
 import {ToastrService} from "ngx-toastr";
@@ -32,7 +32,7 @@ export class PollComponent {
   }
 
   get canVote(): boolean {
-    return this.service.isLoggedIn && !this.service.getHasUserVoted();
+    return this.service.isLoggedIn && !this.service.getHasUserVoted() && this.poll.status === PollStatus.ACTIVE;
   }
 
   get isLoggedIn(): boolean {
