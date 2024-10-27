@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {GlobalService} from "./_services/global.service";
-import {Poll} from "./_models/poll";
+import {Poll, PollStatus} from "./_models/poll";
 import {PollComponent} from "./poll/poll.component";
 
 @Component({
@@ -12,6 +12,7 @@ export class AppComponent {
 
   title = 'exit-battle';
   pollNotificationClosed: boolean = false;
+  protected readonly PollStatus = PollStatus;
 
   constructor(private service: GlobalService) {
   }

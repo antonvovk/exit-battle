@@ -4,6 +4,9 @@ export interface Poll {
   type: PollType;
   status: PollStatus;
   options: PollOption[];
+  round: number;
+  winner: string;
+  nominationName: string;
 }
 
 export enum PollType {

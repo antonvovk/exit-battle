@@ -19,12 +19,18 @@
 
 <div *ngIf="showPollNotification && !pollNotificationClosed" class="poll-notification">
   <div class="poll-notification-content">
-    <div class="poll-notification-text">
-      <div (click)="openPollDialog()" style="cursor: pointer; display: flex; flex-wrap: wrap">
+    <div (click)="openPollDialog()" class="poll-notification-text" style="cursor: pointer;">
+      <div *ngIf="activePoll.status === PollStatus.ACTIVE" style=" display: flex; flex-wrap: wrap">
         <div>
           Триває <a class="poll-notification-text-underline">голосування</a> за&nbsp;
         </div>
         <div>{{ activePoll.name }}!</div>
+      </div>
+      <div *ngIf="activePoll.status === PollStatus.CLOSED" style=" display: flex; flex-wrap: wrap">
+        <div>
+          Вітаємо {{ activePoll.winner }} <a class="poll-notification-text-underline">з перемогою в номінації</a>&nbsp;
+        </div>
+        <div>{{ activePoll.nominationName }}!</div>
       </div>
     </div>
     <div (click)="pollNotificationClosed = true" class="poll-notification-close">

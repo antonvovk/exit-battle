@@ -14,14 +14,19 @@
     </div>
   </div>
   <div style="display: flex; justify-content: center; width: 100%; margin-top: 24px;">
-    <div *ngIf="!isLoggedIn">
-      Для участі в голосуванні потрібно авторизуватися!
-    </div>
-    <div *ngIf="canVote" style="width: 166px">
-      <app-button (clicked)="vote()" [red]="true" [title]="'Віддати голос'"></app-button>
-    </div>
-    <div *ngIf="isLoggedIn && !canVote">
-      Дякуємо за участь в голосуванні!
-    </div>
+    <ng-container *ngIf="poll.status === PollStatus.ACTIVE">
+      <div *ngIf="!isLoggedIn">
+        Для участі в голосуванні потрібно авторизуватися!
+      </div>
+      <div *ngIf="canVote" style="width: 166px">
+        <app-button (clicked)="vote()" [red]="true" [title]="'Віддати голос'"></app-button>
+      </div>
+      <div *ngIf="isLoggedIn && !canVote">
+        Дякуємо за участь в голосуванні!
+      </div>
+    </ng-container>
+    <ng-container *ngIf="poll.status === PollStatus.CLOSED">
+      <div>Голосування завершено!</div>
+    </ng-container>
   </div>
 </div>

@@ -16,6 +16,7 @@ export class PollComponent {
   poll: Poll;
   tracks: Track[] = []
   voteState: { [userId: string]: boolean } = {};
+  protected readonly PollStatus = PollStatus;
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
