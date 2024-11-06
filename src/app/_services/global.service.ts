@@ -18,6 +18,7 @@ import {Pair} from "../_models/pair";
 import {FirebaseUser} from "../_models/firebase-user";
 import {Poll} from "../_models/poll";
 import {PollVote} from "../_models/poll-vote";
+import {Location} from '@angular/common';
 import User = firebase.User;
 
 @Injectable({
@@ -47,7 +48,8 @@ export class GlobalService {
               private auth: AngularFireAuth,
               private storage: AngularFireStorage,
               private toastr: ToastrService,
-              private spinner: NgxSpinnerService
+              private spinner: NgxSpinnerService,
+              private location: Location
   ) {
     this.spinnerTextValue = `Завантаження 0%`;
     this.spinner.show();
@@ -99,6 +101,20 @@ export class GlobalService {
       this.spinnerTextValue = `Завантаження ${this.loadPercentage}%`;
       this.signOutOnEmptyUsername = true;
     });
+
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.has('email') ?? this.auth.isSignInWithEmailLink(window.location.href)) {
+      const email = searchParams.get('email');
+      this.auth.signInWithEmailLink(email, window.location.href)
+        .then(() => {
+          this.toastr.success('Ви ввійшли в обліковий запис');
+          this.location.replaceState("/");
+        })
+        .catch((error) => {
+          this.handleFirebaseError(error);
+          this.location.replaceState("/");
+        });
+    }
   }
 
   get spinnerText(): string {
@@ -345,6 +361,8 @@ export class GlobalService {
       this.toastr.error(`Недійсний номер телефону`)
     } else if (error.code === 'auth/invalid-verification-code') {
       this.toastr.error(`Неправильний код підтвердження`)
+    } else if (error.code === 'auth/invalid-action-code') {
+      this.toastr.error(`Це посилання для входу вже використане`)
     } else {
       this.toastr.error(`Неочікувана помилка`, error.message)
     }
