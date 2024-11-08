@@ -28,6 +28,7 @@ import {NgxEditorModule} from "ngx-editor";
 import {PollComponent} from './poll/poll.component';
 import {AudioPollComponent} from './audio-poll/audio-poll.component';
 import {VolumeComponent} from './volume/volume.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {VolumeComponent} from './volume/volume.component';
     }),
     NgxSpinnerModule.forRoot({type: 'square-jelly-box'}),
     FormsModule,
-    NgxEditorModule
+    NgxEditorModule,
+    HttpClientModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase}

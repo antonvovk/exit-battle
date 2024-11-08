@@ -6,6 +6,7 @@ import {Auth} from '@angular/fire/auth';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import firebase from "firebase/compat";
 import {NgxSpinnerService} from "ngx-spinner";
+import {HttpClient} from "@angular/common/http";
 import ConfirmationResult = firebase.auth.ConfirmationResult;
 
 @Component({
@@ -30,7 +31,8 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
               private auth: Auth,
               private fireAuth: AngularFireAuth,
               private toastr: ToastrService,
-              private spinner: NgxSpinnerService
+              private spinner: NgxSpinnerService,
+              private http: HttpClient
   ) {
     auth.languageCode = 'uk';
     service.spinnerText = 'Завантаження...';
@@ -71,19 +73,32 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
       return;
     }
     this.spinner.show();
-    this.fireAuth
-      .signInWithPhoneNumber(this.getPhoneNumberFormatted(), this.recaptchaVerifier)
-      .then((confirmationResult) => {
-        this.confirmationResult = confirmationResult;
+    // this.fireAuth
+    //   .signInWithPhoneNumber(this.getPhoneNumberFormatted(), this.recaptchaVerifier)
+    //   .then((confirmationResult) => {
+    //     this.confirmationResult = confirmationResult;
+    //     this.currentView = 'second';
+    //     this.toastr.info(`Ми надіслали код підтвердження на номер ${this.getPhoneNumberFormatted()}`);
+    //   })
+    //   .catch((error) => {
+    //     this.service.handleFirebaseError(error);
+    //   })
+    //   .finally(() => {
+    //     this.spinner.hide();
+    //   });
+    this.http.post('https://europe-central2-exit-battle-2.cloudfunctions.net/send-sms-code', {
+      recipient: this.getPhoneNumberFormatted()
+    }).subscribe({
+      next: () => {
         this.currentView = 'second';
         this.toastr.info(`Ми надіслали код підтвердження на номер ${this.getPhoneNumberFormatted()}`);
-      })
-      .catch((error) => {
-        this.service.handleFirebaseError(error);
-      })
-      .finally(() => {
         this.spinner.hide();
-      })
+      },
+      error: error => {
+        this.toastr.error(`Помилка надсилання`);
+        this.spinner.hide();
+      }
+    });
   }
 
   confirmVerificationCode() {
@@ -91,23 +106,51 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
       return;
     }
     this.spinner.show();
-    this.confirmationResult.confirm(this.verificationCode)
-      .then((result) => {
-        this.isNewUser = result.additionalUserInfo.isNewUser;
-        if (result.additionalUserInfo.isNewUser === false && result.user.displayName) {
-          this.service.closeAllDialogs();
-          this.toastr.success('Ви ввійшли в обліковий запис');
-          return;
-        }
+    // this.confirmationResult.confirm(this.verificationCode)
+    //   .then((result) => {
+    //     this.isNewUser = result.additionalUserInfo.isNewUser;
+    //     if (result.additionalUserInfo.isNewUser === false && result.user.displayName) {
+    //       this.service.closeAllDialogs();
+    //       this.toastr.success('Ви ввійшли в обліковий запис');
+    //       return;
+    //     }
+    //
+    //     this.currentView = 'third';
+    //   })
+    //   .catch((error) => {
+    //     this.service.handleFirebaseError(error);
+    //   })
+    //   .finally(() => {
+    //     this.spinner.hide();
+    //   });
+    this.http.post('https://europe-central2-exit-battle-2.cloudfunctions.net/verify-sms-code', {
+      recipient: this.getPhoneNumberFormatted(),
+      code: this.verificationCode
+    }).subscribe({
+      next: (response: {token: string}) => {
+        this.fireAuth.signInWithCustomToken(response.token)
+          .then((result) => {
+            this.isNewUser = result.additionalUserInfo.isNewUser;
+            if (result.additionalUserInfo.isNewUser === false && result.user.displayName) {
+              this.service.closeAllDialogs();
+              this.toastr.success('Ви ввійшли в обліковий запис');
+              return;
+            }
 
-        this.currentView = 'third';
-      })
-      .catch((error) => {
-        this.service.handleFirebaseError(error);
-      })
-      .finally(() => {
+            this.currentView = 'third';
+          })
+          .catch((error) => {
+            this.service.handleFirebaseError(error);
+          })
+          .finally(() => {
+            this.spinner.hide();
+          });
+      },
+      error: error => {
+        this.toastr.error(`Неправильний код підтвердження`)
         this.spinner.hide();
-      })
+      }
+    });
   }
 
   completeSignUp() {
