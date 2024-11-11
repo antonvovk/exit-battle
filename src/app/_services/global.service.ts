@@ -204,7 +204,7 @@ export class GlobalService {
     if (isNewUser) {
       const userData = {
         uid: user.uid,
-        phoneNumber: user.phoneNumber,
+        phoneNumber: user.uid,
         nickname: nickname,
         canUploadTracks: false,
         role: 'spectator'
