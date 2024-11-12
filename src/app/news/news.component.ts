@@ -47,6 +47,18 @@ export class NewsComponent implements OnDestroy {
     this.service.openTrackUploadDialog();
   }
 
+  public hasMultipleDivisions(): boolean {
+    return this.currentRound.hasMultipleDivisions;
+  }
+
+  getDivision(): number {
+    return this.service.getDivision();
+  }
+
+  changeDivision(division: number) {
+    this.service.setDivision(division);
+  }
+
   private startTimer() {
     this.subscription = timer(0, 2000).subscribe(() => {
       let diff;

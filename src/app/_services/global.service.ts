@@ -43,6 +43,7 @@ export class GlobalService {
 
   private globalState: GlobalState = new GlobalState();
   private globalState$ = new ReplaySubject<GlobalState>(null);
+  private currentDivision: number = 1;
 
   constructor(private db: AngularFirestore,
               private auth: AngularFireAuth,
@@ -159,6 +160,14 @@ export class GlobalService {
 
   setVolume(volume: number): void {
     this.volume = volume;
+  }
+
+  getDivision(): number {
+    return this.currentDivision;
+  }
+
+  setDivision(division: number): void {
+    this.currentDivision = division;
   }
 
   public getActivePoll(): Poll {

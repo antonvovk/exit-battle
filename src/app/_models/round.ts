@@ -10,4 +10,7 @@ export interface Round {
   maximumTrackDurationInSeconds: number;
   maxFileUploadSizeInMb: number;
   theme: string;
+  hasMultipleDivisions: boolean;
+  firstDivisionTheme: string;
+  secondDivisionTheme: string;
 }

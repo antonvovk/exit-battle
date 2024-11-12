@@ -1,30 +1,42 @@
 <div class="news-block" id="news">
-  <div class="timer-block">
-    <div class="timer-inner-block">
-      <div class="timer-tittle">{{ getTimerText() }}</div>
-      <div class="timer-boxes">
-        <div class="number-box-container">
-          <div class="number-box">{{ days }}</div>
-          <p>днів</p>
-        </div>
-        <div class="number-box-container">
-          <div class="number-box">{{ hours }}</div>
-          <p>годин</p>
-        </div>
-        <div class="number-box-container">
-          <div class="number-box">{{ minutes }}</div>
-          <p>хвилин</p>
-        </div>
+  <div class="timer-block-wrapper">
+    <div *ngIf="hasMultipleDivisions() === true" class="divisions-block">
+      <div (click)="changeDivision(1)" [ngClass]="{'active-division': getDivision() === 1, 'inactive-division' : getDivision() !== 1}"
+           class="division-item">
+        Перший дивізіон
       </div>
-      <div class="timer-block-buttons">
-        <div style="min-width: 140px">
-          <app-button (clicked)="openTrackUploadDialog()" [red]="true" title="Здати трек"></app-button>
+      <div (click)="changeDivision(2)" [ngClass]="{'active-division': getDivision() === 2, 'inactive-division' : getDivision() !== 2}"
+           class="division-item">
+        Другий дивізіон
+      </div>
+    </div>
+    <div class="timer-block">
+      <div class="timer-inner-block">
+        <div class="timer-tittle">{{ getTimerText() }}</div>
+        <div class="timer-boxes">
+          <div class="number-box-container">
+            <div class="number-box">{{ days }}</div>
+            <p>днів</p>
+          </div>
+          <div class="number-box-container">
+            <div class="number-box">{{ hours }}</div>
+            <p>годин</p>
+          </div>
+          <div class="number-box-container">
+            <div class="number-box">{{ minutes }}</div>
+            <p>хвилин</p>
+          </div>
         </div>
-        <div style="min-width: 140px">
-          <div style="width: 100%">
-            <a href="/#tracks">
-              <app-button title="Таблиця"></app-button>
-            </a>
+        <div class="timer-block-buttons">
+          <div style="min-width: 140px">
+            <app-button (clicked)="openTrackUploadDialog()" [red]="true" title="Здати трек"></app-button>
+          </div>
+          <div style="min-width: 140px">
+            <div style="width: 100%">
+              <a href="/#tracks">
+                <app-button title="Таблиця"></app-button>
+              </a>
+            </div>
           </div>
         </div>
       </div>
