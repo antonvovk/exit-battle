@@ -18,7 +18,6 @@ export class TracksComponent {
 
   tracks: Track[] = [];
   rounds: Round[] = [];
-  selectedRound = <Round>{};
   currentPage = 0;
   totalPages = 0
   numberOfTracks: number = 0;
@@ -38,7 +37,7 @@ export class TracksComponent {
     service.getGlobalState().subscribe({
       next: state => {
         this.rounds = state.rounds;
-        this.selectedRound = state.currentRound;
+        this.service.setSelectedRound(state.currentRound);
         this.allPairs = state.pairs;
         this.fetchTracks();
       }
@@ -47,6 +46,10 @@ export class TracksComponent {
 
   get isPairedRound() {
     return this.allPairsWithTracks.length !== 0;
+  }
+
+  get selectedRound(): Round {
+    return this.service.getSelectedRound();
   }
 
   public allTracksAreUploaded(pair: PairWithTrack): boolean {
@@ -133,7 +136,7 @@ export class TracksComponent {
     }
 
     this.spinner.show();
-    this.selectedRound = round;
+    this.service.setSelectedRound(round);
     this.currentPage = 0;
     this.searchString = undefined;
     this.fetchTracks();

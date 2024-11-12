@@ -44,6 +44,7 @@ export class GlobalService {
   private globalState: GlobalState = new GlobalState();
   private globalState$ = new ReplaySubject<GlobalState>(null);
   private currentDivision: number = 1;
+  private selectedRound = <Round>{};
 
   constructor(private db: AngularFirestore,
               private auth: AngularFireAuth,
@@ -168,6 +169,14 @@ export class GlobalService {
 
   setDivision(division: number): void {
     this.currentDivision = division;
+  }
+
+  getSelectedRound(): Round {
+    return this.selectedRound;
+  }
+
+  setSelectedRound(selectedRound: Round): void {
+    this.selectedRound = selectedRound;
   }
 
   public getActivePoll(): Poll {
