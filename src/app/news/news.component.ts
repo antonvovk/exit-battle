@@ -48,7 +48,7 @@ export class NewsComponent implements OnDestroy {
   }
 
   public hasMultipleDivisions(): boolean {
-    return this.currentRound.hasMultipleDivisions;
+    return this.service.getSelectedRound().hasMultipleDivisions;
   }
 
   getDivision(): number {
