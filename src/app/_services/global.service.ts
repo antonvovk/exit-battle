@@ -179,6 +179,10 @@ export class GlobalService {
     this.selectedRound = selectedRound;
   }
 
+  hasMultipleDivisions(): boolean {
+    return this.selectedRound.hasMultipleDivisions;
+  }
+
   public getActivePoll(): Poll {
     return this.activePoll;
   }
