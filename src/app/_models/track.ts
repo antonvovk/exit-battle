@@ -12,4 +12,5 @@ export interface Track {
   marks: Mark[];
   uploadDate: Timestamp;
   playbackCount: number;
+  division: number;
 }

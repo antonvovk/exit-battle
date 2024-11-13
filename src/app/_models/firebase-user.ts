@@ -5,4 +5,5 @@ export interface FirebaseUser {
   canUploadTracks: boolean;
   role: 'participant' | 'spectator';
   isAdmin: boolean;
+  division: number;
 }

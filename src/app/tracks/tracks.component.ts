@@ -259,7 +259,8 @@ export class TracksComponent {
         middleTrack: this.allTracks.find(t => t.nickname === p.middleNickname),
         rightTrack: this.allTracks.find(t => t.nickname === p.rightNickname),
         customName: p.customName,
-        winner: p.winner
+        winner: p.winner,
+        division: p.division
       });
   }
 }

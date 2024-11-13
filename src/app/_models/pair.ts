@@ -6,4 +6,5 @@ export interface Pair {
   rightNickname: string;
   customName: string;
   winner: string;
+  division: number;
 }

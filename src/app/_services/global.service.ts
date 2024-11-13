@@ -259,6 +259,10 @@ export class GlobalService {
     return this.currentUser?.displayName;
   }
 
+  public getCurrentUserDivision(): number {
+    return this.firebaseUser.division;
+  }
+
   public isAdmin(): boolean {
     return this.firebaseUser?.isAdmin === true;
   }
@@ -324,7 +328,8 @@ export class GlobalService {
             audioUrl: downloadURL,
             passedToNextRound: false,
             marks: [],
-            uploadDate: serverTimestamp()
+            uploadDate: serverTimestamp(),
+            division: this.getCurrentUserDivision()
           };
           const lyricsDocument = {
             id: trackId,
