@@ -90,3 +90,60 @@
   height: 1px;
   background-color: #FFFFFF;
 }
+
+.main-divisions-block {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 31px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 1350px) {
+    display: none;
+  }
+}
+
+.main-divisions-rotator {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-divisions-block-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.division-item {
+  cursor: pointer;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  line-height: 19px;
+  color: #939394;
+  font-weight: bold;
+  text-align: center;
+}
+
+.active-division {
+  background: #C80F2E;
+  color: #FFFFFF;
+  width: 190px;
+}
+
+.inactive-division {
+  width: 174px;
+}

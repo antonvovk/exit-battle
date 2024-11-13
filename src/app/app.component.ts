@@ -34,4 +34,16 @@ export class AppComponent {
       width: 1270
     });
   }
+
+  hasMultipleDivisions(): boolean {
+    return this.service.hasMultipleDivisions();
+  }
+
+  getDivision(): number {
+    return this.service.getDivision();
+  }
+
+  changeDivision(division: number) {
+    this.service.setDivision(division);
+  }
 }
