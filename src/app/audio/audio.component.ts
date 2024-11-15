@@ -39,7 +39,7 @@ export class AudioComponent {
       sum += mark.performance + mark.content + mark.generalImpression;
     });
 
-    let result = sum / this.totalNumberOfJudges;
+    let result = sum / this.track.marks.length;
     return result.toFixed(1);
   }
 
