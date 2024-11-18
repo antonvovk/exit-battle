@@ -19,10 +19,10 @@
     </div>
   </div>
 
-  <div class="round-theme" *ngIf="!selectedRound.hasMultipleDivisions">
+  <div *ngIf="!selectedRound.hasMultipleDivisions" class="round-theme">
     Тема раунду: {{ selectedRound.theme }}
   </div>
-  <div class="round-theme" *ngIf="selectedRound.hasMultipleDivisions">
+  <div *ngIf="selectedRound.hasMultipleDivisions" class="round-theme">
     Тема раунду: {{ getDivision() == 1 ? selectedRound.firstDivisionTheme : selectedRound.secondDivisionTheme }}
   </div>
 

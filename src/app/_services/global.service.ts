@@ -27,6 +27,7 @@ import User = firebase.User;
 export class GlobalService implements OnDestroy {
 
   public selectedFooterMenuIndex = 0;
+  public currentDivision$ = new ReplaySubject<number>(null);
   private spinnerTextValue: string = 'Завантаження...';
   private loadPercentage: number = 0;
   private dialog = inject(DialogService);
@@ -40,17 +41,10 @@ export class GlobalService implements OnDestroy {
   private hasUserVoted: boolean = false;
   private pollLeader: string | undefined;
   private volume: number = 100;
-
   private globalState: GlobalState = new GlobalState();
   private globalState$ = new ReplaySubject<GlobalState>(null);
   private currentDivision: number = 1;
   private selectedRound = <Round>{};
-  public currentDivision$ = new ReplaySubject<number>(null);
-
-  ngOnDestroy() {
-    this.globalState$.complete();
-    this.currentDivision$.complete();
-  }
 
   constructor(private db: AngularFirestore,
               private auth: AngularFireAuth,
@@ -143,6 +137,11 @@ export class GlobalService implements OnDestroy {
 
   get showPollNotification(): boolean {
     return this.activePoll != null;
+  }
+
+  ngOnDestroy() {
+    this.globalState$.complete();
+    this.currentDivision$.complete();
   }
 
   getPollResult(optionId: string): number {

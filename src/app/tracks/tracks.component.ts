@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {Track} from "../_models/track";
 import {Round} from "../_models/round";
 import {GlobalService} from "../_services/global.service";
@@ -8,13 +8,14 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {Pair} from "../_models/pair";
 import {PairWithTrack} from "../_models/pair-with-track";
 import {Mark} from "../_models/mark";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-tracks',
   templateUrl: './tracks.component.html',
   styleUrls: ['./tracks.component.scss']
 })
-export class TracksComponent {
+export class TracksComponent implements OnDestroy {
 
   tracks: Track[] = [];
   rounds: Round[] = [];
@@ -29,6 +30,8 @@ export class TracksComponent {
   allPairsWithTracks: PairWithTrack[] = [];
   pairs: PairWithTrack[] = [];
 
+  private currentDivisionSubscription: Subscription;
+
   constructor(private service: GlobalService,
               private toastr: ToastrService,
               private db: AngularFirestore,
@@ -39,13 +42,14 @@ export class TracksComponent {
         this.rounds = state.rounds;
         this.service.setSelectedRound(state.currentRound);
         this.allPairs = state.pairs;
-        this.fetchTracks();
+        this.fetchTracks(this.service.getDivision());
       }
     });
-  }
-
-  getDivision(): number {
-    return this.service.getDivision();
+    this.currentDivisionSubscription = this.service.currentDivision$.subscribe({
+      next: division => {
+        this.onTracksUpdate(division);
+      }
+    });
   }
 
   get isPairedRound() {
@@ -54,6 +58,14 @@ export class TracksComponent {
 
   get selectedRound(): Round {
     return this.service.getSelectedRound();
+  }
+
+  ngOnDestroy() {
+    this.currentDivisionSubscription.unsubscribe();
+  }
+
+  getDivision(): number {
+    return this.service.getDivision();
   }
 
   public allTracksAreUploaded(pair: PairWithTrack): boolean {
@@ -65,14 +77,6 @@ export class TracksComponent {
       return pair.leftTrack != null && pair.rightTrack != null;
     }
     return pair.leftTrack != null && pair.rightTrack != null && pair.middleTrack != null;
-  }
-
-  private getEndDate(pair: PairWithTrack) {
-    const round = this.selectedRound;
-    if (!round.hasMultipleDivisions) {
-      return round.endDate;
-    }
-    return pair.division === 1 ? round.firstDivisionEndDate : round.secondDivisionEndDate;
   }
 
   public allMarksAreSet(pair: PairWithTrack): boolean {
@@ -151,7 +155,7 @@ export class TracksComponent {
     this.service.setSelectedRound(round);
     this.currentPage = 0;
     this.searchString = undefined;
-    this.fetchTracks();
+    this.fetchTracks(round.hasMultipleDivisions ? 1 : undefined);
   }
 
   prevPage() {
@@ -193,6 +197,14 @@ export class TracksComponent {
     this.updateTracksArray();
   }
 
+  private getEndDate(pair: PairWithTrack) {
+    const round = this.selectedRound;
+    if (!round.hasMultipleDivisions) {
+      return round.endDate;
+    }
+    return pair.division === 1 ? round.firstDivisionEndDate : round.secondDivisionEndDate;
+  }
+
   private getMarkSum(mark: Mark): number {
     return mark.performance + mark.content + mark.generalImpression;
   }
@@ -207,28 +219,31 @@ export class TracksComponent {
     return 0;
   }
 
-  private fetchTracks() {
+  private fetchTracks(division: number | undefined) {
     this.db.collection('tracks', ref => ref.orderBy('uploadDate')
       .where('round', '==', this.selectedRound.number)).get().subscribe({
       next: docs => {
         this.allTracks = docs.docs.map(doc => doc.data() as Track);
         this.numberOfTracks = this.allTracks.length;
-        this.updatePairs();
-
-        if (this.isPairedRound) {
-          const numberOfPairs = this.allPairsWithTracks.length;
-          this.pairs = this.allPairsWithTracks.slice(0, 3);
-          this.totalPages = numberOfPairs <= 3 ? 1 : Math.ceil(numberOfPairs / 3);
-        } else {
-          this.tracks = this.allTracks.slice(0, 15);
-          this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15);
-        }
-
+        this.onTracksUpdate(division);
         this.service.spinnerText = `Завантаження 100%`;
         this.spinner.hide();
         this.service.spinnerText = 'Завантаження...';
       }
     });
+  }
+
+  private onTracksUpdate(division: number | undefined) {
+    this.updatePairs(division);
+
+    if (this.isPairedRound) {
+      const numberOfPairs = this.allPairsWithTracks.length;
+      this.pairs = this.allPairsWithTracks.slice(0, 3);
+      this.totalPages = numberOfPairs <= 3 ? 1 : Math.ceil(numberOfPairs / 3);
+    } else {
+      this.tracks = this.allTracks.slice(0, 15);
+      this.totalPages = this.numberOfTracks <= 15 ? 1 : Math.ceil(this.numberOfTracks / 15);
+    }
   }
 
   private updateTracksArray() {
@@ -258,9 +273,10 @@ export class TracksComponent {
     }
   }
 
-  private updatePairs() {
+  private updatePairs(division: number | undefined) {
     this.allPairsWithTracks = this.allPairs
       .filter(p => p.round === this.selectedRound.number)
+      .filter(p => division == null ? true : p.division === division)
       .map(p => <PairWithTrack>{
         round: p.round,
         number: p.number,

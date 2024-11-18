@@ -41,17 +41,17 @@
 
 <div *ngIf="hasMultipleDivisions() === true" class="main-divisions-block">
   <div class="main-divisions-rotator">
-   <div class="main-divisions-block-inner">
-     <div (click)="changeDivision(2)"
-          [ngClass]="{'active-division': getDivision() === 2, 'inactive-division' : getDivision() !== 2}"
-          class="division-item">
-       Другий дивізіон
-     </div>
-     <div (click)="changeDivision(1)"
-          [ngClass]="{'active-division': getDivision() === 1, 'inactive-division' : getDivision() !== 1}"
-          class="division-item">
-       Перший дивізіон
-     </div>
-   </div>
+    <div class="main-divisions-block-inner">
+      <div (click)="changeDivision(2)"
+           [ngClass]="{'active-division': getDivision() === 2, 'inactive-division' : getDivision() !== 2}"
+           class="division-item">
+        Другий дивізіон
+      </div>
+      <div (click)="changeDivision(1)"
+           [ngClass]="{'active-division': getDivision() === 1, 'inactive-division' : getDivision() !== 1}"
+           class="division-item">
+        Перший дивізіон
+      </div>
+    </div>
   </div>
 </div>

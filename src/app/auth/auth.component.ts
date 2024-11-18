@@ -127,7 +127,7 @@ export class AuthComponent implements AfterViewInit, OnDestroy {
       recipient: this.getPhoneNumberFormatted(),
       code: this.verificationCode
     }).subscribe({
-      next: (response: {token: string}) => {
+      next: (response: { token: string }) => {
         this.fireAuth.signInWithCustomToken(response.token)
           .then((result) => {
             this.isNewUser = result.additionalUserInfo.isNewUser;
