@@ -75,13 +75,13 @@
       <div class="pair">
         <div class="audio-container-row-pair">
           <app-audio [clickable]="pair.leftTrack != null" [pairNickname]="pair.leftNickname"
-                     [playbackCount]="pair.leftTrack.playbackCount"
+                     [playbackCount]="pair.leftTrack?.playbackCount"
                      [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [track]="pair.leftTrack"></app-audio>
         </div>
         <div *ngIf="pair.middleNickname != null" class="audio-container-row-pair">
           <app-audio [clickable]="pair.middleTrack != null" [pairNickname]="pair.middleNickname"
-                     [playbackCount]="pair.middleTrack.playbackCount"
+                     [playbackCount]="pair.middleTrack?.playbackCount"
                      [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [track]="pair.middleTrack"></app-audio>
         </div>
@@ -94,7 +94,7 @@
         </div>
         <div class="audio-container-row-pair">
           <app-audio [clickable]="pair.rightTrack != null" [pairNickname]="pair.rightNickname"
-                     [playbackCount]="pair.rightTrack.playbackCount"
+                     [playbackCount]="pair.rightTrack?.playbackCount"
                      [totalNumberOfJudges]="selectedRound.totalNumberOfJudges"
                      [track]="pair.rightTrack"></app-audio>
         </div>
