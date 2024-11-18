@@ -53,7 +53,7 @@ export class TracksComponent {
   }
 
   public allTracksAreUploaded(pair: PairWithTrack): boolean {
-    if (new Date() >= this.selectedRound.endDate.toDate()) {
+    if (new Date() >= this.getEndDate(pair).toDate()) {
       return true;
     }
 
@@ -61,6 +61,14 @@ export class TracksComponent {
       return pair.leftTrack != null && pair.rightTrack != null;
     }
     return pair.leftTrack != null && pair.rightTrack != null && pair.middleTrack != null;
+  }
+
+  private getEndDate(pair: PairWithTrack) {
+    const round = this.selectedRound;
+    if (!round.hasMultipleDivisions) {
+      return round.endDate;
+    }
+    return pair.division === 1 ? round.firstDivisionEndDate : round.secondDivisionEndDate;
   }
 
   public allMarksAreSet(pair: PairWithTrack): boolean {

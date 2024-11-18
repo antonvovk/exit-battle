@@ -17,22 +17,31 @@ export class NewsComponent implements OnDestroy {
   minutes: number;
 
   private subscription: Subscription;
+  private globalStateSubscription: Subscription;
+  private currentDivisionSubscription: Subscription;
   private currentRound = <Round>{};
 
   constructor(private service: GlobalService,
               private toastr: ToastrService,
               private db: AngularFirestore
   ) {
-    this.service.getGlobalState().subscribe({
+    this.globalStateSubscription = this.service.getGlobalState().subscribe({
       next: state => {
         this.currentRound = state.currentRound;
         this.startTimer();
       }
     });
+    this.currentDivisionSubscription = this.service.currentDivision$.subscribe({
+      next: () => {
+        this.startTimer();
+      }
+    })
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.currentDivisionSubscription.unsubscribe();
+    this.globalStateSubscription.unsubscribe();
   }
 
   public getTimerText(): string {
@@ -60,12 +69,15 @@ export class NewsComponent implements OnDestroy {
   }
 
   private startTimer() {
+    if (this.subscription != null) {
+      this.subscription.unsubscribe();
+    }
     this.subscription = timer(0, 2000).subscribe(() => {
       let diff;
       if (this.service.getRemoteConfig().customTimerEnabled) {
         diff = this.service.getRemoteConfig().customTimerDate.toDate().getTime() - new Date().getTime();
       } else {
-        diff = this.currentRound.endDate.toDate().getTime() - new Date().getTime();
+        diff = this.getEndDate().toDate().getTime() - new Date().getTime();
       }
 
       if (diff < 0) {
@@ -78,5 +90,13 @@ export class NewsComponent implements OnDestroy {
         this.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       }
     });
+  }
+
+  private getEndDate() {
+    const round = this.currentRound;
+    if (!round.hasMultipleDivisions) {
+      return round.endDate;
+    }
+    return this.service.getDivision() === 1 ? round.firstDivisionEndDate : round.secondDivisionEndDate;
   }
 }

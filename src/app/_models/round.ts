@@ -12,5 +12,7 @@ export interface Round {
   theme: string;
   hasMultipleDivisions: boolean;
   firstDivisionTheme: string;
+  firstDivisionEndDate: Timestamp;
   secondDivisionTheme: string;
+  secondDivisionEndDate: Timestamp;
 }

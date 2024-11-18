@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, OnDestroy} from '@angular/core';
 import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {ToastrService} from "ngx-toastr";
@@ -24,7 +24,7 @@ import User = firebase.User;
 @Injectable({
   providedIn: 'root'
 })
-export class GlobalService {
+export class GlobalService implements OnDestroy {
 
   public selectedFooterMenuIndex = 0;
   private spinnerTextValue: string = 'Завантаження...';
@@ -45,6 +45,12 @@ export class GlobalService {
   private globalState$ = new ReplaySubject<GlobalState>(null);
   private currentDivision: number = 1;
   private selectedRound = <Round>{};
+  public currentDivision$ = new ReplaySubject<number>(null);
+
+  ngOnDestroy() {
+    this.globalState$.complete();
+    this.currentDivision$.complete();
+  }
 
   constructor(private db: AngularFirestore,
               private auth: AngularFireAuth,
@@ -169,6 +175,7 @@ export class GlobalService {
 
   setDivision(division: number): void {
     this.currentDivision = division;
+    this.currentDivision$.next(division);
   }
 
   getSelectedRound(): Round {
