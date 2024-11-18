@@ -42,7 +42,7 @@ export class TracksComponent implements OnDestroy {
         this.rounds = state.rounds;
         this.service.setSelectedRound(state.currentRound);
         this.allPairs = state.pairs;
-        this.fetchTracks(this.service.getDivision());
+        this.fetchTracks(this.getDivision());
       }
     });
     this.currentDivisionSubscription = this.service.currentDivision$.subscribe({
@@ -155,7 +155,7 @@ export class TracksComponent implements OnDestroy {
     this.service.setSelectedRound(round);
     this.currentPage = 0;
     this.searchString = undefined;
-    this.fetchTracks(round.hasMultipleDivisions ? 1 : undefined);
+    this.fetchTracks(this.getDivision());
   }
 
   prevPage() {
