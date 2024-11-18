@@ -19,8 +19,11 @@
     </div>
   </div>
 
-  <div class="round-theme">
+  <div class="round-theme" *ngIf="!selectedRound.hasMultipleDivisions">
     Тема раунду: {{ selectedRound.theme }}
+  </div>
+  <div class="round-theme" *ngIf="selectedRound.hasMultipleDivisions">
+    Тема раунду: {{ getDivision() == 1 ? selectedRound.firstDivisionTheme : selectedRound.secondDivisionTheme }}
   </div>
 
   <div *ngIf="!isPairedRound" class="audio-container">

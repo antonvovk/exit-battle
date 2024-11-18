@@ -1,11 +1,13 @@
 <div class="news-block" id="news">
   <div class="timer-block-wrapper">
     <div *ngIf="hasMultipleDivisions() === true" class="divisions-block">
-      <div (click)="changeDivision(1)" [ngClass]="{'active-division': getDivision() === 1, 'inactive-division' : getDivision() !== 1}"
+      <div (click)="changeDivision(1)"
+           [ngClass]="{'active-division': getDivision() === 1, 'inactive-division' : getDivision() !== 1}"
            class="division-item">
         Перший дивізіон
       </div>
-      <div (click)="changeDivision(2)" [ngClass]="{'active-division': getDivision() === 2, 'inactive-division' : getDivision() !== 2}"
+      <div (click)="changeDivision(2)"
+           [ngClass]="{'active-division': getDivision() === 2, 'inactive-division' : getDivision() !== 2}"
            class="division-item">
         Другий дивізіон
       </div>
@@ -45,22 +47,33 @@
   <div class="text-block">
     <div class="news-title-block">
       <div class="news-title">
-        <h1>Другий відбірковий раунд розпочато!</h1>
+        <h1>Третій раунд (1/16) розпочато!</h1>
       </div>
       <div class="news-date">
-        16 жовтня, 2024
+        18 листопада, 2024
       </div>
       <div>
         <p>
-          <strong>Тема</strong> другого раунду - <strong>“Для танго потрібні двоє”.</strong>
+          <strong>Тема</strong> третього раунду - <strong>“Таємне послання”.</strong>
           <br>
           <br>
-          <strong>Термін</strong> здачі треку до <strong>10 листопада включно.</strong> Максимальна тривалість
-          композиції -
-          <strong>2 хвилини.</strong>
+          <strong>Завдання</strong> - в своєму треці використати прийом <strong>акровіршу</strong> як мінімум на
+          <strong>8 рядків</strong>
           <br>
           <br>
-          <strong>Судді раунду - CRESCO, Полтавський Палій, O3BROEN</strong>
+          <ng-container *ngIf="getDivision() === 1">
+            <strong>Термін</strong> здачі треку до <strong>15 грудня  включно.</strong> Максимальна тривалість
+            композиції -
+            <strong>3 хвилини.</strong>
+          </ng-container>
+          <ng-container *ngIf="getDivision() === 2">
+            <strong>Термін</strong> здачі треку до <strong>8 грудня  включно.</strong> Максимальна тривалість
+            композиції -
+            <strong>3 хвилини.</strong>
+          </ng-container>
+          <br>
+          <br>
+          <strong>Судді раунду - CRESCO, Полтавський Палій, O3BROEN, Міша Правильний, El_Micho</strong>
           <br>
           <br>
           Бажаємо успіхів!

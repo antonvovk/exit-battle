@@ -44,6 +44,10 @@ export class TracksComponent {
     });
   }
 
+  getDivision(): number {
+    return this.service.getDivision();
+  }
+
   get isPairedRound() {
     return this.allPairsWithTracks.length !== 0;
   }
