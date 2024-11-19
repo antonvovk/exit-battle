@@ -29,6 +29,14 @@ export class AudioComponent {
   constructor(private service: GlobalService) {
   }
 
+  public formatPlaybackCount(playbackCount): string {
+    if (playbackCount < 1000) {
+      return playbackCount.toString();
+    } else {
+      return (playbackCount / 1000).toFixed(1) + 'K';
+    }
+  }
+
   public getTotalMark(): string {
     if (this.track == null || this.track.marks.length < this.totalNumberOfJudges) {
       return 0.0.toFixed(1);
