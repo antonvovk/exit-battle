@@ -47,6 +47,7 @@ export class TracksComponent implements OnDestroy {
     });
     this.currentDivisionSubscription = this.service.currentDivision$.subscribe({
       next: division => {
+        this.currentPage = 0;
         this.onTracksUpdate(division);
       }
     });
