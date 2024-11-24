@@ -439,6 +439,9 @@ export class GlobalService implements OnDestroy {
     });
     this.db.collection('poll-votes').doc(pollId).valueChanges().subscribe({
       next: docs => {
+        if (docs == null) {
+          return;
+        }
         const pollVote = docs as PollVote;
         delete pollVote['id'];
         this.hasUserVoted = Object.keys(pollVote).includes(this.userId);

@@ -27,6 +27,14 @@ export class AudioPollComponent {
   constructor(private service: GlobalService) {
   }
 
+  public formatPlaybackCount(playbackCount): string {
+    if (playbackCount < 1000) {
+      return playbackCount.toString();
+    } else {
+      return (playbackCount / 1000).toFixed(1) + 'K';
+    }
+  }
+
   public getDurationAsString(): string {
     if (this.track == null) {
       return '0:00';
