@@ -44,7 +44,7 @@ export class TrackInfoComponent implements OnDestroy {
     'Libenson',
     'O3BROEN',
     'Полтавський Палій',
-    'El_Micho'
+    'El_Micko'
   ];
   selectedJudge: string;
   playbackCount: number = undefined;
@@ -172,7 +172,7 @@ export class TrackInfoComponent implements OnDestroy {
       case 'Полтавський Палій':
         judgeIcon = 'judge_palii.jpg';
         break;
-      case 'El_Micho':
+      case 'El_Micko':
         judgeIcon = 'judge_mykhalych.jpg';
         break;
       default:
