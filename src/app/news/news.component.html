@@ -45,7 +45,7 @@
     </div>
   </div>
   <div class="text-block">
-    <div class="news-title-block">
+    <div class="news-title-block" *ngIf="selectedRound?.number !== 4 || (selectedRound?.number === 4 && getDivision() !== 2)">
       <div class="news-title">
         <h1>Третій раунд (1/16) розпочато!</h1>
       </div>
@@ -74,6 +74,29 @@
           <br>
           <br>
           <strong>Судді раунду - CRESCO, Полтавський Палій, O3BROEN, Міша Правильний, El_Micko</strong>
+          <br>
+          <br>
+          Бажаємо успіхів!
+        </p>
+      </div>
+    </div>
+    <div class="news-title-block" *ngIf="selectedRound?.number === 4 && getDivision() == 2">
+      <div class="news-title">
+        <h1>Четвертий раунд (1/8) розпочато!</h1>
+      </div>
+      <div class="news-date">
+        15 грудня, 2024
+      </div>
+      <div>
+        <p>
+          <strong>Тема</strong> четвертого раунду - <strong>“Так було не завжди”.</strong>
+          <br>
+          <br>
+            <strong>Термін</strong> здачі треку до <strong>5 січня включно.</strong> Максимальна тривалість
+            композиції -<strong> 4 хвилини.</strong>
+          <br>
+          <br>
+          <strong>Судді раунду - CRESCO, Полтавський Палій, O3BROEN, Міша Правильний, El_Micko, Тур, Влад Павлов</strong>
           <br>
           <br>
           Бажаємо успіхів!

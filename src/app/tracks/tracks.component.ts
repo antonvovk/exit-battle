@@ -153,6 +153,9 @@ export class TracksComponent implements OnDestroy {
     }
 
     this.spinner.show();
+    if (round.number === 4) { // WARN_ME
+      this.service.setDivision(2);
+    }
     this.service.setSelectedRound(round);
     this.currentPage = 0;
     this.searchString = undefined;

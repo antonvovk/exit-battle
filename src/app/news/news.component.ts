@@ -64,6 +64,10 @@ export class NewsComponent implements OnDestroy {
     return this.service.getDivision();
   }
 
+  get selectedRound(): Round {
+    return this.service.getSelectedRound();
+  }
+
   changeDivision(division: number) {
     this.service.setDivision(division);
   }
@@ -93,7 +97,10 @@ export class NewsComponent implements OnDestroy {
   }
 
   private getEndDate() {
-    const round = this.currentRound;
+    var round = this.currentRound;
+    if (this.selectedRound?.number === 4) { // WARN_ME
+      round = this.selectedRound;
+    }
     if (!round.hasMultipleDivisions) {
       return round.endDate;
     }
