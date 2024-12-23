@@ -1,33 +1,65 @@
 {
   "indexes": [
-  {
-    "collectionGroup": "tracks",
-    "queryScope": "COLLECTION",
-    "fields": [
-      {
-        "fieldPath": "round",
-        "order": "ASCENDING"
-      },
-      {
-        "fieldPath": "nickname",
-        "order": "ASCENDING"
-      }
+    {
+      "collectionGroup": "tracks",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "division",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "round",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "uploadDate",
+          "order": "ASCENDING"
+        }
       ]
-  },
-  {
-    "collectionGroup": "tracks",
-    "queryScope": "COLLECTION",
-    "fields": [
-      {
-        "fieldPath": "round",
-        "order": "ASCENDING"
-      },
-      {
-        "fieldPath": "uploadDate",
-        "order": "ASCENDING"
-      }
+    },
+    {
+      "collectionGroup": "tracks",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "round",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "nickname",
+          "order": "ASCENDING"
+        }
       ]
-  }
+    },
+    {
+      "collectionGroup": "tracks",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "round",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "passedToNextRound",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "tracks",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "round",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "uploadDate",
+          "order": "ASCENDING"
+        }
+      ]
+    }
   ],
   "fieldOverrides": []
 }
