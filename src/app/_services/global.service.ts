@@ -43,7 +43,7 @@ export class GlobalService implements OnDestroy {
   private volume: number = 100;
   private globalState: GlobalState = new GlobalState();
   private globalState$ = new ReplaySubject<GlobalState>(null);
-  private currentDivision: number = 1;
+  private currentDivision: number = 2;
   private selectedRound = <Round>{};
 
   constructor(private db: AngularFirestore,

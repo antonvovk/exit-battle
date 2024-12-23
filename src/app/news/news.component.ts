@@ -98,9 +98,6 @@ export class NewsComponent implements OnDestroy {
 
   private getEndDate() {
     var round = this.currentRound;
-    if (this.selectedRound?.number === 4) { // WARN_ME
-      round = this.selectedRound;
-    }
     if (!round.hasMultipleDivisions) {
       return round.endDate;
     }
